@@ -1,0 +1,79 @@
+package com.casual_games.Screens;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.casual_games.Components.Enemy;
+import com.casual_games.FingerGun;
+
+
+public class PlayScreen implements Screen{
+	private FingerGun game;
+
+	private Enemy enemy;
+
+	private Texture img;
+	private TextureAtlas zombie;
+
+	public PlayScreen(FingerGun game) {
+		this.game = game;
+		img = new Texture(Gdx.files.internal("badlogic.jpg"));
+		zombie = new TextureAtlas("zombies.pack");
+
+		enemy = new Enemy(this);
+	}
+
+	@Override
+	public void show() {
+
+	}
+
+	public void update(float delta){
+		enemy.update(delta);
+	}
+
+	@Override
+	public void render(float delta) {
+		this.update(delta);
+		//clear game screen with black
+		Gdx.gl.glClearColor(0,0,0,1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+		game.batch.begin();
+//		game.batch.draw(img, 50, 50, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
+		enemy.draw(game.batch);
+		game.batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+	@Override
+	public void dispose() {
+		img.dispose();
+	}
+
+	public TextureAtlas getZombie() {
+		return zombie;
+	}
+}
