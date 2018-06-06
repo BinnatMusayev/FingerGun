@@ -48,7 +48,8 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 //		game.batch.draw(img, 50, 50, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 		enemies.draw(game.batch);
-        font.draw(game.batch, "Enemies count: "+enemies.getSize(), 200, 200);
+        font.draw(game.batch, "Enemies count: "+enemies.getSize(), 200, 500);
+        font.draw(game.batch, "Line Index: "+enemies.getLineIndex(), 200, 600);
 		game.batch.end();
 	}
 

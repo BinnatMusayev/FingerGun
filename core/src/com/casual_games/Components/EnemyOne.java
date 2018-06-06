@@ -12,6 +12,7 @@ public class EnemyOne extends Sprite {
 
 	private Animation<TextureRegion> zombieWalkAnimation;
 	private float stateTimer;
+	private int orderIndex;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -44,5 +45,11 @@ public class EnemyOne extends Sprite {
 
 	}
 
+	public int getOrderIndex() {
+		return orderIndex;
+	}
 
+	public void setOrderIndex(int orderIndex) {
+		this.orderIndex = orderIndex;
+	}
 }

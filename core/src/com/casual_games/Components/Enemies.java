@@ -10,9 +10,11 @@ public class Enemies {
 
     private ArrayList<EnemyOne> enemies;
     private PlayScreen playScreen;
-
+    private int lineIndex;
     public Enemies(PlayScreen playScreen){
         this.playScreen = playScreen;
+
+        lineIndex = 0;
 
         enemies = new ArrayList<EnemyOne>();
         enemies.add(new EnemyOne(playScreen));
@@ -24,6 +26,7 @@ public class Enemies {
         }
 
         this.populate();
+        this.increaseLineIndex();
     }
 
     public void draw(SpriteBatch spriteBatch){
@@ -34,9 +37,11 @@ public class Enemies {
 
     public void populate(){
         EnemyOne enemyOne;
-        if(enemies.size()<10) {
+        if(enemies.size()<50) {
             enemyOne = new EnemyOne(playScreen);
-            enemyOne.setX(enemies.get(enemies.size() - 1).getX() + Gdx.graphics.getWidth() / 10);
+            enemyOne.setOrderIndex(enemies.size()-lineIndex*10);
+            enemyOne.setX(enemyOne.getOrderIndex() * Gdx.graphics.getWidth() / 10);
+            enemyOne.setY(lineIndex*(Gdx.graphics.getWidth() / 10));
             enemies.add(enemyOne);
         }
     }
@@ -44,5 +49,16 @@ public class Enemies {
     public int getSize(){
         return enemies.size();
     }
+
+    public void increaseLineIndex(){
+        if (enemies.size()/10>lineIndex){
+            lineIndex ++;
+        }
+    }
+
+    public int getLineIndex() {
+        return lineIndex;
+    }
+
 
 }
