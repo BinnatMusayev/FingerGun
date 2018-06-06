@@ -4,25 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.casual_games.Components.Enemy;
+import com.casual_games.Components.Enemies;
+import com.casual_games.Components.EnemyOne;
 import com.casual_games.FingerGun;
 
 
 public class PlayScreen implements Screen{
 	private FingerGun game;
 
-	private Enemy enemy;
+	private Enemies enemies;
 
 	private Texture img;
 	private TextureAtlas zombie;
+    BitmapFont font = new BitmapFont();
 
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 		img = new Texture(Gdx.files.internal("badlogic.jpg"));
 		zombie = new TextureAtlas("zombies.pack");
 
-		enemy = new Enemy(this);
+		enemies = new Enemies(this);
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class PlayScreen implements Screen{
 	}
 
 	public void update(float delta){
-		enemy.update(delta);
+		enemies.update(delta);
 	}
 
 	@Override
@@ -44,7 +47,8 @@ public class PlayScreen implements Screen{
 
 		game.batch.begin();
 //		game.batch.draw(img, 50, 50, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
-		enemy.draw(game.batch);
+		enemies.draw(game.batch);
+        font.draw(game.batch, "Enemies count: "+enemies.getSize(), 200, 200);
 		game.batch.end();
 	}
 

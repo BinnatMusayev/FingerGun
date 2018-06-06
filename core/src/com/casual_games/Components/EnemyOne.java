@@ -1,18 +1,19 @@
 package com.casual_games.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.casual_games.Screens.PlayScreen;
 
-public class Enemy extends Sprite {
+public class EnemyOne extends Sprite {
 
 
 	private Animation<TextureRegion> zombieWalkAnimation;
 	private float stateTimer;
 
-	public Enemy(PlayScreen playScreen){
+	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
 
 		stateTimer = 0;
@@ -27,7 +28,7 @@ public class Enemy extends Sprite {
 
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
-		setSize(64,64);
+		setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getWidth()/10);
 
 	}
 
