@@ -13,11 +13,13 @@ public class EnemyOne extends Sprite {
 	private Animation<TextureRegion> zombieWalkAnimation;
 	private float stateTimer;
 	private int orderIndex;
+	private boolean visible;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
 
 		stateTimer = 0;
+        visible = false;
 
 		//ilk ikisi bashlangic
 		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
@@ -25,12 +27,12 @@ public class EnemyOne extends Sprite {
 //			if(i!=1)
 			zombieWalking.add(new TextureRegion(getTexture(), i*32, 0, 32, 32));
 		}
+		//if u uncomment if statement abouve inside for loop then comment below line for better animation
 		zombieWalking.add(new TextureRegion(getTexture(), 32, 0, 32, 32));
 
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
 		setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getWidth()/10);
-
 	}
 
 	public void update(float dt){
@@ -52,4 +54,12 @@ public class EnemyOne extends Sprite {
 	public void setOrderIndex(int orderIndex) {
 		this.orderIndex = orderIndex;
 	}
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

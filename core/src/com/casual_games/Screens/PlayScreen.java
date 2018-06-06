@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.casual_games.Components.Enemies;
+import com.casual_games.Components.EnemyLine;
 import com.casual_games.Components.EnemyOne;
 import com.casual_games.FingerGun;
 
@@ -15,7 +16,7 @@ public class PlayScreen implements Screen{
 	private FingerGun game;
 
 	private Enemies enemies;
-
+//    private EnemyLine enemyLine;
 	private Texture img;
 	private TextureAtlas zombie;
     BitmapFont font = new BitmapFont();
@@ -26,6 +27,7 @@ public class PlayScreen implements Screen{
 		zombie = new TextureAtlas("zombies.pack");
 
 		enemies = new Enemies(this);
+//		enemyLine = new EnemyLine(this);
 	}
 
 	@Override
@@ -35,6 +37,7 @@ public class PlayScreen implements Screen{
 
 	public void update(float delta){
 		enemies.update(delta);
+//		enemyLine.update(delta);
 	}
 
 	@Override
@@ -48,8 +51,10 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 //		game.batch.draw(img, 50, 50, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 		enemies.draw(game.batch);
-        font.draw(game.batch, "Enemies count: "+enemies.getSize(), 200, 500);
-        font.draw(game.batch, "Line Index: "+enemies.getLineIndex(), 200, 600);
+//		enemyLine.draw(game.batch);
+//        font.draw(game.batch, "Enemies count: "+enemyLine.getSize(), 200, 900);
+//        font.draw(game.batch, "Line Index: "+enemies.getLineIndex(), 200, 1000);
+//        font.draw(game.batch, "random nums: "+enemyLine.getRandomNums(), 200, 1100);
 		game.batch.end();
 	}
 

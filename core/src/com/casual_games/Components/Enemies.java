@@ -5,60 +5,46 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
 
 public class Enemies {
 
-    private ArrayList<EnemyOne> enemies;
     private PlayScreen playScreen;
+    private ArrayList<EnemyLine> enemyLines;
     private int lineIndex;
+
     public Enemies(PlayScreen playScreen){
         this.playScreen = playScreen;
 
-        lineIndex = 0;
-
-        enemies = new ArrayList<EnemyOne>();
-        enemies.add(new EnemyOne(playScreen));
+        enemyLines = new ArrayList<EnemyLine>();
+        lineIndex=0;
     }
 
     public void update(float dt){
-        for (EnemyOne enemyOne: enemies){
-            enemyOne.update(dt);
+        for (EnemyLine enemyLine: enemyLines){
+            enemyLine.update(dt);
         }
 
-        this.populate();
-        this.increaseLineIndex();
+        increaseLines();
     }
 
     public void draw(SpriteBatch spriteBatch){
-        for (EnemyOne enemyOne: enemies){
-            enemyOne.draw(spriteBatch);
+        for (EnemyLine enemyLine: enemyLines){
+            enemyLine.draw(spriteBatch);
         }
     }
 
-    public void populate(){
-        EnemyOne enemyOne;
-        if(enemies.size()<50) {
-            enemyOne = new EnemyOne(playScreen);
-            enemyOne.setOrderIndex(enemies.size()-lineIndex*10);
-            enemyOne.setX(enemyOne.getOrderIndex() * Gdx.graphics.getWidth() / 10);
-            enemyOne.setY(lineIndex*(Gdx.graphics.getWidth() / 10));
-            enemies.add(enemyOne);
+    public void increaseLines(){
+
+        if(enemyLines.size()<20){
+            enemyLines.add(new EnemyLine(playScreen, lineIndex));
+            lineIndex++;
         }
+
     }
 
-    public int getSize(){
-        return enemies.size();
-    }
-
-    public void increaseLineIndex(){
-        if (enemies.size()/10>lineIndex){
-            lineIndex ++;
-        }
-    }
-
-    public int getLineIndex() {
-        return lineIndex;
-    }
 
 
 }
