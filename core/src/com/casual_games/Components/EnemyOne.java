@@ -62,4 +62,8 @@ public class EnemyOne extends Sprite {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    public void dispose(){
+	    this.dispose();
+    }
 }

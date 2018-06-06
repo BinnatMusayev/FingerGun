@@ -3,9 +3,6 @@ package com.casual_games.Components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -43,6 +40,12 @@ public class EnemyLine {
             if (enemyOne.isVisible()) {
                 enemyOne.draw(spriteBatch);
             }
+        }
+    }
+
+    public void dispose(){
+        for (EnemyOne enemyOne: enemies){
+            enemyOne.dispose();
         }
     }
 

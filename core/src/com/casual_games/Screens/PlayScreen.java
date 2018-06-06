@@ -16,18 +16,14 @@ public class PlayScreen implements Screen{
 	private FingerGun game;
 
 	private Enemies enemies;
-//    private EnemyLine enemyLine;
-	private Texture img;
 	private TextureAtlas zombie;
     BitmapFont font = new BitmapFont();
 
 	public PlayScreen(FingerGun game) {
 		this.game = game;
-		img = new Texture(Gdx.files.internal("badlogic.jpg"));
 		zombie = new TextureAtlas("zombies.pack");
 
 		enemies = new Enemies(this);
-//		enemyLine = new EnemyLine(this);
 	}
 
 	@Override
@@ -37,7 +33,6 @@ public class PlayScreen implements Screen{
 
 	public void update(float delta){
 		enemies.update(delta);
-//		enemyLine.update(delta);
 	}
 
 	@Override
@@ -49,9 +44,7 @@ public class PlayScreen implements Screen{
 
 
 		game.batch.begin();
-//		game.batch.draw(img, 50, 50, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 		enemies.draw(game.batch);
-//		enemyLine.draw(game.batch);
 //        font.draw(game.batch, "Enemies count: "+enemyLine.getSize(), 200, 900);
 //        font.draw(game.batch, "Line Index: "+enemies.getLineIndex(), 200, 1000);
 //        font.draw(game.batch, "random nums: "+enemyLine.getRandomNums(), 200, 1100);
@@ -80,7 +73,7 @@ public class PlayScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		img.dispose();
+	    enemies.dispose();
 	}
 
 	public TextureAtlas getZombie() {
