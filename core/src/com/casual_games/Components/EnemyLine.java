@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 public class EnemyLine {
@@ -14,17 +15,21 @@ public class EnemyLine {
 
     private HashSet<Integer> randomEnemies;
     private Random random;
+    private boolean empty;
+    private float y;
 
-    public EnemyLine(PlayScreen playScreen, int lineIndex){
+    public EnemyLine(PlayScreen playScreen){
         this.playScreen = playScreen;
 
-        this.lineIndex = lineIndex;
 
         randomEnemies = new HashSet<Integer>();
         random = new Random();
+        empty = false;
+        y=0;
 
         enemies = new HashSet<EnemyOne>();
 //        enemies.add(new EnemyOne(playScreen));
+
     }
 
     public void update(float dt){
@@ -33,6 +38,7 @@ public class EnemyLine {
         }
 
         this.populate();
+        this.move();
     }
 
     public void draw(SpriteBatch spriteBatch){
@@ -49,9 +55,10 @@ public class EnemyLine {
         }
     }
 
+    //no need to call it on update - can be called in for loop once and thats it
     public void populate(){
         EnemyOne enemyOne;
-        randomIndexesForEnemies(2);
+        randomIndexesForEnemies(1);
         if(enemies.size()<10) {
             enemyOne = new EnemyOne(playScreen);
 //            enemyOne.setOrderIndex(enemies.size()-lineIndex*10); //belke burda duzelish lazim oldu
@@ -63,6 +70,20 @@ public class EnemyLine {
             }
             enemies.add(enemyOne);
         }
+    }
+
+    public boolean isEmptyEnemyLine(){
+        for (EnemyOne enemyOne: enemies){
+            if (enemyOne.isVisible()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void move(){
+        Iterator<EnemyOne> iterator = enemies.iterator();
+        y = iterator.next().getY();
     }
 
     public int getSize(){
@@ -87,6 +108,19 @@ public class EnemyLine {
         return randomEnemies.toString();
     }
 
+    public boolean isEmpty() {
+        return empty;
+    }
 
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
+    }
 
+    public HashSet<EnemyOne> getEnemies() {
+        return enemies;
+    }
+
+    public float getY() {
+        return y;
+    }
 }

@@ -13,13 +13,14 @@ public class EnemyOne extends Sprite {
 	private Animation<TextureRegion> zombieWalkAnimation;
 	private float stateTimer;
 	private int orderIndex;
-	private boolean visible;
+	private boolean visible, destroyed;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
 
 		stateTimer = 0;
         visible = false;
+        destroyed = false;
 
 		//ilk ikisi bashlangic
 		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
@@ -36,7 +37,9 @@ public class EnemyOne extends Sprite {
 	}
 
 	public void update(float dt){
-		setRegion(getFrame(dt));
+	    setRegion(getFrame(dt));
+	    move();
+	    destroy();
 	}
 
 	public TextureRegion getFrame(float dt){
@@ -46,6 +49,18 @@ public class EnemyOne extends Sprite {
 
 
 	}
+
+	public void move(){
+	    //0.5 slow
+		setY(getY()-1.5f);
+	}
+
+	public void destroy(){
+	    if (getY()<200){
+//	        destroyed = true;
+            visible = false;
+	    }
+    }
 
 	public int getOrderIndex() {
 		return orderIndex;
