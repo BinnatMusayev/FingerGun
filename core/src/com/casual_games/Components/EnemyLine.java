@@ -3,13 +3,15 @@ package com.casual_games.Components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 
 public class EnemyLine {
 
-    private HashSet<EnemyOne> enemies;
+    private ArrayList<EnemyOne> enemies;
     private PlayScreen playScreen;
     private int lineIndex;
 
@@ -18,7 +20,7 @@ public class EnemyLine {
     private boolean empty;
     private float y;
 
-    public EnemyLine(PlayScreen playScreen){
+    public EnemyLine(PlayScreen playScreen, int lineIndex){
         this.playScreen = playScreen;
 
 
@@ -26,8 +28,9 @@ public class EnemyLine {
         random = new Random();
         empty = false;
         y=0;
+        this.lineIndex = lineIndex;
 
-        enemies = new HashSet<EnemyOne>();
+        enemies = new ArrayList<EnemyOne>();
 //        enemies.add(new EnemyOne(playScreen));
 
     }
@@ -58,7 +61,7 @@ public class EnemyLine {
     //no need to call it on update - can be called in for loop once and thats it
     public void populate(){
         EnemyOne enemyOne;
-        randomIndexesForEnemies(1);
+        randomIndexesForEnemies(5);
         if(enemies.size()<10) {
             enemyOne = new EnemyOne(playScreen);
 //            enemyOne.setOrderIndex(enemies.size()-lineIndex*10); //belke burda duzelish lazim oldu
@@ -116,7 +119,7 @@ public class EnemyLine {
         this.empty = empty;
     }
 
-    public HashSet<EnemyOne> getEnemies() {
+    public ArrayList<EnemyOne> getEnemies() {
         return enemies;
     }
 

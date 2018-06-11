@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.casual_games.Screens.PlayScreen;
 
@@ -56,7 +57,7 @@ public class EnemyOne extends Sprite {
 	}
 
 	public void destroy(){
-	    if (getY()<200){
+	    if (getY()<-getWidth()){
 //	        destroyed = true;
             visible = false;
 	    }
@@ -81,4 +82,5 @@ public class EnemyOne extends Sprite {
     public void dispose(){
 	    this.dispose();
     }
+
 }

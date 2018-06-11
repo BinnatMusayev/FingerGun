@@ -1,9 +1,12 @@
 package com.casual_games.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 import com.casual_games.Screens.PlayScreen;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Enemies {
 
@@ -11,12 +14,22 @@ public class Enemies {
     private ArrayList<EnemyLine> enemyLines;
     private int lineIndex;
 
+    private long startTime, waitTime;
+    private String removableString;
     public Enemies(PlayScreen playScreen){
         this.playScreen = playScreen;
 
         enemyLines = new ArrayList<EnemyLine>();
-        lineIndex=10;
+        lineIndex=5;
 
+        removableString = "";
+        startTime = System.nanoTime();
+        waitTime = System.nanoTime();
+
+        for (int i=1; i<10; i++) {
+            lineIndex ++;
+            enemyLines.add(new EnemyLine(playScreen, lineIndex));
+        }
     }
 
     public void update(float dt){
@@ -24,9 +37,11 @@ public class Enemies {
             enemyLine.update(dt);
         }
 
+//        if( (System.nanoTime() - startTime)/1000000000 > 3 ){
+//        }
 
+        destroyEnemyLines();
         increaseLines();
-        destroyEnemyLine();
     }
 
     public void draw(SpriteBatch spriteBatch){
@@ -45,60 +60,36 @@ public class Enemies {
     public void increaseLines(){
 
         EnemyLine enemyLine;
-        if(enemyLines.size()<30){
-            enemyLine = new EnemyLine(playScreen);
-            enemyLine.setLineIndex(lineIndex);
+        if(enemyLines.size()<9){
+//            enemyLine = new EnemyLine(playScreen, lineIndex);
+            enemyLine = new EnemyLine(playScreen,  (int)( (enemyLines.get(enemyLines.size()-1).getY() + (Gdx.graphics.getWidth()/10) )/(Gdx.graphics.getWidth()/10)) +1 );
+
             enemyLines.add(enemyLine);
             System.out.println("added: " + enemyLine.getLineIndex());
-            lineIndex++;
+//            lineIndex++;
         }
 
     }
 
-    public void destroyEnemyLine() {
 
-        ArrayList<EnemyLine> removeList = new ArrayList<EnemyLine>();
-        for (EnemyLine enemyLine: enemyLines){
-            if (enemyLine.isEmptyEnemyLine()){
-                removeList.add(enemyLine);
-            }
-        }
+    public void destroyEnemyLines(){
+//        if (enemyLines.size()==10) {
+//            Iterator<EnemyLine> iter = enemyLines.iterator();
+            ListIterator<EnemyLine> iter = enemyLines.listIterator();
 
-        Iterator<EnemyLine> iter = enemyLines.iterator();
-
-        while (iter.hasNext()) {
-            EnemyLine enemyLine = iter.next();
-
-//            if (enemyLine.isEmptyEnemyLine()) {
-//            if (enemyLine.getY()<200){
-//                iter.remove();
-//                enemyLines.remove(enemyLine);
-//                System.out.println("deleted: " + enemyLine.getLineIndex());
-//                System.out.println("Should be removed now: " + enemyLine.getLineIndex());
-//            }
-
-            Iterator<EnemyLine> iter2 = removeList.iterator();
-
-            while (iter2.hasNext()) {
-                EnemyLine enemyLine2 = iter2.next();
-
-                if (enemyLine.equals(enemyLine2)){
-//                    iter.remove();
+            while (iter.hasNext()) {
+                EnemyLine enemyLine = iter.next();
+                //replace 100 with enemyone height that i will get form Constants class
+                // i will also add healthbar so something will change
+                if (enemyLine.getY()<-100){
+                    removableString += enemyLine.getLineIndex() +", ";
+                    iter.remove();
                 }
-
             }
 
 
 
-        }
-
-
-//        for (EnemyLine enemyLine: new ArrayList<EnemyLine>(enemyLines)){
-//            if (enemyLine.isEmptyEnemyLine()){
-//                enemyLines.remove(enemyLine);
-//            }
 //        }
-
     }
 
 
@@ -123,4 +114,19 @@ public class Enemies {
     public ArrayList<EnemyLine> getEnemyLines() {
         return enemyLines;
     }
+
+    public String getRemovableLines(){
+        String str = "";
+
+//        if (enemyLines.size()==130) {
+//            for (EnemyLine e : enemyLines) {
+//                if (e.isEmptyEnemyLine()) {
+//                    str += e.getLineIndex() + ", ";
+//                }
+//            }
+//        }
+
+        return removableString;
+    }
+
 }
