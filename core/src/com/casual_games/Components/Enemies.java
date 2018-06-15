@@ -20,7 +20,7 @@ public class Enemies {
         this.playScreen = playScreen;
 
         enemyLines = new ArrayList<EnemyLine>();
-        lineIndex=5;
+        lineIndex=10;
 
         removableString = "";
         startTime = System.nanoTime();
@@ -60,7 +60,8 @@ public class Enemies {
     public void increaseLines(){
 
         EnemyLine enemyLine;
-        if(enemyLines.size()<9){
+        //new creationlari test ucun 9 qoy
+        if(enemyLines.size()<20){
 //            enemyLine = new EnemyLine(playScreen, lineIndex);
             enemyLine = new EnemyLine(playScreen,  (int)( (enemyLines.get(enemyLines.size()-1).getY() + (Gdx.graphics.getWidth()/10) )/(Gdx.graphics.getWidth()/10)) +1 );
 

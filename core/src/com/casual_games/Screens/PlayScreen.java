@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.casual_games.Components.Bullet;
 import com.casual_games.Components.Bullets;
 import com.casual_games.Components.Enemies;
 import com.casual_games.Components.EnemyLine;
 import com.casual_games.Components.EnemyOne;
+import com.casual_games.Components.MinigunBullet;
 import com.casual_games.Components.PistolBullet;
 import com.casual_games.Components.PointerOne;
+import com.casual_games.Components.PointerTwo;
+import com.casual_games.Components.SniperBullet;
 import com.casual_games.FingerGun;
 
 
@@ -27,6 +31,9 @@ public class PlayScreen implements Screen, InputProcessor{
     private Bullets bullets;
     BitmapFont font = new BitmapFont();
 
+    private long shootingTimeout;
+    private boolean canShoot;
+
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 		zombie = new TextureAtlas("zombies.pack");
@@ -38,6 +45,9 @@ public class PlayScreen implements Screen, InputProcessor{
 //		bullet = new PistolBullet(this, 0, 0);
 
         Gdx.input.setInputProcessor(this);
+
+        shootingTimeout = 0;
+        canShoot = false;
 	}
 
 	@Override
@@ -51,6 +61,16 @@ public class PlayScreen implements Screen, InputProcessor{
         pointerOne.update(delta);
 //		bullet.update(delta);
         bullets.update(delta);
+
+
+        if (canShoot){
+            if (TimeUtils.millis()-shootingTimeout > 100){
+//                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+//                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                shootingTimeout = TimeUtils.millis();
+            }
+        }
 	}
 
 	@Override
@@ -136,15 +156,24 @@ public class PlayScreen implements Screen, InputProcessor{
         pointerOne.setY(Gdx.graphics.getHeight()-screenY-Gdx.graphics.getWidth()/40);
         pointerOne.setVisible(true);
 
+        //2000 is constant timeout for pistolbullet
+//        if (TimeUtils.millis()-shootingTimeout > 2000) {
 //        bullet = new PistolBullet(this, screenX, Gdx.graphics.getHeight()-screenY);
-        bullets.addBullet(new PistolBullet(this, screenX, Gdx.graphics.getHeight()-screenY));
+//            bullets.addBullet(new PistolBullet(this, screenX, Gdx.graphics.getHeight() - screenY));
+//            shootingTimeout=0;
+//        }
 
+        canShoot = true;
+        shootingTimeout = TimeUtils.millis();
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		pointerOne.setVisible(false);
+
+		canShoot = false;
+
         return true;
     }
 
@@ -172,8 +201,11 @@ public class PlayScreen implements Screen, InputProcessor{
 	            for (EnemyOne e: enemyLine.getEnemies()){
 	                if(e.isVisible() && !b.isDestroyed()) {
                         if (b.getBoundingRectangle().overlaps(e.getBoundingRectangle())) {
-	                        b.setDestroyed(true);
-//                            bullets.removeBullet(b.getIndex());
+                        // in the case of pistol bullet or plumyot not in sniper
+                            if (!(b instanceof SniperBullet) ){
+                                b.setDestroyed(true);
+                            }
+
                             e.setVisible(false);
                         }
                     }

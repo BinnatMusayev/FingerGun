@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.casual_games.Screens.PlayScreen;
 
-public class PistolBullet extends Bullet{
+public class SniperBullet extends Bullet{
 
-    public PistolBullet(PlayScreen playScreen, float x, float y) {
+    public SniperBullet(PlayScreen playScreen, float x, float y) {
         super(playScreen, x, y);
-        setRegion(new Texture(Gdx.files.internal("bullet1.png")));
+        setRegion(new Texture(Gdx.files.internal("bullet3.png")));
 
 //        setRegionWidth(Gdx.graphics.getWidth()/3);
 //        setRegionHeight(getRegionWidth()*2);
@@ -21,7 +21,7 @@ public class PistolBullet extends Bullet{
         setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
 
         setX(x-getRegionWidth()*getScaleX()/2);
-        speed = Gdx.graphics.getHeight()/200;
+        speed = Gdx.graphics.getHeight()/100;
 
     }
 

@@ -13,7 +13,7 @@ public abstract class Bullet extends Sprite {
 
     protected boolean destroyed;
     protected float speed;
-    private int index;
+    protected int index;
 
     public Bullet(PlayScreen playScreen, float x, float y){
 //        super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -38,7 +38,7 @@ public abstract class Bullet extends Sprite {
     }
 
     public boolean isOffScreen(){
-        if (getY() > Gdx.graphics.getHeight() + getRegionHeight() ){
+        if (getY() > Gdx.graphics.getHeight()  ){
             destroyed = true;
             return true;
         }
@@ -64,4 +64,5 @@ public abstract class Bullet extends Sprite {
     public void setIndex(int index) {
         this.index = index;
     }
+
 }
