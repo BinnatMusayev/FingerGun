@@ -20,7 +20,9 @@ public class Enemies {
         this.playScreen = playScreen;
 
         enemyLines = new ArrayList<EnemyLine>();
-        lineIndex=10;
+        //Gdx.graphics.getWidth()/10 -> enemynin size-idir constantlardan gotur
+        //+2 biraz yuxaridan gelmeyi ucun
+        lineIndex=Gdx.graphics.getHeight()/(Gdx.graphics.getWidth()/10)+2;
 
         removableString = "";
         startTime = System.nanoTime();

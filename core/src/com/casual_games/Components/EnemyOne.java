@@ -15,9 +15,12 @@ public class EnemyOne extends Sprite {
 	private float stateTimer;
 	private int orderIndex;
 	private boolean visible, destroyed;
+	private float damage = 5;
+	private PlayScreen playScreen;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
+        this.playScreen = playScreen;
 
 		stateTimer = 0;
         visible = false;
@@ -59,6 +62,9 @@ public class EnemyOne extends Sprite {
 	public void destroy(){
 	    if (getY()<-getWidth()){
 //	        destroyed = true;
+            if (visible) {
+                playScreen.getHealthBar().setHealth(playScreen.getHealthBar().getHealth() - damage);
+            }
             visible = false;
 	    }
     }

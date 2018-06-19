@@ -13,6 +13,7 @@ import com.casual_games.Components.Bullets;
 import com.casual_games.Components.Enemies;
 import com.casual_games.Components.EnemyLine;
 import com.casual_games.Components.EnemyOne;
+import com.casual_games.Components.HealthBar;
 import com.casual_games.Components.MinigunBullet;
 import com.casual_games.Components.PistolBullet;
 import com.casual_games.Components.PointerOne;
@@ -29,6 +30,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	private TextureAtlas zombie;
 //	private Bullet bullet;
     private Bullets bullets;
+    private HealthBar healthBar;
     BitmapFont font = new BitmapFont();
 
     private long shootingTimeout;
@@ -43,6 +45,7 @@ public class PlayScreen implements Screen, InputProcessor{
 		pointerOne = new PointerOne();
 		bullets = new Bullets(this);
 //		bullet = new PistolBullet(this, 0, 0);
+        healthBar = new HealthBar(this);
 
         Gdx.input.setInputProcessor(this);
 
@@ -61,6 +64,7 @@ public class PlayScreen implements Screen, InputProcessor{
         pointerOne.update(delta);
 //		bullet.update(delta);
         bullets.update(delta);
+        healthBar.update(delta);
 
 
         if (canShoot){
@@ -82,12 +86,13 @@ public class PlayScreen implements Screen, InputProcessor{
         //for antialiasing
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
 
-        Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/30);
+//        Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/30);
 
 		game.batch.begin();
 		enemies.draw(game.batch);
 //		bullet.draw(game.batch);
 		bullets.draw(game.batch);
+        font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
         font.draw(game.batch, "All Lines count: "+enemies.getNumberOfEnemyLines(), 200, 900);
         font.draw(game.batch, "Empty Lines: "+enemies.getNumberOfEmptyEnemyLines(), 200, 950);
         font.draw(game.batch, "Line index: "+enemies.getLineIndex(), 200, 1000);
@@ -96,8 +101,9 @@ public class PlayScreen implements Screen, InputProcessor{
 //		font.draw(game.batch, "Last Y coord: "+enemies.getEnemyLines().get(enemies.getEnemyLines().size()-1).getLineIndex()*(Gdx.graphics.getWidth() / 10), 200, 1100);
 		game.batch.end();
 
-		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         pointerOne.draw(game.shapeRenderer);
+        healthBar.draw(game.shapeRenderer);
 		game.shapeRenderer.end();
 	}
 
@@ -193,6 +199,8 @@ public class PlayScreen implements Screen, InputProcessor{
     public boolean scrolled(int amount) {
         return false;
     }
+    //end of input processor
+
 
     public void bulletAndEnemyCollision(){
 	    for(Bullet b: bullets.getBullets()){
@@ -213,5 +221,9 @@ public class PlayScreen implements Screen, InputProcessor{
             }
 
         }
+    }
+
+    public HealthBar getHealthBar() {
+        return healthBar;
     }
 }
