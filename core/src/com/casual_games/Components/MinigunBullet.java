@@ -2,6 +2,7 @@ package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 public class MinigunBullet extends Bullet{
@@ -21,8 +22,9 @@ public class MinigunBullet extends Bullet{
         setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
 
         setX(x-getRegionWidth()*getScaleX()/2);
-        speed = Gdx.graphics.getHeight()/100;
+        speed = Constants.MINIGUN_SPEED;
 
+        shootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
     }
 
     @Override

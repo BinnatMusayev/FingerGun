@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 public class EnemyOne extends Sprite {
@@ -37,7 +38,7 @@ public class EnemyOne extends Sprite {
 
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
-		setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getWidth()/10);
+		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
 	}
 
 	public void update(float dt){
@@ -56,7 +57,7 @@ public class EnemyOne extends Sprite {
 
 	public void move(){
 	    //0.5 slow
-		setY(getY()-1.5f);
+		setY(getY()-Constants.ENEMY_SPEED);
 	}
 
 	public void destroy(){

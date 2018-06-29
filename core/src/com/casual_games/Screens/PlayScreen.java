@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.casual_games.Additional.Constants;
+import com.casual_games.Additional.Hud;
 import com.casual_games.Components.Bullet;
 import com.casual_games.Components.Bullets;
 import com.casual_games.Components.Enemies;
@@ -31,10 +33,12 @@ public class PlayScreen implements Screen, InputProcessor{
 //	private Bullet bullet;
     private Bullets bullets;
     private HealthBar healthBar;
-    BitmapFont font = new BitmapFont();
+    private Hud hud;
+    public BitmapFont font = new BitmapFont();
 
     private long shootingTimeout;
     private boolean canShoot;
+    private boolean paused;
 
 	public PlayScreen(FingerGun game) {
 		this.game = game;
@@ -46,11 +50,14 @@ public class PlayScreen implements Screen, InputProcessor{
 		bullets = new Bullets(this);
 //		bullet = new PistolBullet(this, 0, 0);
         healthBar = new HealthBar(this);
+        hud = new Hud(this);
 
         Gdx.input.setInputProcessor(this);
 
         shootingTimeout = 0;
         canShoot = false;
+
+        paused = false;
 	}
 
 	@Override
@@ -68,10 +75,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
         if (canShoot){
-            if (TimeUtils.millis()-shootingTimeout > 100){
+            if (TimeUtils.millis()-shootingTimeout > Constants.SNIPER_SHOOTING_TIMEOUT){
 //                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
 //                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 shootingTimeout = TimeUtils.millis();
             }
         }
@@ -89,6 +96,9 @@ public class PlayScreen implements Screen, InputProcessor{
 //        Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/30);
 
 		game.batch.begin();
+
+
+        //SpriteBatch
 		enemies.draw(game.batch);
 //		bullet.draw(game.batch);
 		bullets.draw(game.batch);
@@ -99,12 +109,25 @@ public class PlayScreen implements Screen, InputProcessor{
         font.draw(game.batch, "Removable: "+enemies.getRemovableLines(), 200, 1150);
         font.draw(game.batch, bullets.getCountOfBullets(), 200, 1200);
 //		font.draw(game.batch, "Last Y coord: "+enemies.getEnemyLines().get(enemies.getEnemyLines().size()-1).getLineIndex()*(Gdx.graphics.getWidth() / 10), 200, 1100);
-		game.batch.end();
 
-		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        game.batch.end();
+
+
+        //ShapeRenderer
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
         pointerOne.draw(game.shapeRenderer);
         healthBar.draw(game.shapeRenderer);
-		game.shapeRenderer.end();
+        hud.draw(game.shapeRenderer);
+
+        game.shapeRenderer.end();
+
+
+        //for being on the upside of hud rectangle
+        game.batch.begin();
+        hud.draw(game.batch);
+        game.batch.end();
+
 	}
 
 	@Override
@@ -225,5 +248,13 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public HealthBar getHealthBar() {
         return healthBar;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }

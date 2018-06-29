@@ -2,6 +2,7 @@ package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 public class PistolBullet extends Bullet{
@@ -21,7 +22,9 @@ public class PistolBullet extends Bullet{
         setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
 
         setX(x-getRegionWidth()*getScaleX()/2);
-        speed = Gdx.graphics.getHeight()/200;
+        speed = Constants.PISTOL_SPEED;
+
+        shootingTimeout = Constants.PISTOL_SHOOTING_TIMEOUT;
 
     }
 

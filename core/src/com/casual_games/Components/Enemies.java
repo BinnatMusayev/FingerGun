@@ -32,6 +32,7 @@ public class Enemies {
             lineIndex ++;
             enemyLines.add(new EnemyLine(playScreen, lineIndex));
         }
+
     }
 
     public void update(float dt){

@@ -2,6 +2,7 @@ package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 public class SniperBullet extends Bullet{
@@ -21,7 +22,9 @@ public class SniperBullet extends Bullet{
         setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
 
         setX(x-getRegionWidth()*getScaleX()/2);
-        speed = Gdx.graphics.getHeight()/100;
+        speed = Constants.SNIPER_SPEED;
+
+        shootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
 
     }
 

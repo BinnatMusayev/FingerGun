@@ -14,6 +14,7 @@ public abstract class Bullet extends Sprite {
     protected boolean destroyed;
     protected float speed;
     protected int index;
+    protected long shootingTimeout;
 
     public Bullet(PlayScreen playScreen, float x, float y){
 //        super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -65,4 +66,7 @@ public abstract class Bullet extends Sprite {
         this.index = index;
     }
 
+    public long getShootingTimeout() {
+        return shootingTimeout;
+    }
 }
