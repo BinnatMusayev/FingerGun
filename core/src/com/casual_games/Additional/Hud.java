@@ -11,22 +11,29 @@ import com.casual_games.Screens.PlayScreen;
 public class Hud {
 
     private PlayScreen playScreen;
-    private Sprite pauseButton, playButton;
+    private Sprite pauseButton, playButton, coinsIcon;
+    private int coinsCount;
 
     public Hud(PlayScreen playScreen){
         this.playScreen = playScreen;
 
         this.pauseButton = new Sprite();
         this.playButton = new Sprite();
+        this.coinsIcon = new Sprite();
+
+        this.coinsCount = 2352;
+
         playButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
         pauseButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
+        coinsIcon.setPosition(Constants.HUD_COINS_ICON_X, Constants.HUD_COINS_ICON_Y);
 
         playButton.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
         pauseButton.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
+        coinsIcon.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
 
         pauseButton.setRegion(new Texture(Gdx.files.internal("pause.png")));
         playButton.setRegion(new Texture(Gdx.files.internal("play.png")));
-
+        coinsIcon.setRegion(new Texture(Gdx.files.internal("hud_coins.png")));
     }
 
     public void draw(ShapeRenderer shapeRenderer){
@@ -43,5 +50,8 @@ public class Hud {
         }else{
             pauseButton.draw(spriteBatch);
         }
+
+        coinsIcon.draw(spriteBatch);
+        playScreen.font.draw(spriteBatch, String.valueOf(coinsCount), Constants.HUD_COINS_COUNT_X, Constants.HUD_COINS_COUNT_Y );
     }
 }

@@ -75,10 +75,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
         if (canShoot){
-            if (TimeUtils.millis()-shootingTimeout > Constants.SNIPER_SHOOTING_TIMEOUT){
+            if (TimeUtils.millis()-shootingTimeout > Constants.PISTOL_SHOOTING_TIMEOUT){
 //                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
 //                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 shootingTimeout = TimeUtils.millis();
             }
         }

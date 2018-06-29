@@ -23,7 +23,11 @@ public class Constants {
     //Hud
     public static final float HUD_HEIGHT = Gdx.graphics.getHeight()/18;
     public static final float HUD_BUTTON_WIDTH = Gdx.graphics.getWidth()/14;
-    public static final float HUD_BUTTON_Y = SCREEN_HEIGHT - HUD_HEIGHT +( HUD_HEIGHT - HUD_BUTTON_WIDTH)/2 ;
     public static final float HUD_BUTTON_X = SCREEN_WIDTH - 3*HUD_BUTTON_WIDTH/2;
+    public static final float HUD_BUTTON_Y = SCREEN_HEIGHT - HUD_HEIGHT +( HUD_HEIGHT - HUD_BUTTON_WIDTH)/2 ;
+    public static final float HUD_COINS_ICON_X = HUD_BUTTON_WIDTH;
+    public static final float HUD_COINS_ICON_Y = HUD_BUTTON_Y;
+    public static final float HUD_COINS_COUNT_X = HUD_COINS_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
+    public static final float HUD_COINS_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
 
 }
