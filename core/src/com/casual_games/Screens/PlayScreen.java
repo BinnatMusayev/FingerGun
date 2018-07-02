@@ -38,7 +38,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
     private long shootingTimeout;
     private boolean canShoot;
-    private boolean paused;
+    private boolean paused, gameover;
 
 	public PlayScreen(FingerGun game) {
 		this.game = game;
@@ -58,6 +58,7 @@ public class PlayScreen implements Screen, InputProcessor{
         canShoot = false;
 
         paused = false;
+        gameover = false;
 	}
 
 	@Override
@@ -67,27 +68,31 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	public void update(float delta){
         bulletAndEnemyCollision();
-        enemies.update(delta);
-        pointerOne.update(delta);
-//		bullet.update(delta);
         bullets.update(delta);
         healthBar.update(delta);
 
 
-        if (canShoot){
-            if (TimeUtils.millis()-shootingTimeout > Constants.PISTOL_SHOOTING_TIMEOUT){
-//                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-//                bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+        enemies.update(delta);
+        pointerOne.update(delta);
+
+
+        if (canShoot) {
+            if (TimeUtils.millis() - shootingTimeout > Constants.PISTOL_SHOOTING_TIMEOUT) {
+//              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+//              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 shootingTimeout = TimeUtils.millis();
             }
         }
+
 	}
 
 	@Override
 	public void render(float delta) {
-		this.update(delta);
-		//clear game screen with black
+	    this.update(delta);
+
+
+	    //clear game screen with black
 		Gdx.gl.glClearColor(0,0,0,1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //for antialiasing
@@ -102,6 +107,7 @@ public class PlayScreen implements Screen, InputProcessor{
 		enemies.draw(game.batch);
 //		bullet.draw(game.batch);
 		bullets.draw(game.batch);
+        font.draw(game.batch, "Paused: "+paused, 200, 800);
         font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
         font.draw(game.batch, "All Lines count: "+enemies.getNumberOfEnemyLines(), 200, 900);
         font.draw(game.batch, "Empty Lines: "+enemies.getNumberOfEmptyEnemyLines(), 200, 950);
@@ -137,7 +143,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void pause() {
-
+        //pause true ele
 	}
 
 	@Override
@@ -181,19 +187,23 @@ public class PlayScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        pointerOne.setX(screenX);
-        pointerOne.setY(Gdx.graphics.getHeight()-screenY-Gdx.graphics.getWidth()/40);
-        pointerOne.setVisible(true);
 
-        //2000 is constant timeout for pistolbullet
-//        if (TimeUtils.millis()-shootingTimeout > 2000) {
-//        bullet = new PistolBullet(this, screenX, Gdx.graphics.getHeight()-screenY);
-//            bullets.addBullet(new PistolBullet(this, screenX, Gdx.graphics.getHeight() - screenY));
-//            shootingTimeout=0;
-//        }
+	    if (!paused) {
+            pointerOne.setX(screenX);
+            pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+            pointerOne.setVisible(true);
 
-        canShoot = true;
-        shootingTimeout = TimeUtils.millis();
+            canShoot = true;
+            shootingTimeout = TimeUtils.millis();
+            if (screenX >= Constants.HUD_BUTTON_X - Constants.HUD_BUTTON_WIDTH
+                    && screenX <= Constants.HUD_BUTTON_X+2*Constants.HUD_BUTTON_WIDTH
+                    && screenY >= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y-Constants.HUD_BUTTON_WIDTH
+                    && screenY <= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y + 2*Constants.HUD_BUTTON_WIDTH){
+                paused = true;
+            }
+        }else{
+            paused = false;
+        }
         return true;
     }
 

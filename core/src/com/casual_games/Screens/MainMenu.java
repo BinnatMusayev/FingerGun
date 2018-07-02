@@ -36,7 +36,7 @@ public class MainMenu implements Screen, InputProcessor {
 
         titleGlupLayout.setText(font, title);
 
-
+        Gdx.input.setInputProcessor(this);
 
     }
 
@@ -104,7 +104,13 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if (screenX >= Constants.MAIN_MENU_PLAY_BUTTON_X
+                && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width
+                && screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y
+                && screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height) {
+            game.setScreen(new PlayScreen(game));
+        }
+        return true;
     }
 
     @Override

@@ -17,6 +17,7 @@ public class EnemyOne extends Sprite {
 	private int orderIndex;
 	private boolean visible, destroyed;
 	private float damage = 5;
+	private float speed;
 	private PlayScreen playScreen;
 
 	public EnemyOne(PlayScreen playScreen){
@@ -26,6 +27,8 @@ public class EnemyOne extends Sprite {
 		stateTimer = 0;
         visible = false;
         destroyed = false;
+
+        speed = Constants.ENEMY_SPEED;
 
 		//ilk ikisi bashlangic
 		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
@@ -43,9 +46,9 @@ public class EnemyOne extends Sprite {
 
 	public void update(float dt){
 	    setRegion(getFrame(dt));
-	    move();
-	    destroy();
-	}
+        move();
+        destroy();
+    }
 
 	public TextureRegion getFrame(float dt){
 
@@ -57,8 +60,14 @@ public class EnemyOne extends Sprite {
 
 	public void move(){
 	    //0.5 slow
-		setY(getY()-Constants.ENEMY_SPEED);
+        if (playScreen.isPaused()) {
+            speed=0;
+        }else{
+            speed = Constants.ENEMY_SPEED;
+        }
+		setY(getY()-speed);
 	}
+
 
 	public void destroy(){
 	    if (getY()<-getWidth()){

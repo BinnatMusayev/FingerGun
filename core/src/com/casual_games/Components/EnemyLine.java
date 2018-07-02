@@ -7,6 +7,7 @@ import com.casual_games.Screens.PlayScreen;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
 
 public class EnemyLine {
@@ -41,7 +42,9 @@ public class EnemyLine {
         }
 
         this.populate();
+
         this.move();
+
     }
 
     public void draw(SpriteBatch spriteBatch){
@@ -89,6 +92,7 @@ public class EnemyLine {
         y = iterator.next().getY();
     }
 
+
     public int getSize(){
         return enemies.size();
     }
@@ -126,4 +130,5 @@ public class EnemyLine {
     public float getY() {
         return y;
     }
+
 }
