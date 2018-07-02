@@ -30,4 +30,14 @@ public class Constants {
     public static final float HUD_COINS_COUNT_X = HUD_COINS_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
     public static final float HUD_COINS_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
 
+    //MainMenu
+    public static final float MAIN_MENU_BUTTON_SPACE = Gdx.graphics.getHeight()/10;
+
+    public static final float MAIN_MENU_TITLE_X = Gdx.graphics.getWidth()/2;
+    public static final float MAIN_MENU_TITLE_Y = Gdx.graphics.getHeight()*6/7;
+    public static final float MAIN_MENU_PLAY_BUTTON_X = Gdx.graphics.getWidth()/2;
+    public static final float MAIN_MENU_PLAY_BUTTON_Y = Gdx.graphics.getHeight()/2;
+    public static final float MAIN_MENU_SHOP_BUTTON_X = Gdx.graphics.getWidth()/2;
+    public static final float MAIN_MENU_SHOP_BUTTON_Y = MAIN_MENU_PLAY_BUTTON_Y-MAIN_MENU_BUTTON_SPACE;
+
 }
