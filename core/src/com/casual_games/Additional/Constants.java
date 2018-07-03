@@ -40,4 +40,50 @@ public class Constants {
     public static final float MAIN_MENU_SHOP_BUTTON_X = Gdx.graphics.getWidth()/2;
     public static final float MAIN_MENU_SHOP_BUTTON_Y = MAIN_MENU_PLAY_BUTTON_Y-MAIN_MENU_BUTTON_SPACE;
 
+    //Pause Widget
+    public static final float PAUSE_WIDGET_RECTANGLE_WIDTH = Gdx.graphics.getWidth()*3/4;
+    public static final float PAUSE_WIDGET_RECTANGLE_HEIGHT = Gdx.graphics.getHeight()/4;
+    public static final float PAUSE_WIDGET_RECTANGLE_X = Gdx.graphics.getWidth()/2-PAUSE_WIDGET_RECTANGLE_WIDTH/2;
+    public static final float PAUSE_WIDGET_RECTANGLE_Y = Gdx.graphics.getHeight()/2-PAUSE_WIDGET_RECTANGLE_HEIGHT/2;
+
+    public static final float PAUSE_WIDGET_PLAY_BUTTON_WIDHT = PAUSE_WIDGET_RECTANGLE_WIDTH/4;
+    public static final float PAUSE_WIDGET_PLAY_BUTTON_HEIGHT = PAUSE_WIDGET_PLAY_BUTTON_WIDHT;
+    public static final float PAUSE_WIDGET_PLAY_BUTTON_X = PAUSE_WIDGET_RECTANGLE_X+PAUSE_WIDGET_PLAY_BUTTON_WIDHT*2/3;
+    public static final float PAUSE_WIDGET_PLAY_BUTTON_Y = PAUSE_WIDGET_RECTANGLE_Y + PAUSE_WIDGET_RECTANGLE_HEIGHT/2 - PAUSE_WIDGET_PLAY_BUTTON_WIDHT*2/3;
+
+    public static final float PAUSE_WIDGET_HOME_BUTTON_WIDHT = PAUSE_WIDGET_RECTANGLE_WIDTH/4;
+    public static final float PAUSE_WIDGET_HOME_BUTTON_HEIGHT = PAUSE_WIDGET_HOME_BUTTON_WIDHT;
+    public static final float PAUSE_WIDGET_HOME_BUTTON_X = PAUSE_WIDGET_PLAY_BUTTON_X +PAUSE_WIDGET_PLAY_BUTTON_WIDHT + PAUSE_WIDGET_RECTANGLE_WIDTH/6;
+    public static final float PAUSE_WIDGET_HOME_BUTTON_Y = PAUSE_WIDGET_PLAY_BUTTON_Y;
+
+
+    //GameOver Widget
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

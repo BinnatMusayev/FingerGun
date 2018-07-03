@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.casual_games.Additional.Constants;
 import com.casual_games.Additional.Hud;
+import com.casual_games.Additional.PauseWidget;
 import com.casual_games.Components.Bullet;
 import com.casual_games.Components.Bullets;
 import com.casual_games.Components.Enemies;
@@ -34,7 +35,8 @@ public class PlayScreen implements Screen, InputProcessor{
     private Bullets bullets;
     private HealthBar healthBar;
     private Hud hud;
-    public BitmapFont font = new BitmapFont();
+    private PauseWidget pauseWidget;
+    public BitmapFont font;
 
     private long shootingTimeout;
     private boolean canShoot;
@@ -51,6 +53,8 @@ public class PlayScreen implements Screen, InputProcessor{
 //		bullet = new PistolBullet(this, 0, 0);
         healthBar = new HealthBar(this);
         hud = new Hud(this);
+        pauseWidget = new PauseWidget(this);
+        font = new BitmapFont();
 
         Gdx.input.setInputProcessor(this);
 
@@ -77,10 +81,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
         if (canShoot) {
-            if (TimeUtils.millis() - shootingTimeout > Constants.PISTOL_SHOOTING_TIMEOUT) {
+            if (TimeUtils.millis() - shootingTimeout > Constants.MINIGUN_SHOOTING_TIMEOUT) {
 //              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
 //              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-                bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 shootingTimeout = TimeUtils.millis();
             }
         }
@@ -125,13 +129,15 @@ public class PlayScreen implements Screen, InputProcessor{
         pointerOne.draw(game.shapeRenderer);
         healthBar.draw(game.shapeRenderer);
         hud.draw(game.shapeRenderer);
+        pauseWidget.draw(game.shapeRenderer);
 
         game.shapeRenderer.end();
 
 
-        //for being on the upside of hud rectangle
+        //for being on the upside of shaperenderer
         game.batch.begin();
         hud.draw(game.batch);
+        pauseWidget.draw(game.batch);
         game.batch.end();
 
 	}
@@ -143,7 +149,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void pause() {
-        //pause true ele
+        paused = true;
 	}
 
 	@Override
@@ -266,5 +272,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public BitmapFont getFont() {
+        return font;
     }
 }
