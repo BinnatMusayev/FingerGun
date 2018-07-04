@@ -104,10 +104,10 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX >= Constants.MAIN_MENU_PLAY_BUTTON_X
-                && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width
-                && screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y
-                && screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height) {
+        if (screenX >= Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
+                && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
+                && screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
+                && screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*2) {
             game.setScreen(new PlayScreen(game));
         }
         return true;

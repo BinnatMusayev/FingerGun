@@ -47,7 +47,9 @@ public class HealthBar {
     }
 
     public void update(float dt){
-
+        if (health<=0){
+            playScreen.setGameover(true);
+        }
     }
 
     public void draw(ShapeRenderer shapeRenderer){
@@ -61,7 +63,6 @@ public class HealthBar {
         //half half
         if(health>66) {
             shapeRenderer.rect(x, y, width, height, darkGreen, darkGreen, lightGreen, darkGreen);
-//            shapeRenderer.rect(x, y, width, height, lightGreen, darkGreen);
         }else if (health>33){
             shapeRenderer.rect(x, y, width, height, darkYellow, darkYellow, lightYellow, darkYellow);
         }else{

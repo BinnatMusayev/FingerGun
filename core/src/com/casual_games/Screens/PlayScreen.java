@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.casual_games.Additional.Constants;
+import com.casual_games.Additional.GameOverWidget;
 import com.casual_games.Additional.Hud;
 import com.casual_games.Additional.PauseWidget;
 import com.casual_games.Components.Bullet;
@@ -36,6 +37,7 @@ public class PlayScreen implements Screen, InputProcessor{
     private HealthBar healthBar;
     private Hud hud;
     private PauseWidget pauseWidget;
+    private GameOverWidget gameOverWidget;
     public BitmapFont font;
 
     private long shootingTimeout;
@@ -44,25 +46,8 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	public PlayScreen(FingerGun game) {
 		this.game = game;
-		zombie = new TextureAtlas("zombies.pack");
 
-		//initialize objects
-		enemies = new Enemies(this);
-		pointerOne = new PointerOne();
-		bullets = new Bullets(this);
-//		bullet = new PistolBullet(this, 0, 0);
-        healthBar = new HealthBar(this);
-        hud = new Hud(this);
-        pauseWidget = new PauseWidget(this);
-        font = new BitmapFont();
-
-        Gdx.input.setInputProcessor(this);
-
-        shootingTimeout = 0;
-        canShoot = false;
-
-        paused = false;
-        gameover = false;
+		this.startGame();
 	}
 
 	@Override
@@ -130,6 +115,7 @@ public class PlayScreen implements Screen, InputProcessor{
         healthBar.draw(game.shapeRenderer);
         hud.draw(game.shapeRenderer);
         pauseWidget.draw(game.shapeRenderer);
+        gameOverWidget.draw(game.shapeRenderer);
 
         game.shapeRenderer.end();
 
@@ -138,9 +124,33 @@ public class PlayScreen implements Screen, InputProcessor{
         game.batch.begin();
         hud.draw(game.batch);
         pauseWidget.draw(game.batch);
+        gameOverWidget.draw(game.batch);
         game.batch.end();
 
 	}
+
+	public void startGame(){
+        zombie = new TextureAtlas("zombies.pack");
+
+        //initialize objects
+        enemies = new Enemies(this);
+        pointerOne = new PointerOne();
+        bullets = new Bullets(this);
+//		bullet = new PistolBullet(this, 0, 0);
+        healthBar = new HealthBar(this);
+        hud = new Hud(this);
+        pauseWidget = new PauseWidget(this);
+        gameOverWidget = new GameOverWidget(this);
+        font = new BitmapFont();
+
+        Gdx.input.setInputProcessor(this);
+
+        shootingTimeout = 0;
+        canShoot = false;
+
+        paused = false;
+        gameover = false;
+    }
 
 	@Override
 	public void resize(int width, int height) {
@@ -193,22 +203,34 @@ public class PlayScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (!gameover) {
+            if (!paused) {
+                pointerOne.setX(screenX);
+                pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+                pointerOne.setVisible(true);
 
-	    if (!paused) {
-            pointerOne.setX(screenX);
-            pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
-            pointerOne.setVisible(true);
-
-            canShoot = true;
-            shootingTimeout = TimeUtils.millis();
-            if (screenX >= Constants.HUD_BUTTON_X - Constants.HUD_BUTTON_WIDTH
-                    && screenX <= Constants.HUD_BUTTON_X+2*Constants.HUD_BUTTON_WIDTH
-                    && screenY >= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y-Constants.HUD_BUTTON_WIDTH
-                    && screenY <= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y + 2*Constants.HUD_BUTTON_WIDTH){
-                paused = true;
+                canShoot = true;
+                shootingTimeout = TimeUtils.millis();
+                if (screenX >= Constants.HUD_BUTTON_X - Constants.HUD_BUTTON_WIDTH
+                        && screenX <= Constants.HUD_BUTTON_X + 2 * Constants.HUD_BUTTON_WIDTH
+                        && screenY >= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y - Constants.HUD_BUTTON_WIDTH
+                        && screenY <= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y + 2 * Constants.HUD_BUTTON_WIDTH) {
+                    paused = true;
+                }
+            } else {
+                if (pauseWidget.getPlayButtonBounds().contains(screenX, screenY)){
+                    paused = false;
+                }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
+                    game.setScreen(new MainMenu(game));
+                }
             }
         }else{
-            paused = false;
+            if (gameOverWidget.getRetryButtonBounds().contains(screenX, screenY)){
+                startGame();
+            }else if(gameOverWidget.getHomeButtonBounds().contains(screenX, screenY)){
+                game.setScreen(new MainMenu(game));
+            }
+//            gameover = false;
         }
         return true;
     }
@@ -224,8 +246,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        pointerOne.setX(screenX);
-        pointerOne.setY(Gdx.graphics.getHeight()-screenY-Gdx.graphics.getWidth()/40);
+	    if (!gameover) {
+            pointerOne.setX(screenX);
+            pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+        }
         return true;
     }
 
@@ -272,6 +296,14 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public boolean isGameover() {
+        return gameover;
+    }
+
+    public void setGameover(boolean gameover) {
+        this.gameover = gameover;
     }
 
     public BitmapFont getFont() {

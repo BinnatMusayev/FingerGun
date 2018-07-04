@@ -70,7 +70,8 @@ public class EnemyOne extends Sprite {
 
 
 	public void destroy(){
-	    if (getY()<-getWidth()){
+		//fix this with -getWidth()
+	    if (getY() <= (-50 ) ){
 //	        destroyed = true;
             if (visible) {
                 playScreen.getHealthBar().setHealth(playScreen.getHealthBar().getHealth() - damage);
