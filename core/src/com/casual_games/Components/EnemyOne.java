@@ -20,6 +20,9 @@ public class EnemyOne extends Sprite {
 	private float speed;
 	private PlayScreen playScreen;
 
+	private enum State {walking, standing}
+	private State stateOfEnemy;
+
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
         this.playScreen = playScreen;
@@ -29,6 +32,8 @@ public class EnemyOne extends Sprite {
         destroyed = false;
 
         speed = Constants.ENEMY_SPEED;
+
+        stateOfEnemy = State.walking;
 
 		//ilk ikisi bashlangic
 		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
