@@ -14,6 +14,7 @@ import com.casual_games.Additional.Hud;
 import com.casual_games.Additional.PauseWidget;
 import com.casual_games.Components.Bullet;
 import com.casual_games.Components.Bullets;
+import com.casual_games.Components.Coin;
 import com.casual_games.Components.Enemies;
 import com.casual_games.Components.EnemyLine;
 import com.casual_games.Components.EnemyOne;
@@ -31,7 +32,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	private Enemies enemies;
 	private PointerOne pointerOne;
-	private TextureAtlas zombie;
+	private TextureAtlas zombie, coin;
 //	private Bullet bullet;
     private Bullets bullets;
     private HealthBar healthBar;
@@ -39,6 +40,8 @@ public class PlayScreen implements Screen, InputProcessor{
     private PauseWidget pauseWidget;
     private GameOverWidget gameOverWidget;
     public BitmapFont font;
+
+    private Coin qepik;
 
     private long shootingTimeout;
     private boolean canShoot;
@@ -64,6 +67,7 @@ public class PlayScreen implements Screen, InputProcessor{
         enemies.update(delta);
         pointerOne.update(delta);
 
+        qepik.update(delta);
 
         if (canShoot) {
             if (TimeUtils.millis() - shootingTimeout > Constants.MINIGUN_SHOOTING_TIMEOUT) {
@@ -82,7 +86,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
 	    //clear game screen with black
-		Gdx.gl.glClearColor(0,0,0,1);
+		Gdx.gl.glClearColor(0.5f,0.5f,0.5f,1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //for antialiasing
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
@@ -95,6 +99,7 @@ public class PlayScreen implements Screen, InputProcessor{
         //SpriteBatch
 		enemies.draw(game.batch);
 //		bullet.draw(game.batch);
+        qepik.draw(game.batch);
 		bullets.draw(game.batch);
         font.draw(game.batch, "Paused: "+paused, 200, 800);
         font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
@@ -131,6 +136,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	public void startGame(){
         zombie = new TextureAtlas("zombies.pack");
+        coin = new TextureAtlas("Coin.pack");
 
         //initialize objects
         enemies = new Enemies(this);
@@ -142,6 +148,8 @@ public class PlayScreen implements Screen, InputProcessor{
         pauseWidget = new PauseWidget(this);
         gameOverWidget = new GameOverWidget(this);
         font = new BitmapFont();
+
+        qepik = new Coin(this);
 
         Gdx.input.setInputProcessor(this);
 
@@ -177,11 +185,17 @@ public class PlayScreen implements Screen, InputProcessor{
 	    enemies.dispose();
 //	    bullet.dispose();
 	    bullets.dispose();
+	    qepik.dispose();
 	}
 
 	public TextureAtlas getZombie() {
 		return zombie;
 	}
+
+
+    public TextureAtlas getCoin() {
+        return coin;
+    }
 
 
 	// input processor
