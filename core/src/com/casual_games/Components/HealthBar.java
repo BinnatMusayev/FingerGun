@@ -50,6 +50,7 @@ public class HealthBar {
         if (health<=0){
             playScreen.setGameover(true);
             playScreen.setCanShoot(false);
+            playScreen.saveCoins(playScreen.getCoinCount());
         }
     }
 

@@ -1,5 +1,6 @@
 package com.casual_games.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,11 +8,15 @@ import com.badlogic.gdx.utils.Array;
 import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
+import static com.casual_games.Additional.Constants.*;
+
 public class Coin extends Sprite {
 
     private Animation<TextureRegion> coinRotatingAnimation;
     private float stateTimer;
     private PlayScreen playScreen;
+    private float directionX, directionY;
+    private float movingSpeed;
 
     public Coin(PlayScreen playScreen){
         super(playScreen.getCoin().findRegion("coin_sprite"));
@@ -31,15 +36,19 @@ public class Coin extends Sprite {
         //if u uncomment if statement abouve inside for loop then comment below line for better animation
 //        coinRotating.add(new TextureRegion(getTexture(), 32, 0, 32, 32));
 
-        coinRotatingAnimation = new Animation<TextureRegion>(0.08f, coinRotating);
+        coinRotatingAnimation = new Animation<TextureRegion>(0.1f, coinRotating);
 
-        setSize(Constants.SCREEN_WIDTH/16,Constants.SCREEN_WIDTH/16);
+        setSize(Constants.SCREEN_WIDTH/20,Constants.SCREEN_WIDTH/20);
 
+        directionX = HUD_COINS_ICON_X +HUD_BUTTON_WIDTH/2;
+        directionY = HUD_COINS_ICON_Y + HUD_BUTTON_WIDTH;
+        movingSpeed = SCREEN_HEIGHT/150;
     }
 
     public void update(float dt){
         setRegion(getFrame(dt));
-        destroy();
+        move();
+
     }
 
     public TextureRegion getFrame(float dt){
@@ -47,21 +56,35 @@ public class Coin extends Sprite {
         return coinRotatingAnimation.getKeyFrame(stateTimer, true);
     }
 
+    public void move(){
+        float currentX = getX();
+        float currentY = getY();
 
+        float destX = directionX - getX();
+        float destY = directionY - getY();
 
-    public void destroy(){
+        float dist = (float)Math.sqrt(destX * destX + destY * destY);
+        destX = destX / dist;
+        destY = destY / dist;
 
+        float travelX = destX * movingSpeed;
+        float travelY = destY * movingSpeed;
+
+//        distTravel = Math.sqrt(travelX * travelX + travelY * travelY);
+//
+//        if ( distTravel > dist )
+//        {
+//            posX = destX;
+//            posY = destY;
+//        }
+//        else
+//        {
+            currentX += travelX;
+            currentY += travelY;
+            setX(currentX);
+            setY(currentY);
+//        }
     }
-
-
-
-//    public boolean isVisible() {
-//        return visible;
-//    }
-
-//    public void setVisible(boolean visible) {
-//        this.visible = visible;
-//    }
 
     public void dispose(){
         this.dispose();

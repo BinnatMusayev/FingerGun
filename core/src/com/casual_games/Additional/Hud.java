@@ -12,7 +12,7 @@ public class Hud {
 
     private PlayScreen playScreen;
     private Sprite pauseButton, playButton, coinsIcon;
-    private int coinsCount;
+//    private int coinsCount;
 
     public Hud(PlayScreen playScreen){
         this.playScreen = playScreen;
@@ -21,7 +21,7 @@ public class Hud {
         this.playButton = new Sprite();
         this.coinsIcon = new Sprite();
 
-        this.coinsCount = 2352;
+//        this.coinsCount = playScreen.getCoinCount();
 
         playButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
         pauseButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
@@ -51,7 +51,9 @@ public class Hud {
             pauseButton.draw(spriteBatch);
         }
 
+//        this.coinsCount = playScreen.getCoinCount();
+
         coinsIcon.draw(spriteBatch);
-        playScreen.font.draw(spriteBatch, String.valueOf(coinsCount), Constants.HUD_COINS_COUNT_X, Constants.HUD_COINS_COUNT_Y );
+        playScreen.font.draw(spriteBatch, String.valueOf(playScreen.getCoinCount()), Constants.HUD_COINS_COUNT_X, Constants.HUD_COINS_COUNT_Y );
     }
 }

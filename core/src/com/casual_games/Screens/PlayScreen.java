@@ -2,6 +2,7 @@ package com.casual_games.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,6 +16,7 @@ import com.casual_games.Additional.PauseWidget;
 import com.casual_games.Components.Bullet;
 import com.casual_games.Components.Bullets;
 import com.casual_games.Components.Coin;
+import com.casual_games.Components.Coins;
 import com.casual_games.Components.Enemies;
 import com.casual_games.Components.EnemyLine;
 import com.casual_games.Components.EnemyOne;
@@ -26,6 +28,8 @@ import com.casual_games.Components.PointerTwo;
 import com.casual_games.Components.SniperBullet;
 import com.casual_games.FingerGun;
 
+import java.util.Random;
+
 
 public class PlayScreen implements Screen, InputProcessor{
 	private FingerGun game;
@@ -35,13 +39,15 @@ public class PlayScreen implements Screen, InputProcessor{
 	private TextureAtlas zombie, coin;
 //	private Bullet bullet;
     private Bullets bullets;
+    private Coins coins;
     private HealthBar healthBar;
     private Hud hud;
     private PauseWidget pauseWidget;
     private GameOverWidget gameOverWidget;
     public BitmapFont font;
+    private int coinCount;
 
-    private Coin qepik;
+    Preferences prefs;
 
     private long shootingTimeout;
     private boolean canShoot;
@@ -67,7 +73,7 @@ public class PlayScreen implements Screen, InputProcessor{
         enemies.update(delta);
         pointerOne.update(delta);
 
-        qepik.update(delta);
+        coins.update(delta);
 
         if (canShoot) {
             if (TimeUtils.millis() - shootingTimeout > Constants.MINIGUN_SHOOTING_TIMEOUT) {
@@ -86,7 +92,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
 	    //clear game screen with black
-		Gdx.gl.glClearColor(0.5f,0.5f,0.5f,1);
+		Gdx.gl.glClearColor(0,0,0,1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //for antialiasing
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
@@ -95,11 +101,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
 		game.batch.begin();
 
-
         //SpriteBatch
-		enemies.draw(game.batch);
+        coins.draw(game.batch);
+        enemies.draw(game.batch);
 //		bullet.draw(game.batch);
-        qepik.draw(game.batch);
 		bullets.draw(game.batch);
         font.draw(game.batch, "Paused: "+paused, 200, 800);
         font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
@@ -149,7 +154,10 @@ public class PlayScreen implements Screen, InputProcessor{
         gameOverWidget = new GameOverWidget(this);
         font = new BitmapFont();
 
-        qepik = new Coin(this);
+        coins = new Coins(this);
+
+        prefs = Gdx.app.getPreferences("My Preferences");
+        coinCount = prefs.getInteger("coinCoint", 0);
 
         Gdx.input.setInputProcessor(this);
 
@@ -167,7 +175,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void pause() {
-        paused = true;
+        if (!gameover) {
+            paused = true;
+        }
 	}
 
 	@Override
@@ -185,7 +195,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	    enemies.dispose();
 //	    bullet.dispose();
 	    bullets.dispose();
-	    qepik.dispose();
+	    coins.dispose();
 	}
 
 	public TextureAtlas getZombie() {
@@ -292,6 +302,14 @@ public class PlayScreen implements Screen, InputProcessor{
                             }
 
                             e.setVisible(false);
+
+//                            Random random = new Random();
+//                            if(random.nextInt(5)==1) {
+                                coins.addCoin(b.getX(), b.getY());
+//                            }
+
+//                            increase coint count
+                            coinCount++;
                         }
                     }
                 }
@@ -299,6 +317,12 @@ public class PlayScreen implements Screen, InputProcessor{
 
         }
     }
+
+    public void saveCoins(int tempCoins){
+	    prefs.putInteger("coinCoint", tempCoins);
+	    prefs.flush();
+    }
+
 
     public HealthBar getHealthBar() {
         return healthBar;
@@ -322,6 +346,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public void setCanShoot(boolean canShoot) {
         this.canShoot = canShoot;
+    }
+
+    public int getCoinCount() {
+        return coinCount;
     }
 
     public BitmapFont getFont() {
