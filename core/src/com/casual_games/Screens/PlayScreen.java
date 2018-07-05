@@ -306,6 +306,10 @@ public class PlayScreen implements Screen, InputProcessor{
         this.gameover = gameover;
     }
 
+    public void setCanShoot(boolean canShoot) {
+        this.canShoot = canShoot;
+    }
+
     public BitmapFont getFont() {
         return font;
     }

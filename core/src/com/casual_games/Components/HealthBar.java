@@ -49,6 +49,7 @@ public class HealthBar {
     public void update(float dt){
         if (health<=0){
             playScreen.setGameover(true);
+            playScreen.setCanShoot(false);
         }
     }
 
