@@ -1,6 +1,7 @@
 package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
+
+import java.util.Random;
 
 public class EnemyOne extends Sprite {
 
@@ -22,6 +25,9 @@ public class EnemyOne extends Sprite {
 
 	private enum State {walking, standing}
 	private State stateOfEnemy;
+	private TextureRegion standingZombie;
+	private Random random;
+	private int randomViewOfZombieX, randomViewOfZombieY;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -34,15 +40,24 @@ public class EnemyOne extends Sprite {
         speed = Constants.ENEMY_SPEED;
 
         stateOfEnemy = State.walking;
+        //Random view of zombie
+        random = new Random();
+        randomViewOfZombieX = random.nextInt(4);
+        randomViewOfZombieX = randomViewOfZombieX*3*32;//sliding to right
+        randomViewOfZombieY = random.nextInt(2);
+        if (randomViewOfZombieY == 1) randomViewOfZombieY = 4*32;
+        //end of random stuff
+
+        standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32);
 
 		//ilk ikisi bashlangic
 		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
 		for(int i =0; i<3; i++){
 //			if(i!=1)
-			zombieWalking.add(new TextureRegion(getTexture(), i*32, 0, 32, 32));
+			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
 		}
 		//if u uncomment if statement abouve inside for loop then comment below line for better animation
-		zombieWalking.add(new TextureRegion(getTexture(), 32, 0, 32, 32));
+		zombieWalking.add(new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32));
 
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
@@ -50,7 +65,11 @@ public class EnemyOne extends Sprite {
 	}
 
 	public void update(float dt){
-	    setRegion(getFrame(dt));
+		if (stateOfEnemy == State.walking) {
+			setRegion(getFrame(dt));
+		}else if(stateOfEnemy == State.standing){
+			setRegion(standingZombie);
+		}
         move();
         destroy();
     }
@@ -100,6 +119,14 @@ public class EnemyOne extends Sprite {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    public void makeEnemyStand(){
+		stateOfEnemy = State.standing;
+	}
+
+	public void makeEnemyWalk(){
+		stateOfEnemy = State.walking;
+	}
 
     public void dispose(){
 	    this.dispose();

@@ -18,7 +18,7 @@ public class Constants {
     public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
 
     //enemyspeed 1.5f
-    public static final float ENEMY_SPEED = 4.5f;
+    public static final float ENEMY_SPEED = SCREEN_HEIGHT/450;
 
     //Hud
     public static final float HUD_HEIGHT = Gdx.graphics.getHeight()/18;

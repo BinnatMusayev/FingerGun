@@ -131,4 +131,16 @@ public class EnemyLine {
         return y;
     }
 
+    public void makeEnemiesStand(){
+        for (EnemyOne enemyOne: enemies){
+            enemyOne.makeEnemyStand();
+        }
+    }
+
+    public void makeEnemiesWalk(){
+        for (EnemyOne enemyOne: enemies){
+            enemyOne.makeEnemyWalk();
+        }
+    }
+
 }

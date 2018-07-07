@@ -177,6 +177,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	public void pause() {
         if (!gameover) {
             paused = true;
+            enemies.makeEnemiesStand();
         }
 	}
 
@@ -240,10 +241,12 @@ public class PlayScreen implements Screen, InputProcessor{
                         && screenY >= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y - Constants.HUD_BUTTON_WIDTH
                         && screenY <= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y + 2 * Constants.HUD_BUTTON_WIDTH) {
                     paused = true;
+                    enemies.makeEnemiesStand();
                 }
             } else {
                 if (pauseWidget.getPlayButtonBounds().contains(screenX, screenY)){
                     paused = false;
+                    enemies.makeEnemiesWalk();
                 }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
                     game.setScreen(new MainMenu(game));
                 }

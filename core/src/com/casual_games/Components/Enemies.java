@@ -133,4 +133,30 @@ public class Enemies {
         return removableString;
     }
 
+    public void makeEnemiesStand(){
+        for (EnemyLine enemyLine: enemyLines){
+            enemyLine.makeEnemiesStand();
+        }
+    }
+
+    public void makeEnemiesWalk(){
+        for (EnemyLine enemyLine: enemyLines){
+            enemyLine.makeEnemiesWalk();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
