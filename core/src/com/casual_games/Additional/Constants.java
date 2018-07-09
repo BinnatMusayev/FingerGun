@@ -17,6 +17,14 @@ public class Constants {
     public static final float SNIPER_SPEED = Gdx.graphics.getHeight()/70;
     public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
 
+    //Bullet damage
+    public static final int PISTOL_DAMAGE = 5;
+    public static final int SNIPER_DAMAGE = 45;
+    public static final int MINIGUN_DAMAGE = 10;
+
+    //Enemy health
+    public static final int ENEMY_HEALTH = 15;
+
     //enemyspeed 1.5f
     public static final float ENEMY_SPEED = SCREEN_HEIGHT/450;
 

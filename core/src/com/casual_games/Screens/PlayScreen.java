@@ -299,21 +299,30 @@ public class PlayScreen implements Screen, InputProcessor{
 	            for (EnemyOne e: enemyLine.getEnemies()){
 	                if(e.isVisible() && !b.isDestroyed()) {
                         if (b.getBoundingRectangle().overlaps(e.getBoundingRectangle())) {
-                        // in the case of pistol bullet or plumyot not in sniper
-                            if (!(b instanceof SniperBullet) ){
-                                b.setDestroyed(true);
-                            }
+                            if (b.getDamage() >= e.getHealth()) {
 
-                            e.setVisible(false);
 
-//                            Random random = new Random();
-//                            if(random.nextInt(5)==1) {
-                                coins.addCoin(b.getX(), b.getY());
+                                // in the case of pistol bullet or plumyot not in sniper
+//                            if (!(b instanceof SniperBullet) ){
+//                                b.setDestroyed(true);
 //                            }
 
+                                b.setDamage(b.getDamage()-e.getHealth());
+                                e.setVisible(false);
+
+                                //only if enemy died/destroyed
+                                coins.addCoin(b.getX(), b.getY());
 //                            increase coint count
-                            coinCount++;
+                                coinCount++;
+                            }else{
+                                b.setDestroyed(true);
+                                e.setHealth(e.getHealth()-b.getDamage());
+
+                            }
+
+
                         }
+
                     }
                 }
             }

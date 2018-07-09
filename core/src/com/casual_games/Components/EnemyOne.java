@@ -28,6 +28,7 @@ public class EnemyOne extends Sprite {
 	private TextureRegion standingZombie;
 	private Random random;
 	private int randomViewOfZombieX, randomViewOfZombieY;
+	private int health;
 
 	public EnemyOne(PlayScreen playScreen){
 		super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -62,6 +63,8 @@ public class EnemyOne extends Sprite {
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
 		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
+
+		health = Constants.ENEMY_HEALTH;
 	}
 
 	public void update(float dt){
@@ -75,11 +78,8 @@ public class EnemyOne extends Sprite {
     }
 
 	public TextureRegion getFrame(float dt){
-
 		stateTimer =  stateTimer +dt ;
 		return zombieWalkAnimation.getKeyFrame(stateTimer, true);
-
-
 	}
 
 	public void move(){
@@ -132,4 +132,11 @@ public class EnemyOne extends Sprite {
 	    this.dispose();
     }
 
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
 }

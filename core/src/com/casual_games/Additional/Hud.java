@@ -46,9 +46,11 @@ public class Hud {
 
     public void draw(SpriteBatch spriteBatch){
         if (playScreen.isPaused() ){
-            playButton.draw(spriteBatch);
+//            playButton.draw(spriteBatch);
         }else{
-            pauseButton.draw(spriteBatch);
+            if (!playScreen.isGameover()) {
+                pauseButton.draw(spriteBatch);
+            }
         }
 
 //        this.coinsCount = playScreen.getCoinCount();

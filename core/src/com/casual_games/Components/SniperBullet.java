@@ -26,6 +26,8 @@ public class SniperBullet extends Bullet{
 
         shootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
 
+        damage = Constants.SNIPER_DAMAGE;
+
     }
 
     @Override

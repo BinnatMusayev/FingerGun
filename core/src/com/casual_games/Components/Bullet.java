@@ -15,6 +15,7 @@ public abstract class Bullet extends Sprite {
     protected float speed;
     protected int index;
     protected long shootingTimeout;
+    protected int damage;
 
     public Bullet(PlayScreen playScreen, float x, float y){
 //        super(playScreen.getZombie().findRegion("ZombieSheet"));
@@ -68,5 +69,13 @@ public abstract class Bullet extends Sprite {
 
     public long getShootingTimeout() {
         return shootingTimeout;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

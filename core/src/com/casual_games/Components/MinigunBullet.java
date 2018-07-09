@@ -25,6 +25,8 @@ public class MinigunBullet extends Bullet{
         speed = Constants.MINIGUN_SPEED;
 
         shootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
+
+        damage = Constants.MINIGUN_DAMAGE;
     }
 
     @Override
