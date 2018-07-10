@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.casual_games.Screens.MainMenu;
 import com.casual_games.Screens.PlayScreen;
+import com.casual_games.Screens.SplashScreen;
 
 public class FingerGun extends Game {
 	public SpriteBatch batch;
@@ -19,12 +21,15 @@ public class FingerGun extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
-		setScreen(new MainMenu(this));
+		setScreen(new SplashScreen(this));
+
+
 	}
 
 	@Override
 	public void render () {
 		super.render();
+
 	}
 
 	@Override

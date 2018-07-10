@@ -46,10 +46,11 @@ public class PlayScreen implements Screen, InputProcessor{
     private GameOverWidget gameOverWidget;
     public BitmapFont font;
     private int coinCount;
+    private Constants.Gun gunType;
 
     Preferences prefs;
 
-    private long shootingTimeout;
+    private long shootingTimeout, currentGunShootingTimeout;
     private boolean canShoot;
     private boolean paused, gameover;
 
@@ -76,10 +77,11 @@ public class PlayScreen implements Screen, InputProcessor{
         coins.update(delta);
 
         if (canShoot) {
-            if (TimeUtils.millis() - shootingTimeout > Constants.MINIGUN_SHOOTING_TIMEOUT) {
+            if (TimeUtils.millis() - shootingTimeout > currentGunShootingTimeout) {
 //              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
 //              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+//              bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                shoot();
                 shootingTimeout = TimeUtils.millis();
             }
         }
@@ -166,6 +168,10 @@ public class PlayScreen implements Screen, InputProcessor{
 
         paused = false;
         gameover = false;
+
+        gunType = Constants.Gun.minigun;
+
+        currentGunShootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
     }
 
 	@Override
@@ -327,6 +333,23 @@ public class PlayScreen implements Screen, InputProcessor{
                 }
             }
 
+        }
+    }
+
+    private void shoot(){
+	    switch (gunType){
+            case pistol:
+              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+              break;
+            case sniper:
+              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+              break;
+            case minigun:
+                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+                break;
+            default:
+              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+              break;
         }
     }
 

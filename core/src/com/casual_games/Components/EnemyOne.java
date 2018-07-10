@@ -58,7 +58,7 @@ public class EnemyOne extends Sprite {
 			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
 		}
 		//if u uncomment if statement abouve inside for loop then comment below line for better animation
-		zombieWalking.add(new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32));
+		zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
 
 		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 

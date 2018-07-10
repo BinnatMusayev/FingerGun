@@ -7,6 +7,12 @@ public class Constants {
     public static final float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static final float SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
+    //Splash Screen
+    public static final float SPLASH_LOGO_WIDTH = Gdx.graphics.getWidth();
+    public static final float SPLASH_LOGO_HEIGHT = Gdx.graphics.getWidth();
+    public static final float SPLASH_LOGO_Y = SCREEN_HEIGHT/2-SPLASH_LOGO_HEIGHT/2;
+
+
     //shooting timeout
     public static final long PISTOL_SHOOTING_TIMEOUT = 400;
     public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
@@ -16,6 +22,9 @@ public class Constants {
     public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/200;
     public static final float SNIPER_SPEED = Gdx.graphics.getHeight()/70;
     public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
+
+    //gun type
+    public static enum Gun {pistol, sniper, minigun}
 
     //Bullet damage
     public static final int PISTOL_DAMAGE = 5;
