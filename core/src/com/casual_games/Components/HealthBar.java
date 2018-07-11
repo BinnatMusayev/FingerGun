@@ -20,7 +20,7 @@ public class HealthBar {
         x = 0;
 //        y=-Gdx.graphics.getHeight()/70;
         y=0;
-        //health-i sharedprefenrecden gotur
+        //health-i sharedprefenrecden gotur (shopdan increase oluna biler deye)
         health=100;
         width = Gdx.graphics.getWidth();
         //height-i health-e uygun gotur

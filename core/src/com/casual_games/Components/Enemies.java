@@ -88,6 +88,7 @@ public class Enemies {
                 if (enemyLine.getY()<-100){
                     removableString += enemyLine.getLineIndex() +", ";
                     iter.remove();
+                    break;
                 }
             }
 

@@ -16,7 +16,7 @@ public class Constants {
     //shooting timeout
     public static final long PISTOL_SHOOTING_TIMEOUT = 400;
     public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
-    public static final long MINIGUN_SHOOTING_TIMEOUT = 100;
+    public static final long MINIGUN_SHOOTING_TIMEOUT = 30;
 
     //Bullet speed
     public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/200;

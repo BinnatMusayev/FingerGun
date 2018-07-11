@@ -48,6 +48,7 @@ public class Bullets {
             Bullet b = iterator.next();
             if (b.isOffScreen() ){
                 iterator.remove();
+                break;
             }
         }
     }
@@ -80,6 +81,7 @@ public class Bullets {
             Bullet bullet = iterator.next();
             if (bullet.getIndex()==i){
                 iterator.remove();
+                break;
             }
         }
     }
