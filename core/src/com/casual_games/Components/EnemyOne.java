@@ -39,6 +39,7 @@ public class EnemyOne extends Sprite {
         destroyed = false;
 
         speed = Constants.ENEMY_SPEED;
+		health = Constants.ENEMY_HEALTH;
 
         stateOfEnemy = State.walking;
         //Random view of zombie
@@ -64,7 +65,7 @@ public class EnemyOne extends Sprite {
 
 		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
 
-		health = Constants.ENEMY_HEALTH;
+
 	}
 
 	public void update(float dt){

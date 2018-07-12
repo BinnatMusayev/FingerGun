@@ -46,6 +46,7 @@ public class PlayScreen implements Screen, InputProcessor{
     private GameOverWidget gameOverWidget;
     public BitmapFont font;
     private int coinCount;
+    private int deathCount;
     private Constants.Gun gunType;
 
     Preferences prefs;
@@ -160,6 +161,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
         prefs = Gdx.app.getPreferences("My Preferences");
         coinCount = prefs.getInteger("coinCoint", 0);
+        deathCount = 0;
 
         Gdx.input.setInputProcessor(this);
 
@@ -320,6 +322,7 @@ public class PlayScreen implements Screen, InputProcessor{
                                 coins.addCoin(b.getX(), b.getY());
 //                            increase coint count
                                 coinCount++;
+                                deathCount++;
                             }else{
                                 b.setDestroyed(true);
                                 e.setHealth(e.getHealth()-b.getDamage());
@@ -358,6 +361,14 @@ public class PlayScreen implements Screen, InputProcessor{
 	    prefs.flush();
     }
 
+    public void updateScore(){
+	    int bestScore = prefs.getInteger("highScore", 0);
+	    if (deathCount>bestScore){
+            prefs.putInteger("highScore", deathCount);
+            prefs.flush();
+        }
+    }
+
 
     public HealthBar getHealthBar() {
         return healthBar;
@@ -387,7 +398,16 @@ public class PlayScreen implements Screen, InputProcessor{
         return coinCount;
     }
 
+    public int getDeathCount() {
+        return deathCount;
+    }
+
+    public void setDeathCount(int deathCount) {
+        this.deathCount = deathCount;
+    }
+
     public BitmapFont getFont() {
         return font;
     }
+
 }

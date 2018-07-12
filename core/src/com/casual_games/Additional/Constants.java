@@ -16,7 +16,7 @@ public class Constants {
     //shooting timeout
     public static final long PISTOL_SHOOTING_TIMEOUT = 400;
     public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
-    public static final long MINIGUN_SHOOTING_TIMEOUT = 30;
+    public static final long MINIGUN_SHOOTING_TIMEOUT = 100;
 
     //Bullet speed
     public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/200;
@@ -46,6 +46,10 @@ public class Constants {
     public static final float HUD_COINS_ICON_Y = HUD_BUTTON_Y;
     public static final float HUD_COINS_COUNT_X = HUD_COINS_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
     public static final float HUD_COINS_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
+    public static final float HUD_DEAD_ICON_X = HUD_COINS_COUNT_X+HUD_BUTTON_WIDTH;
+    public static final float HUD_DEAD_ICON_Y = HUD_BUTTON_Y;
+    public static final float HUD_DEAD_COUNT_X = HUD_DEAD_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
+    public static final float HUD_DEAD_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
 
     //MainMenu
     public static final float MAIN_MENU_BUTTON_SPACE = Gdx.graphics.getHeight()/10;

@@ -11,7 +11,7 @@ import com.casual_games.Screens.PlayScreen;
 public class Hud {
 
     private PlayScreen playScreen;
-    private Sprite pauseButton, playButton, coinsIcon;
+    private Sprite pauseButton, playButton, coinsIcon, deadIcon;
 //    private int coinsCount;
 
     public Hud(PlayScreen playScreen){
@@ -20,20 +20,24 @@ public class Hud {
         this.pauseButton = new Sprite();
         this.playButton = new Sprite();
         this.coinsIcon = new Sprite();
+        this.deadIcon = new Sprite();
 
 //        this.coinsCount = playScreen.getCoinCount();
 
         playButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
         pauseButton.setPosition(Constants.HUD_BUTTON_X, Constants.HUD_BUTTON_Y);
         coinsIcon.setPosition(Constants.HUD_COINS_ICON_X, Constants.HUD_COINS_ICON_Y);
+        deadIcon.setPosition(Constants.HUD_DEAD_ICON_X, Constants.HUD_DEAD_ICON_Y);
 
         playButton.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
         pauseButton.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
         coinsIcon.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
+        deadIcon.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
 
         pauseButton.setRegion(new Texture(Gdx.files.internal("pause.png")));
         playButton.setRegion(new Texture(Gdx.files.internal("play.png")));
         coinsIcon.setRegion(new Texture(Gdx.files.internal("hud_coins.png")));
+        deadIcon.setRegion(new Texture(Gdx.files.internal("dead.png")));
     }
 
     public void draw(ShapeRenderer shapeRenderer){
@@ -57,5 +61,7 @@ public class Hud {
 
         coinsIcon.draw(spriteBatch);
         playScreen.font.draw(spriteBatch, String.valueOf(playScreen.getCoinCount()), Constants.HUD_COINS_COUNT_X, Constants.HUD_COINS_COUNT_Y );
+        deadIcon.draw(spriteBatch);
+        playScreen.font.draw(spriteBatch, String.valueOf(playScreen.getDeathCount()) , Constants.HUD_DEAD_COUNT_X, Constants.HUD_DEAD_COUNT_Y );
     }
 }
