@@ -34,8 +34,10 @@ public class Constants {
     //Enemy health
     public static final int ENEMY_HEALTH = 15;
 
-    //enemyspeed 1.5f
-    public static final float ENEMY_SPEED = SCREEN_HEIGHT/450;
+    //enemyspeed
+    public static final float ENEMY_SPEED_FAST = SCREEN_HEIGHT/450;
+    public static final float ENEMY_SPEED_NORMAL = SCREEN_HEIGHT/650;
+    public static final float ENEMY_SPEED_SLOW = SCREEN_HEIGHT/850;
 
     //Hud
     public static final float HUD_HEIGHT = Gdx.graphics.getHeight()/18;

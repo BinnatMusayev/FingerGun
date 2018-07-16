@@ -38,9 +38,6 @@ public class EnemyOne extends Sprite {
         visible = false;
         destroyed = false;
 
-        speed = Constants.ENEMY_SPEED;
-		health = Constants.ENEMY_HEALTH;
-
         stateOfEnemy = State.walking;
         //Random view of zombie
         random = new Random();
@@ -65,7 +62,9 @@ public class EnemyOne extends Sprite {
 
 		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
 
+		speed = 0;
 
+        health = Constants.ENEMY_HEALTH;
 	}
 
 	public void update(float dt){
@@ -88,7 +87,13 @@ public class EnemyOne extends Sprite {
         if (playScreen.isPaused()) {
             speed=0;
         }else{
-            speed = Constants.ENEMY_SPEED;
+			if (playScreen.getDeathCount() > 40){
+				speed = Constants.ENEMY_SPEED_FAST;
+			}else if (playScreen.getDeathCount()>20){
+				speed = Constants.ENEMY_SPEED_NORMAL;
+			}else{
+				speed = Constants.ENEMY_SPEED_SLOW;
+			}
         }
 		setY(getY()-speed);
 	}
