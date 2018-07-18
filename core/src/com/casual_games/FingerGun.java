@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.casual_games.Additional.Arc;
 import com.casual_games.Screens.MainMenu;
 import com.casual_games.Screens.PlayScreen;
 import com.casual_games.Screens.SplashScreen;
@@ -16,11 +17,13 @@ import com.casual_games.Screens.SplashScreen;
 public class FingerGun extends Game {
 	public SpriteBatch batch;
 	public ShapeRenderer shapeRenderer;
+	public Arc arc;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
+		arc = new Arc();
 		setScreen(new SplashScreen(this));
 
 
@@ -36,5 +39,6 @@ public class FingerGun extends Game {
 	public void dispose () {
 		batch.dispose();
 		shapeRenderer.dispose();
+		arc.dispose();
 	}
 }

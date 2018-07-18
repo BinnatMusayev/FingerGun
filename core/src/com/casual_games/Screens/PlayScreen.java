@@ -35,7 +35,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	private FingerGun game;
 
 	private Enemies enemies;
-	private PointerOne pointerOne;
+	private PointerTwo pointer;
 	private TextureAtlas zombie, coin;
 //	private Bullet bullet;
     private Bullets bullets;
@@ -73,7 +73,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
         enemies.update(delta);
-        pointerOne.update(delta);
+        pointer.update(delta);
 
         coins.update(delta);
 
@@ -100,7 +100,7 @@ public class PlayScreen implements Screen, InputProcessor{
         //for antialiasing
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
 
-//        Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/30);
+        Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/100);
 
 		game.batch.begin();
 
@@ -120,11 +120,14 @@ public class PlayScreen implements Screen, InputProcessor{
 
         game.batch.end();
 
+        //Arc
+        game.arc.begin(ShapeRenderer.ShapeType.Line);
+        pointer.draw(game.arc);
+        game.arc.end();
 
         //ShapeRenderer
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        pointerOne.draw(game.shapeRenderer);
         healthBar.draw(game.shapeRenderer);
         hud.draw(game.shapeRenderer);
         pauseWidget.draw(game.shapeRenderer);
@@ -148,7 +151,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
         //initialize objects
         enemies = new Enemies(this);
-        pointerOne = new PointerOne();
+        pointer = new PointerTwo();
         bullets = new Bullets(this);
 //		bullet = new PistolBullet(this, 0, 0);
         healthBar = new HealthBar(this);
@@ -238,9 +241,9 @@ public class PlayScreen implements Screen, InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (!gameover) {
             if (!paused) {
-                pointerOne.setX(screenX);
-                pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
-                pointerOne.setVisible(true);
+                this.pointer.setX(screenX);
+                this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+                this.pointer.setVisible(true);
 
                 canShoot = true;
                 shootingTimeout = TimeUtils.millis();
@@ -272,7 +275,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		pointerOne.setVisible(false);
+		this.pointer.setVisible(false);
 
 		canShoot = false;
 
@@ -282,8 +285,8 @@ public class PlayScreen implements Screen, InputProcessor{
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 	    if (!gameover) {
-            pointerOne.setX(screenX);
-            pointerOne.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+            this.pointer.setX(screenX);
+            this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
         }
         return true;
     }
