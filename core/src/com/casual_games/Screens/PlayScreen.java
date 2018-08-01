@@ -23,6 +23,7 @@ import com.casual_games.Components.EnemyOne;
 import com.casual_games.Components.HealthBar;
 import com.casual_games.Components.MinigunBullet;
 import com.casual_games.Components.PistolBullet;
+import com.casual_games.Components.Pointer;
 import com.casual_games.Components.PointerOne;
 import com.casual_games.Components.PointerTwo;
 import com.casual_games.Components.SniperBullet;
@@ -35,7 +36,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	private FingerGun game;
 
 	private Enemies enemies;
-	private PointerTwo pointer;
+	private Pointer pointer;
 	private TextureAtlas zombie, coin;
 //	private Bullet bullet;
     private Bullets bullets;
@@ -55,6 +56,7 @@ public class PlayScreen implements Screen, InputProcessor{
     private boolean canShoot;
     private boolean paused, gameover;
 
+    private Random random;
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 
@@ -149,9 +151,11 @@ public class PlayScreen implements Screen, InputProcessor{
         zombie = new TextureAtlas("zombies.pack");
         coin = new TextureAtlas("Coin.pack");
 
+        random = new Random();
+        int r = random.nextInt(2);
+
         //initialize objects
         enemies = new Enemies(this);
-        pointer = new PointerTwo();
         bullets = new Bullets(this);
 //		bullet = new PistolBullet(this, 0, 0);
         healthBar = new HealthBar(this);
@@ -159,8 +163,16 @@ public class PlayScreen implements Screen, InputProcessor{
         pauseWidget = new PauseWidget(this);
         gameOverWidget = new GameOverWidget(this);
         font = new BitmapFont();
-
         coins = new Coins(this);
+
+        switch (r){
+            case 0:
+                pointer = new PointerOne();
+                break;
+            case 1:
+                pointer = new PointerTwo();
+                break;
+        }
 
         prefs = Gdx.app.getPreferences("My Preferences");
         coinCount = prefs.getInteger("coinCoint", 0);

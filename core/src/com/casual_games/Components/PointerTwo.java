@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.casual_games.Additional.Arc;
 
-public class PointerTwo {
+public class PointerTwo extends Pointer {
 
     private float x, y, r1, r2;
     private boolean visible;
@@ -47,9 +47,7 @@ public class PointerTwo {
 //            shapeRenderer.arc(x, y, r1, rotation +lengthOfArc+90, (90 - lengthOfArc) * 2);
 //            shapeRenderer.arc(x, y, r1, rotation +lengthOfArc+180, (90 - lengthOfArc) * 2);
 //            shapeRenderer.arc(x, y, r1, rotation +lengthOfArc+270, (90 - lengthOfArc) * 2);
-
-
-//            bayraq rengi
+            
 
             shapeRenderer.arc(x, y, r1, rotation +lengthOfArc, (90 ) * 2, c1); //this is mixed
 
@@ -63,16 +61,43 @@ public class PointerTwo {
         rotation +=3;
     }
 
+    @Override
     public void setX(float x) {
         this.x = x;
     }
 
+    @Override
     public void setY(float y) {
         this.y = y;
     }
 
+    @Override
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
+
+    @Override
+    public float getR() {
+        return r;
+    }
+
+    @Override
+    public void setR(float r) {
+        this.r = r;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return visible;
+    }
 }
