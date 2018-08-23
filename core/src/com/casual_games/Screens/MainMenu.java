@@ -29,12 +29,15 @@ public class MainMenu implements Screen, InputProcessor {
         shopGlupLayout = new GlyphLayout();
         titleGlupLayout = new GlyphLayout();
 
-        playGlupLayout.setText(font, play);
-        shopGlupLayout.setText(font, shop);
+//        titleGlupLayout.setText(font, title);
+//        playGlupLayout.setText(font, play);
+//        shopGlupLayout.setText(font, shop);
 
-//        font.getData().setScale(1.5f);
+        titleGlupLayout.setText(game.font24, title);
+        playGlupLayout.setText(game.font24, play);
+        shopGlupLayout.setText(game.font24, shop);
 
-        titleGlupLayout.setText(font, title);
+
 
         Gdx.input.setInputProcessor(this);
 
@@ -55,9 +58,13 @@ public class MainMenu implements Screen, InputProcessor {
 
         game.batch.begin();
 
-        font.draw(game.batch, titleGlupLayout, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
-        font.draw(game.batch, playGlupLayout, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
-        font.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
+//        font.draw(game.batch, titleGlupLayout, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
+//        font.draw(game.batch, playGlupLayout, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
+//        font.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
+
+        game.font24.draw(game.batch, title, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
+        game.font24.draw(game.batch, play, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
+        game.font24.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
 
         game.batch.end();
     }
@@ -106,9 +113,14 @@ public class MainMenu implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (screenX >= Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
                 && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
-                && screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
-                && screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*2) {
+                && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
+                && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
             game.setScreen(new PlayScreen(game));
+        }else if (screenX >= Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
+                && screenX <= Constants.MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
+                && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
+                && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
+            game.setScreen(new ShopScreen(game));
         }
         return true;
     }

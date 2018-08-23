@@ -1,6 +1,7 @@
 package com.casual_games.Additional;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 
 public class Constants {
 
@@ -81,6 +82,14 @@ public class Constants {
 
 
     //GameOver Widget
+
+    //common back button properties
+    public static final float BACK_BUTTON_X = SCREEN_WIDTH/25;
+    public static final float BACK_BUTTON_Y = SCREEN_HEIGHT*13/14;
+    public static final float BACK_BUTTON_WIDTH = SCREEN_WIDTH/12;
+
+    //Shop
+
 
 
 
