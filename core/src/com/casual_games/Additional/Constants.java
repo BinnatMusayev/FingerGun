@@ -89,6 +89,8 @@ public class Constants {
     public static final float BACK_BUTTON_WIDTH = SCREEN_WIDTH/12;
 
     //Shop
+    public static final float BG_RECT_WIDTH = SCREEN_WIDTH/3;
+    public static final float BG_RECT_HEIGHT = BG_RECT_WIDTH;
 
 
 

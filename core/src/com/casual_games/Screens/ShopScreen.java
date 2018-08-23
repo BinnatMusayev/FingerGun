@@ -10,15 +10,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.casual_games.Additional.Constants;
 import com.casual_games.FingerGun;
-
 import static com.casual_games.Additional.Constants.*;
 
 public class ShopScreen implements Screen, InputProcessor{
 
     private FingerGun game;
-    private Sprite backButton, bgRect, pistolIcon, heartIcon, pointerIcon, coinsIcon;
+    private Sprite backButton, bgRect1, bgRect2, bgRect3, pistolIcon, heartIcon, pointerIcon, coinsIcon;
     private BitmapFont font;
     private GlyphLayout shopGlupLayout;
     private String titleText;
@@ -27,25 +25,48 @@ public class ShopScreen implements Screen, InputProcessor{
         this.game = game;
 
         backButton = new Sprite();
-        bgRect = new Sprite();
+        bgRect1 = new Sprite();
+        bgRect2 = new Sprite();
+        bgRect3 = new Sprite();
         pistolIcon = new Sprite();
         heartIcon = new Sprite();
         pointerIcon = new Sprite();
         coinsIcon = new Sprite();
 
-        font = game.createBitmapFont((int)Constants.SCREEN_WIDTH/15);
+        font = game.createBitmapFont((int)SCREEN_WIDTH/15);
 
         titleText  = "Shop";
         shopGlupLayout = new GlyphLayout();
         shopGlupLayout.setText(font, titleText);
-        //positions
-        backButton.setPosition(BACK_BUTTON_X, BACK_BUTTON_Y);
 
         //sizes
         backButton.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_WIDTH);
+        bgRect1.setSize(BG_RECT_WIDTH, BG_RECT_HEIGHT);
+        bgRect2.setSize(BG_RECT_WIDTH, BG_RECT_HEIGHT);
+        bgRect3.setSize(BG_RECT_WIDTH, BG_RECT_HEIGHT);
+        pistolIcon.setSize(bgRect1.getWidth()*4/5, bgRect1.getWidth()*4/5);
+        heartIcon.setSize(bgRect2.getWidth()*2/3, bgRect2.getWidth()*0.6f);
+        pointerIcon.setSize(bgRect3.getWidth()*4/5, bgRect3.getWidth()*4/5);
+
+        //positions
+        backButton.setPosition(BACK_BUTTON_X, BACK_BUTTON_Y);
+        bgRect1.setPosition(SCREEN_WIDTH/10, backButton.getY() - backButton.getHeight() - bgRect1.getHeight()- SCREEN_HEIGHT/50);
+        bgRect2.setPosition(SCREEN_WIDTH/2+SCREEN_WIDTH/10, backButton.getY() - backButton.getHeight() - bgRect2.getHeight()- SCREEN_HEIGHT/50);
+        bgRect3.setPosition(SCREEN_WIDTH/10, backButton.getY() - backButton.getHeight() - 2*bgRect3.getHeight()- 3*SCREEN_HEIGHT/50) ;
+        pistolIcon.setPosition(bgRect1.getX()+(bgRect1.getWidth()-pistolIcon.getWidth())/2, bgRect1.getY()+(bgRect1.getHeight()-pistolIcon.getHeight())/2 ) ;
+        heartIcon.setPosition(bgRect2.getX()+(bgRect2.getWidth()-heartIcon.getWidth())/2, bgRect2.getY()+(bgRect2.getHeight()-heartIcon.getHeight())/2 ) ;
+        pointerIcon.setPosition(bgRect3.getX()+(bgRect3.getWidth()-pointerIcon.getWidth())/2, bgRect3.getY()+(bgRect3.getHeight()-pointerIcon.getHeight())/2 ) ;
 
         //files
         backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
+        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
+        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
+        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
+        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
+        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
+        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
+        pointerIcon.setRegion(new Texture(Gdx.files.internal("pointer_icon.png")));
+
 
 
         Gdx.input.setInputProcessor(this);
@@ -68,12 +89,18 @@ public class ShopScreen implements Screen, InputProcessor{
 
         backButton.draw(game.batch);
         font.draw(game.batch, titleText, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, BACK_BUTTON_Y+shopGlupLayout.height*3/2);
+        bgRect1.draw(game.batch);
+        bgRect2.draw(game.batch);
+        bgRect3.draw(game.batch);
+        pistolIcon.draw(game.batch);
+        heartIcon.draw(game.batch);
+        pointerIcon.draw(game.batch);
 
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        game.shapeRenderer.setColor(Color.RED);
-        game.shapeRenderer.circle(BACK_BUTTON_X, BACK_BUTTON_Y, 2);
+//        game.shapeRenderer.setColor(Color.RED);
+//        game.shapeRenderer.circle(BACK_BUTTON_X, BACK_BUTTON_Y, 2);
         game.shapeRenderer.end();
     }
 
@@ -99,6 +126,15 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public void dispose() {
+        font.dispose();
+        backButton.getTexture().dispose();
+        bgRect1.getTexture().dispose();
+        bgRect2.getTexture().dispose();
+        bgRect3.getTexture().dispose();
+        pistolIcon.getTexture().dispose();
+        heartIcon.getTexture().dispose();
+        pointerIcon.getTexture().dispose();
+        coinsIcon.getTexture().dispose();
 
     }
 
@@ -121,6 +157,12 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (screenX >= backButton.getX()
+                && screenX <= backButton.getX()+backButton.getWidth()
+                && SCREEN_HEIGHT-screenY >= backButton.getY()
+                && SCREEN_HEIGHT-screenY <= backButton.getY()+backButton.getHeight()){
+            game.setScreen(new MainMenu(game));
+        }
         return false;
     }
 
