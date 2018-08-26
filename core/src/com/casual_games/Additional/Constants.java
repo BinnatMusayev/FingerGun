@@ -91,6 +91,12 @@ public class Constants {
     //Shop
     public static final float BG_RECT_WIDTH = SCREEN_WIDTH/3;
     public static final float BG_RECT_HEIGHT = BG_RECT_WIDTH;
+    public static final float BG_RECT_GUNS_WIDTH = SCREEN_WIDTH/4;
+    public static final float BG_RECT_GUNS_HEIGHT = BG_RECT_GUNS_WIDTH;
+    public static final float COINS_COLLECTIVE_WIDTH = SCREEN_WIDTH/12;
+    public static final float COINS_COLLECTIVE_HEIGHT = COINS_COLLECTIVE_WIDTH;
+    public static final float PLUS_ICON_WIDTH = SCREEN_WIDTH/17;
+
 
 
 

@@ -71,4 +71,13 @@ public class FingerGun extends Game {
         params.color = fontColor;
         return generator.generateFont(params);
     }
+
+	public BitmapFont createBitmapFont(int size, Color color){
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Lato-Regular.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+		params.size = size;
+		params.color = color;
+		return generator.generateFont(params);
+	}
 }

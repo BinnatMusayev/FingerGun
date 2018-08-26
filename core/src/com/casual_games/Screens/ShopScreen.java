@@ -1,6 +1,7 @@
 package com.casual_games.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -70,6 +71,7 @@ public class ShopScreen implements Screen, InputProcessor{
 
 
         Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
@@ -142,6 +144,9 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.BACK){
+            game.setScreen(new MainMenu(game));
+        }
         return false;
     }
 
@@ -157,13 +162,12 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX >= backButton.getX()
-                && screenX <= backButton.getX()+backButton.getWidth()
-                && SCREEN_HEIGHT-screenY >= backButton.getY()
-                && SCREEN_HEIGHT-screenY <= backButton.getY()+backButton.getHeight()){
+        if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new MainMenu(game));
+        }else if (bgRect1.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
+            game.setScreen(new GunsShopScreen(game));
         }
-        return false;
+        return true;
     }
 
     @Override
