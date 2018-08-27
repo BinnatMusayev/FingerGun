@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -16,7 +17,7 @@ public class EnemyLine {
     private PlayScreen playScreen;
     private int lineIndex;
 
-    private HashSet<Integer> randomEnemies;
+    private ArrayList<Integer> randomEnemies;
     private Random random;
     private boolean empty;
     private float y;
@@ -25,7 +26,7 @@ public class EnemyLine {
         this.playScreen = playScreen;
 
 
-        randomEnemies = new HashSet<Integer>();
+        randomEnemies = new ArrayList<Integer>();
         random = new Random();
         empty = false;
         y=0;
@@ -34,6 +35,8 @@ public class EnemyLine {
         enemies = new ArrayList<EnemyOne>();
 //        enemies.add(new EnemyOne(playScreen));
 
+        this.populate();
+
     }
 
     public void update(float dt){
@@ -41,7 +44,7 @@ public class EnemyLine {
             enemyOne.update(dt);
         }
 
-        this.populate();
+//        this.populate();
 
         this.move();
 
@@ -64,8 +67,8 @@ public class EnemyLine {
     //no need to call it on update - can be called in for loop once and thats it
     public void populate(){
         EnemyOne enemyOne;
-        randomIndexesForEnemies(5);
-        if(enemies.size()<10) {
+        randomIndexesForEnemies(3);
+        while(enemies.size()<10) {
             enemyOne = new EnemyOne(playScreen);
 //            enemyOne.setOrderIndex(enemies.size()-lineIndex*10); //belke burda duzelish lazim oldu
             enemyOne.setOrderIndex(enemies.size());
@@ -106,8 +109,41 @@ public class EnemyLine {
     }
 
     public void randomIndexesForEnemies(int num){
-        if (randomEnemies.size()<num){
-            randomEnemies.add(random.nextInt(10));
+//        if (randomEnemies.size()<num){
+//            int tempRandInt = random.nextInt(10);
+//            if (randomEnemies.size()>0) {
+//
+//                ListIterator<Integer> iter = randomEnemies.listIterator();
+//
+//                while (iter.hasNext()){
+//                    Integer i = iter.next();
+//
+//                    if (tempRandInt != i && (tempRandInt - 1) != i && (tempRandInt + 1) != i ){
+////                        randomEnemies.add(tempRandInt);
+//                        iter.add(tempRandInt);
+//
+//                    }
+//
+//                }
+//
+////                for (int i : randomEnemies) {
+////                    if ( tempRandInt != i) {
+//////                        (tempRandInt - 1) != i (tempRandInt + 1) != i  &&
+////                        randomEnemies.add(tempRandInt);
+////                    }
+////                }
+//            }else{
+//                randomEnemies.add(tempRandInt);
+//            }
+//        }
+
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i=0; i<10; i++) {
+            list.add(new Integer(i));
+        }
+        Collections.shuffle(list);
+        for (int i=0; i<num; i++) {
+            randomEnemies.add(list.get(i));
         }
     }
 
