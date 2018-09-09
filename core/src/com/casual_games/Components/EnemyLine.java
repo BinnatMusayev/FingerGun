@@ -67,7 +67,7 @@ public class EnemyLine {
     //no need to call it on update - can be called in for loop once and thats it
     public void populate(){
         EnemyOne enemyOne;
-        randomIndexesForEnemies(3);
+        randomIndexesForEnemies(5);
         while(enemies.size()<10) {
             enemyOne = new EnemyOne(playScreen);
 //            enemyOne.setOrderIndex(enemies.size()-lineIndex*10); //belke burda duzelish lazim oldu

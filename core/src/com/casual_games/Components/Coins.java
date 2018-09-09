@@ -2,7 +2,6 @@ package com.casual_games.Components;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Screens.PlayScreen;
-
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -22,6 +21,8 @@ public class Coins {
         for (Coin coin: coins){
             coin.update(delta);
         }
+
+        destroyCoins();
     }
 
     public void draw(SpriteBatch spriteBatch){
@@ -42,9 +43,24 @@ public class Coins {
         coins.add(c);
     }
 
+    public void destroyCoins(){
+        ListIterator<Coin> iter = coins.listIterator();
+
+        while (iter.hasNext()) {
+            Coin coin = iter.next();
+            if (coin.isOffScreen()){
+                iter.remove();
+                break;
+            }
+        }
+    }
 
     public ArrayList<Coin> getCoins() {
         return coins;
+    }
+
+    public String getCoinsCount(){
+        return "Coinst count: " + coins.size();
     }
 
 }

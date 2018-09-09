@@ -85,7 +85,7 @@ public class Enemies {
                 EnemyLine enemyLine = iter.next();
                 //replace 100 with enemyone height that i will get form Constants class
                 // i will also add healthbar so something will change
-                if (enemyLine.getY()<-100){
+                if (enemyLine.getY()<-200){
                     removableString += enemyLine.getLineIndex() +", ";
                     iter.remove();
                     break;

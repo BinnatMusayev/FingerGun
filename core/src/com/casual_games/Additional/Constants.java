@@ -17,7 +17,7 @@ public class Constants {
     //shooting timeout
     public static final long PISTOL_SHOOTING_TIMEOUT = 400;
     public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
-    public static final long MINIGUN_SHOOTING_TIMEOUT = 100;
+    public static final long MINIGUN_SHOOTING_TIMEOUT = 50; //was 100
 
     //Bullet speed
     public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/200;
@@ -30,7 +30,7 @@ public class Constants {
     //Bullet damage
     public static final int PISTOL_DAMAGE = 5;
     public static final int SNIPER_DAMAGE = 45;
-    public static final int MINIGUN_DAMAGE = 10;
+    public static final int MINIGUN_DAMAGE = 30; //was 10
 
     //Enemy health
     public static final int ENEMY_HEALTH = 15;
@@ -96,6 +96,9 @@ public class Constants {
     public static final float COINS_COLLECTIVE_WIDTH = SCREEN_WIDTH/12;
     public static final float COINS_COLLECTIVE_HEIGHT = COINS_COLLECTIVE_WIDTH;
     public static final float PLUS_ICON_WIDTH = SCREEN_WIDTH/17;
+    public static final float LOCK_ICON_WIDTH = SCREEN_WIDTH/7f;
+    public static final float LOCK_ICON_HEIGHT = SCREEN_WIDTH/8;
+
 
 
 

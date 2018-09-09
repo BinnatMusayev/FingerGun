@@ -115,8 +115,9 @@ public class PlayScreen implements Screen, InputProcessor{
         font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
         font.draw(game.batch, "All Lines count: "+enemies.getNumberOfEnemyLines(), 200, 900);
         font.draw(game.batch, "Empty Lines: "+enemies.getNumberOfEmptyEnemyLines(), 200, 950);
-        font.draw(game.batch, "Line index: "+enemies.getLineIndex(), 200, 1000);
-        font.draw(game.batch, "Removable: "+enemies.getRemovableLines(), 200, 1150);
+//        font.draw(game.batch, "Line index: "+enemies.getLineIndex(), 200, 1000);
+        font.draw(game.batch, coins.getCoinsCount(), 200, 1000);
+//        font.draw(game.batch, "Removable: "+enemies.getRemovableLines(), 200, 1150);
         font.draw(game.batch, bullets.getCountOfBullets(), 200, 1200);
 //		font.draw(game.batch, "Last Y coord: "+enemies.getEnemyLines().get(enemies.getEnemyLines().size()-1).getLineIndex()*(Gdx.graphics.getWidth() / 10), 200, 1100);
 
@@ -217,7 +218,6 @@ public class PlayScreen implements Screen, InputProcessor{
 	@Override
 	public void dispose() {
 	    enemies.dispose();
-//	    bullet.dispose();
 	    bullets.dispose();
 	    coins.dispose();
 	}

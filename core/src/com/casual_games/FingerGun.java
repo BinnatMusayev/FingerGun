@@ -42,6 +42,7 @@ public class FingerGun extends Game {
 
 	@Override
 	public void dispose () {
+		super.dispose();
 		batch.dispose();
 		shapeRenderer.dispose();
 		arc.dispose();

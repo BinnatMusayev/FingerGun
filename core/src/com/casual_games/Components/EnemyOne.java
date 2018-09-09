@@ -101,7 +101,7 @@ public class EnemyOne extends Sprite {
 
 	public void destroy(){
 		//fix this with -getWidth()
-	    if (getY() <= (-50 ) ){
+	    if (getY() <= (-getHeight()) ){
 //	        destroyed = true;
             if (visible) {
                 playScreen.getHealthBar().setHealth(playScreen.getHealthBar().getHealth() - damage);
@@ -145,4 +145,5 @@ public class EnemyOne extends Sprite {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
 }

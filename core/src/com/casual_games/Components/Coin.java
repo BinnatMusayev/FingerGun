@@ -86,6 +86,15 @@ public class Coin extends Sprite {
 //        }
     }
 
+
+    public boolean isOffScreen(){
+        if ( getY() >= Constants.SCREEN_HEIGHT-Constants.HUD_HEIGHT){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public void dispose(){
         this.dispose();
     }
