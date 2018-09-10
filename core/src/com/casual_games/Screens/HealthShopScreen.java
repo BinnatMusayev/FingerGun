@@ -25,8 +25,8 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
     private FingerGun game;
     private BitmapFont titleFont, healthFont, totalCoinsFont, buyFont;
-    private String titleText, totalCoinCountText, priceText;
-    private GlyphLayout shopGlupLayout, coinCountGlupLayout, priceTextGlupLayout;
+    private String titleText, totalCoinCountText, priceText, currentHealth;
+    private GlyphLayout shopGlupLayout, coinCountGlupLayout, priceTextGlupLayout, currentHealthGlupLayout;
     private Sprite backButton, currentCoinsIcon, coinIcon, heartIcon, plusIcon;
 
     public HealthShopScreen(FingerGun game) {
@@ -37,6 +37,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
         titleFont = game.createBitmapFont((int) SCREEN_WIDTH / 15);
         totalCoinsFont = game.createBitmapFont((int) SCREEN_WIDTH / 25, totalCoinsFontColor);
         buyFont = game.createBitmapFont((int) SCREEN_WIDTH / 12, totalCoinsFontColor);
+        healthFont = game.createBitmapFont((int) SCREEN_WIDTH / 12, Color.WHITE);
 
         titleText = "Health Shop";
         shopGlupLayout = new GlyphLayout();
@@ -49,6 +50,10 @@ public class HealthShopScreen implements Screen, InputProcessor {
         priceText = "76254";
         priceTextGlupLayout = new GlyphLayout();
         priceTextGlupLayout.setText(buyFont, priceText);
+        //--
+        currentHealth = "1540";
+        currentHealthGlupLayout = new GlyphLayout();
+        currentHealthGlupLayout.setText(healthFont, currentHealth);
 
         backButton = new Sprite();
         currentCoinsIcon = new Sprite();
@@ -104,7 +109,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
             plusIcon.draw(game.batch);
             coinIcon.draw(game.batch);
             buyFont.draw(game.batch, priceText, (SCREEN_WIDTH-priceTextGlupLayout.width)/2, plusIcon.getY()-SCREEN_HEIGHT/15);
-
+            healthFont.draw(game.batch, currentHealth, (SCREEN_WIDTH-currentHealthGlupLayout.width)/2, heartIcon.getY()+heartIcon.getHeight()-(heartIcon.getHeight()-currentHealthGlupLayout.height)/2);
 
         game.batch.end();
     }
