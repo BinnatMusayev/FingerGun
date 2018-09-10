@@ -166,6 +166,8 @@ public class ShopScreen implements Screen, InputProcessor{
             game.setScreen(new MainMenu(game));
         }else if (bgRect1.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new GunsShopScreen(game));
+        }else if (bgRect2.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
+            game.setScreen(new HealthShopScreen(game));
         }
         return true;
     }
