@@ -18,6 +18,7 @@ public class PointerTwo extends Pointer {
         y=600;
         r1 = Gdx.graphics.getWidth()/6;
         r2 = Gdx.graphics.getWidth()/8;
+        r= r1;
         visible = false;
 
         rotation =0;
@@ -88,12 +89,12 @@ public class PointerTwo extends Pointer {
 
     @Override
     public float getR() {
-        return r;
+        return r1;
     }
 
     @Override
     public void setR(float r) {
-        this.r = r;
+        this.r1 = r;
     }
 
     @Override

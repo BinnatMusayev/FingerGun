@@ -35,8 +35,4 @@ public class PistolBullet extends Bullet{
         setY(getY()+speed);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

@@ -31,12 +31,16 @@ public abstract class Bullet extends Sprite {
         destroy();
     }
 
+    //this method is used in PistolBullet, SniperBullet etc.
     public abstract void move();
 
     public void destroy(){
 //        if (getY() > Gdx.graphics.getHeight() + getRegionHeight() ){
 //            destroyed = true;
 //        }
+        if (getY() > Gdx.graphics.getHeight()  ){
+            destroyed = true;
+        }
     }
 
     public boolean isOffScreen(){

@@ -34,8 +34,4 @@ public class MinigunBullet extends Bullet{
         setY(getY()+speed);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

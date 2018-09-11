@@ -46,7 +46,8 @@ public class Bullets {
 
         while (iterator.hasNext()){
             Bullet b = iterator.next();
-            if (b.isOffScreen() ){
+//            if (b.isOffScreen() ){
+            if (b.isDestroyed() ){
                 iterator.remove();
                 break;
             }
