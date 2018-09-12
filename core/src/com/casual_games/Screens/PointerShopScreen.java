@@ -128,7 +128,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
         pointerOnePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
         pointerTwoPlusIcon.setSize(SCREEN_WIDTH/15, SCREEN_WIDTH/15);
-        pointerTwoPlusIcon.setPosition(pointerTwo.getX()+pointerTwo.getR()+SCREEN_WIDTH/15+pointerTwoBuyTextGlyphLayout.width+SCREEN_WIDTH/17, pointerTwo.getY()+pointerTwo.getR()*1.15f-pointerTwoBuyTextGlyphLayout.height*1.2f);
+        pointerTwoPlusIcon.setPosition(pointerTwo.getX()+pointerTwo.getR()+SCREEN_WIDTH/15+pointerTwoBuyTextGlyphLayout.width+SCREEN_WIDTH/17, pointerTwo.getY()+pointerTwoBuyTextGlyphLayout.height/2-pointerTwoBuyTextGlyphLayout.height*1.2f);
         pointerTwoPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
 
@@ -179,9 +179,9 @@ public class PointerShopScreen implements Screen, InputProcessor {
             }
 
             if (isPointerTwoPurchased) {
-                buyFont.draw(game.batch, pointerTwoBuyText, pointerTwo.getX() + pointerTwo.getR() + SCREEN_WIDTH / 15, pointerTwo.getY() + pointerTwo.getR() * 1.15f);
+                buyFont.draw(game.batch, pointerTwoBuyText, pointerTwo.getX() + pointerTwo.getR() + SCREEN_WIDTH / 15, pointerTwo.getY() +pointerTwoBuyTextGlyphLayout.height/2);
                 pointerTwoPlusIcon.draw(game.batch);
-                priceFont.draw(game.batch, pointerTwoPriceText, pointerTwoPlusIcon.getX() + pointerTwoPlusIcon.getWidth() + SCREEN_WIDTH / 20, pointerTwo.getY() + pointerTwo.getR() * 1.15f - pointerTwoBuyTextGlyphLayout.height + pointerTwoPriceStringGlyphLayout.height);
+                priceFont.draw(game.batch, pointerTwoPriceText, pointerTwoPlusIcon.getX() + pointerTwoPlusIcon.getWidth() + SCREEN_WIDTH / 20, pointerTwo.getY() + pointerTwoBuyTextGlyphLayout.height/2 - pointerTwoBuyTextGlyphLayout.height + pointerTwoPriceStringGlyphLayout.height);
 
                 game.batch.draw(coinIcon.getTexture(), pointerTwoPlusIcon.getX()+pointerTwoPlusIcon.getWidth()+SCREEN_WIDTH/15+pointerTwoBuyTextGlyphLayout.width,
                         pointerTwoPlusIcon.getY(),
