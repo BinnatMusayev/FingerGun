@@ -29,7 +29,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
     FingerGun game;
     private BitmapFont titleFont, totalCoinsFont, buyFont, priceFont;
-    private String titleText, totalCoinCountText;
+    private String titleText, totalCoinCountText, currentPointer;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout;
     private Sprite backButton, currentCoinsIcon, coinIcon;
     private boolean isPointerOnePurchased, isPointerTwoPurchased;
@@ -49,8 +49,12 @@ public class PointerShopScreen implements Screen, InputProcessor {
     public PointerShopScreen(FingerGun game) {
         this.game = game;
 
+        //get currentPointer from preferences
+        currentPointer = "pointerOne";
+//        currentPointer = "pointerTwo";
+
         isPointerOnePurchased = true;
-        isPointerTwoPurchased = true;
+        isPointerTwoPurchased = false;
 
         Color totalCoinsFontColor = new Color();
         totalCoinsFontColor.set(247f/255, 239f/255, 202f/255, 1f);
@@ -159,13 +163,26 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
         pointerTwo.update(delta);
 
+        //shaperenderer
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Gdx.gl.glEnable(GL20.GL_BLEND); //for transparency
+        game.shapeRenderer.setColor(33f/255, 142f/255, 2f/255, 0.7f);
+        //if number of pointers increase. this can be replaced by switch case
+        if (currentPointer.equals("pointerOne"))
+            game.shapeRenderer.rect(0, pointerOne.getY(), SCREEN_WIDTH, pointerOne.getR()*2);
+        else if(currentPointer.equals("pointerTwo"))
+            game.shapeRenderer.rect(0, pointerTwo.getY()-pointerTwo.getR()-SCREEN_HEIGHT/100, SCREEN_WIDTH, pointerOne.getR()*2+SCREEN_HEIGHT/50);
+
+        game.shapeRenderer.end();
+
+
         //sprite batch
         game.batch.begin();
             backButton.draw(game.batch);
             titleFont.draw(game.batch, titleText, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, BACK_BUTTON_Y+shopGlupLayout.height*3/2);
             totalCoinsFont.draw(game.batch, totalCoinCountText, SCREEN_WIDTH-coinCountGlupLayout.width-currentCoinsIcon.getWidth()-SCREEN_WIDTH/40, BACK_BUTTON_Y+coinCountGlupLayout.height*2);
             currentCoinsIcon.draw(game.batch);
-            if (isPointerOnePurchased) {
+            if (!isPointerOnePurchased) {
                 buyFont.draw(game.batch, pointerOneBuyText, pointerOne.getX() + pointerOne.getR() + SCREEN_WIDTH / 15, pointerOne.getY() + pointerOne.getR() * 1.15f);
                 pointerOnePlusIcon.draw(game.batch);
                 priceFont.draw(game.batch, pointerOnePriceText, pointerOnePlusIcon.getX() + pointerOnePlusIcon.getWidth() + SCREEN_WIDTH / 20, pointerOne.getY() + pointerOne.getR() * 1.15f - pointerOneBuyTextGlyphLayout.height + pointerOnePriceStringGlyphLayout.height);
@@ -178,7 +195,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
                 priceFont.draw(game.batch, pointerOneOwningText, pointerOne.getX() + pointerOne.getR() + SCREEN_WIDTH / 15, pointerOne.getY() + pointerOne.getR() );
             }
 
-            if (isPointerTwoPurchased) {
+            if (!isPointerTwoPurchased) {
                 buyFont.draw(game.batch, pointerTwoBuyText, pointerTwo.getX() + pointerTwo.getR() + SCREEN_WIDTH / 15, pointerTwo.getY() +pointerTwoBuyTextGlyphLayout.height/2);
                 pointerTwoPlusIcon.draw(game.batch);
                 priceFont.draw(game.batch, pointerTwoPriceText, pointerTwoPlusIcon.getX() + pointerTwoPlusIcon.getWidth() + SCREEN_WIDTH / 20, pointerTwo.getY() + pointerTwoBuyTextGlyphLayout.height/2 - pointerTwoBuyTextGlyphLayout.height + pointerTwoPriceStringGlyphLayout.height);
@@ -187,7 +204,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
                         pointerTwoPlusIcon.getY(),
                         coinIcon.getWidth(), coinIcon.getHeight());
             }else{
-                priceFont.draw(game.batch, pointerTwoOwningText, pointerTwo.getX() + pointerTwo.getR() + SCREEN_WIDTH / 15, pointerTwo.getY() + pointerTwo.getR() );
+                priceFont.draw(game.batch, pointerTwoOwningText, pointerTwo.getX() + pointerTwo.getR() + SCREEN_WIDTH / 15, pointerTwo.getY() + +pointerOneOwningTextGlyphLayout.height/2);
             }
 
 
