@@ -1,6 +1,8 @@
 package com.casual_games.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public class Bullets {
     private PlayScreen playScreen;
     private ArrayList<Bullet> bullets;
     private int bulletIndex;
+    private Bullet bullet;
 
     public Bullets(PlayScreen playScreen){
         this.playScreen = playScreen;
@@ -47,7 +50,8 @@ public class Bullets {
         while (iterator.hasNext()){
             Bullet b = iterator.next();
 //            if (b.isOffScreen() ){
-            if (b.isDestroyed() ){
+//            if (b.isDestroyed() ){
+            if (b.getY()> Constants.SCREEN_HEIGHT){
                 iterator.remove();
                 break;
             }
@@ -61,8 +65,7 @@ public class Bullets {
     }
 
     public void addBullet(Bullet b){
-        Bullet bullet = b;
-        bullet.setIndex(bulletIndex);
+        b.setIndex(bulletIndex);
         bullets.add(b);
         bulletIndex++;
     }
@@ -85,5 +88,31 @@ public class Bullets {
                 break;
             }
         }
+    }
+
+    public void shoot(Constants.Gun gunType, int x, int y){
+        switch (gunType){
+            case pistol:
+                bullet =   new PistolBullet(this.playScreen, x, y);
+//                bullets.add(bullet);
+                addBullet(bullet);
+                break;
+            case sniper:
+                bullet = new SniperBullet(this.playScreen, x, y);
+//                bullets.add(bullet);
+                addBullet(bullet);
+                break;
+            case minigun:
+                bullet = new MinigunBullet(this.playScreen, x, y);
+//                bullets.add(bullet);
+                addBullet(bullet);
+                break;
+            default:
+                bullet =   new PistolBullet(this.playScreen, x, y);
+//                bullets.add(bullet);
+                addBullet(bullet);
+                break;
+        }
+
     }
 }

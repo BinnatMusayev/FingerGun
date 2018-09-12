@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -40,6 +41,8 @@ public class PlayScreen implements Screen, InputProcessor{
 	private TextureAtlas zombie, coin;
 //	private Bullet bullet;
     private Bullets bullets;
+    private Bullet bullet;
+    private Texture pistolBulletTexture, sniperBulletTexture, minigunBulletTexture;
     private Coins coins;
     private HealthBar healthBar;
     private Hud hud;
@@ -59,6 +62,10 @@ public class PlayScreen implements Screen, InputProcessor{
     private Random random;
 	public PlayScreen(FingerGun game) {
 		this.game = game;
+
+		this.pistolBulletTexture = new Texture(Gdx.files.internal("bullet1.png"));
+        this.sniperBulletTexture = new Texture(Gdx.files.internal("bullet3.png"));
+        this.minigunBulletTexture = new Texture(Gdx.files.internal("bullet2.png"));
 
 		this.startGame();
 	}
@@ -355,20 +362,25 @@ public class PlayScreen implements Screen, InputProcessor{
     }
 
     private void shoot(){
-	    switch (gunType){
-            case pistol:
-              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-              break;
-            case sniper:
-              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-              break;
-            case minigun:
-                bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-                break;
-            default:
-              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-              break;
-        }
+//	    switch (gunType){
+//            case pistol:
+//              bullet =   new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+//              bullets.addBullet(bullet);
+//              break;
+//            case sniper:
+//              bullet = new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+//              bullets.addBullet(bullet);
+//              break;
+//            case minigun:
+//                bullet = new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+//                bullets.addBullet(bullet);
+//                break;
+//            default:
+//                bullet =   new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+//                bullets.addBullet(bullet);
+//              break;
+//        }
+        bullets.shoot(gunType, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
     }
 
     public void saveCoins(int tempCoins){
@@ -425,4 +437,15 @@ public class PlayScreen implements Screen, InputProcessor{
         return font;
     }
 
+    public Texture getPistolBulletTexture() {
+        return pistolBulletTexture;
+    }
+
+    public Texture getSniperBulletTexture() {
+        return sniperBulletTexture;
+    }
+
+    public Texture getMinigunBulletTexture() {
+        return minigunBulletTexture;
+    }
 }

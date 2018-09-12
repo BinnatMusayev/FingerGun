@@ -9,7 +9,7 @@ public class MinigunBullet extends Bullet{
 
     public MinigunBullet(PlayScreen playScreen, float x, float y) {
         super(playScreen, x, y);
-        setRegion(new Texture(Gdx.files.internal("bullet2.png")));
+        setRegion(playScreen.getMinigunBulletTexture());
 
 //        setRegionWidth(Gdx.graphics.getWidth()/3);
 //        setRegionHeight(getRegionWidth()*2);
