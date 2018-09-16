@@ -40,6 +40,7 @@ public class SplashScreen implements Screen {
 
         if (TimeUtils.millis() - splashScreenTimeout > 2500){
             game.setScreen(new MainMenu(game));
+            System.gc();
         }else{
 
             game.batch.begin();

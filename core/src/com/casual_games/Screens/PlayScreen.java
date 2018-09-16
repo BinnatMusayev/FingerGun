@@ -42,7 +42,6 @@ public class PlayScreen implements Screen, InputProcessor{
 //	private Bullet bullet;
     private Bullets bullets;
     private Bullet bullet;
-    private Texture pistolBulletTexture, sniperBulletTexture, minigunBulletTexture;
     private Coins coins;
     private HealthBar healthBar;
     private Hud hud;
@@ -63,9 +62,6 @@ public class PlayScreen implements Screen, InputProcessor{
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 
-		this.pistolBulletTexture = new Texture(Gdx.files.internal("bullet1.png"));
-        this.sniperBulletTexture = new Texture(Gdx.files.internal("bullet3.png"));
-        this.minigunBulletTexture = new Texture(Gdx.files.internal("bullet2.png"));
 
 		this.startGame();
 	}
@@ -279,6 +275,7 @@ public class PlayScreen implements Screen, InputProcessor{
                     enemies.makeEnemiesWalk();
                 }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
                     game.setScreen(new MainMenu(game));
+                    System.gc();
                 }
             }
         }else{
@@ -286,6 +283,7 @@ public class PlayScreen implements Screen, InputProcessor{
                 startGame();
             }else if(gameOverWidget.getHomeButtonBounds().contains(screenX, screenY)){
                 game.setScreen(new MainMenu(game));
+                System.gc();
             }
 //            gameover = false;
         }
@@ -437,15 +435,7 @@ public class PlayScreen implements Screen, InputProcessor{
         return font;
     }
 
-    public Texture getPistolBulletTexture() {
-        return pistolBulletTexture;
-    }
-
-    public Texture getSniperBulletTexture() {
-        return sniperBulletTexture;
-    }
-
-    public Texture getMinigunBulletTexture() {
-        return minigunBulletTexture;
+    public FingerGun getGame() {
+        return game;
     }
 }

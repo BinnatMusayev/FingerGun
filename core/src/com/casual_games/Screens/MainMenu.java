@@ -116,11 +116,13 @@ public class MainMenu implements Screen, InputProcessor {
                 && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
                 && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
             game.setScreen(new PlayScreen(game));
+            System.gc();
         }else if (screenX >= Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
                 && screenX <= Constants.MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
                 && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
                 && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return true;
     }

@@ -9,7 +9,9 @@ public class SniperBullet extends Bullet{
 
     public SniperBullet(PlayScreen playScreen, float x, float y) {
         super(playScreen, x, y);
-        setRegion(playScreen.getSniperBulletTexture());
+//        setRegion(playScreen.getSniperBulletTexture());
+        setRegion(playScreen.getGame().assets.manager.get("bullet3.png", Texture.class));
+
 
 //        setRegionWidth(Gdx.graphics.getWidth()/3);
 //        setRegionHeight(getRegionWidth()*2);

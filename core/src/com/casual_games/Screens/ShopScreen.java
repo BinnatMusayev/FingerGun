@@ -25,14 +25,14 @@ public class ShopScreen implements Screen, InputProcessor{
     public ShopScreen(FingerGun game){
         this.game = game;
 
-        backButton = new Sprite();
-        bgRect1 = new Sprite();
-        bgRect2 = new Sprite();
-        bgRect3 = new Sprite();
-        pistolIcon = new Sprite();
-        heartIcon = new Sprite();
-        pointerIcon = new Sprite();
-        coinsIcon = new Sprite();
+        backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
+        bgRect1 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        bgRect2 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        bgRect3 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        pistolIcon = new Sprite(game.assets.manager.get("pistol_icon.png", Texture.class));
+        heartIcon = new Sprite(game.assets.manager.get("heart_icon.png", Texture.class));
+        pointerIcon = new Sprite(game.assets.manager.get("pointer_icon.png", Texture.class));
+        coinsIcon = new Sprite(game.assets.manager.get("coin_icon.png", Texture.class));
 
         font = game.createBitmapFont((int)SCREEN_WIDTH/15);
 
@@ -59,14 +59,14 @@ public class ShopScreen implements Screen, InputProcessor{
         pointerIcon.setPosition(bgRect3.getX()+(bgRect3.getWidth()-pointerIcon.getWidth())/2, bgRect3.getY()+(bgRect3.getHeight()-pointerIcon.getHeight())/2 ) ;
 
         //files
-        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
-        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
-        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
-        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
-        pointerIcon.setRegion(new Texture(Gdx.files.internal("pointer_icon.png")));
+//        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
+//        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
+//        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
+//        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon.png")));
+//        pointerIcon.setRegion(new Texture(Gdx.files.internal("pointer_icon.png")));
 
 
 
@@ -128,6 +128,9 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public void dispose() {
+        game.shapeRenderer.dispose();
+        game.batch.dispose();
+        game.arc.dispose();
         font.dispose();
         backButton.getTexture().dispose();
         bgRect1.getTexture().dispose();
@@ -146,6 +149,7 @@ public class ShopScreen implements Screen, InputProcessor{
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
             game.setScreen(new MainMenu(game));
+            System.gc();
         }
         return false;
     }
@@ -164,12 +168,16 @@ public class ShopScreen implements Screen, InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new MainMenu(game));
+            System.gc();
         }else if (bgRect1.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new GunsShopScreen(game));
+            System.gc();
         }else if (bgRect2.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new HealthShopScreen(game));
+            System.gc();
         }else if (bgRect3.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new PointerShopScreen(game));
+            System.gc();
         }
         return true;
     }

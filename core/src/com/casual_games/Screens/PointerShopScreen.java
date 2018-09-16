@@ -96,20 +96,20 @@ public class PointerShopScreen implements Screen, InputProcessor {
         pointerTwoOwningTextGlyphLayout.setText(priceFont, pointerTwoOwningText);
 
 
-        backButton = new Sprite();
-        currentCoinsIcon = new Sprite();
-        pointerOnePlusIcon = new Sprite();
-        pointerTwoPlusIcon = new Sprite();
-        coinIcon = new Sprite();
+        backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
+        currentCoinsIcon = new Sprite(game.assets.manager.get("coins_collective.png", Texture.class));
+        pointerOnePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        pointerTwoPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        coinIcon = new Sprite(game.assets.manager.get("coin_icon.png", Texture.class));
 
 
         backButton.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_WIDTH);
         backButton.setPosition(BACK_BUTTON_X, BACK_BUTTON_Y);
-        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
+//        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
 
         currentCoinsIcon.setSize(COINS_COLLECTIVE_WIDTH, COINS_COLLECTIVE_HEIGHT);
         currentCoinsIcon.setPosition(SCREEN_WIDTH-SCREEN_WIDTH/50-currentCoinsIcon.getWidth(), BACK_BUTTON_Y+coinCountGlupLayout.height/2);
-        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
+//        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
 
 
 
@@ -129,17 +129,17 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
         pointerOnePlusIcon.setSize(SCREEN_WIDTH/15, SCREEN_WIDTH/15);
         pointerOnePlusIcon.setPosition(pointerOne.getX()+pointerOne.getR()+SCREEN_WIDTH/15+pointerOneBuyTextGlyphLayout.width+SCREEN_WIDTH/17, pointerOne.getY()+pointerOne.getR()*1.15f-pointerOneBuyTextGlyphLayout.height*1.2f);
-        pointerOnePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        pointerOnePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
         pointerTwoPlusIcon.setSize(SCREEN_WIDTH/15, SCREEN_WIDTH/15);
         pointerTwoPlusIcon.setPosition(pointerTwo.getX()+pointerTwo.getR()+SCREEN_WIDTH/15+pointerTwoBuyTextGlyphLayout.width+SCREEN_WIDTH/17, pointerTwo.getY()+pointerTwoBuyTextGlyphLayout.height/2-pointerTwoBuyTextGlyphLayout.height*1.2f);
-        pointerTwoPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        pointerTwoPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
 
         //asagida evezle
         coinIcon.setSize(SCREEN_WIDTH/15, SCREEN_WIDTH/15);
 //        coinIcon.setPosition(pointerOnePlusIcon.getX()+pointerOnePlusIcon.getWidth()+SCREEN_WIDTH/15+pointerOneBuyTextGlyphLayout.width, pointerOnePlusIcon.getY());
-        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
+//        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
@@ -255,6 +255,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return false;
     }
@@ -273,6 +274,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return true;
     }

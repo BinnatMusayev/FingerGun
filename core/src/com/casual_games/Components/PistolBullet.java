@@ -10,7 +10,8 @@ public class PistolBullet extends Bullet{
     public PistolBullet(PlayScreen playScreen, float x, float y) {
         super(playScreen, x, y);
 
-        setRegion(playScreen.getPistolBulletTexture());
+//        setRegion(playScreen.getPistolBulletTexture());
+        setRegion(playScreen.getGame().assets.manager.get("bullet1.png", Texture.class));
 
 //        setRegionWidth(Gdx.graphics.getWidth()/3);
 //        setRegionHeight(getRegionWidth()*2);

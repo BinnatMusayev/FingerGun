@@ -58,25 +58,25 @@ public class GunsShopScreen implements Screen, InputProcessor {
     public GunsShopScreen(FingerGun game) {
         this.game = game;
 
-        backButton = new Sprite();
-        pistolTimeoutPlusIcon = new Sprite();
-        sniperTimeoutPlusIcon = new Sprite();
-        minigunTimeoutPlusIcon = new Sprite();
-        pistolDamagePlusIcon = new Sprite();
-        sniperDamagePlusIcon = new Sprite();
-        minigunDamagePlusIcon = new Sprite();
-        sniperLockIcon = new Sprite();
-        minigunLockIcon = new Sprite();
-        sniperBuyPlusIcon = new Sprite();
-        minigunBuyPlusIcon = new Sprite();
-        bgRect1 = new Sprite();
-        bgRect2 = new Sprite();
-        bgRect3 = new Sprite();
-        pistolIcon = new Sprite();
-        sniperIcon = new Sprite();
-        minigunIcon = new Sprite();
-        currentCoinsIcon = new Sprite();
-        coinIcon = new Sprite();
+        backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
+        pistolTimeoutPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        sniperTimeoutPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        minigunTimeoutPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        pistolDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        sniperDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        minigunDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        sniperLockIcon = new Sprite(game.assets.manager.get("lock_icon2.png", Texture.class));
+        minigunLockIcon = new Sprite(game.assets.manager.get("lock_icon2.png", Texture.class));
+        sniperBuyPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        minigunBuyPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        bgRect1 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        bgRect2 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        bgRect3 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
+        pistolIcon = new Sprite(game.assets.manager.get("pistol_icon.png", Texture.class));
+        sniperIcon = new Sprite(game.assets.manager.get("sniper_icon.png", Texture.class));
+        minigunIcon = new Sprite(game.assets.manager.get("minigun_icon.png", Texture.class));
+        currentCoinsIcon = new Sprite(game.assets.manager.get("coins_collective.png", Texture.class));
+        coinIcon = new Sprite(game.assets.manager.get("coin_icon.png", Texture.class));
 
         sniperPurchased = false;
         minigunPurchased = false;
@@ -211,25 +211,25 @@ public class GunsShopScreen implements Screen, InputProcessor {
         currentCoinsIcon.setPosition(SCREEN_WIDTH-SCREEN_WIDTH/50-currentCoinsIcon.getWidth(), BACK_BUTTON_Y+coinCountGlupLayout.height/2);
 
         //files
-        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
-        pistolTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        sniperTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        minigunTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        pistolDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        sniperDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        minigunDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        sniperLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
-        minigunLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
-        sniperBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        minigunBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
-        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
-        sniperIcon.setRegion(new Texture(Gdx.files.internal("sniper_icon.png")));
-        minigunIcon.setRegion(new Texture(Gdx.files.internal("minigun_icon.png")));
-        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
-        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
+//        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
+//        pistolTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        sniperTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        minigunTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        pistolDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        sniperDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        minigunDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        sniperLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
+//        minigunLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
+//        sniperBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        minigunBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
+//        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
+//        sniperIcon.setRegion(new Texture(Gdx.files.internal("sniper_icon.png")));
+//        minigunIcon.setRegion(new Texture(Gdx.files.internal("minigun_icon.png")));
+//        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
+//        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
 
         Gdx.input.setInputProcessor(this);
@@ -386,7 +386,13 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        game.shapeRenderer.dispose();
+        game.batch.dispose();
+        game.arc.dispose();
+
         font.dispose();
+        xsFont.dispose();
+        buyFont.dispose();
         smallFont.dispose();
         backButton.getTexture().dispose();
         bgRect1.getTexture().dispose();
@@ -414,6 +420,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return false;
     }
@@ -432,6 +439,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return true;
     }

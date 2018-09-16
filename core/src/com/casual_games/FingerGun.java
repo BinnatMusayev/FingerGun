@@ -11,9 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.casual_games.Additional.Arc;
+import com.casual_games.Additional.Assets;
 import com.casual_games.Additional.Constants;
+import com.casual_games.Screens.GunsShopScreen;
+import com.casual_games.Screens.HealthShopScreen;
 import com.casual_games.Screens.MainMenu;
 import com.casual_games.Screens.PlayScreen;
+import com.casual_games.Screens.PointerShopScreen;
+import com.casual_games.Screens.ShopScreen;
 import com.casual_games.Screens.SplashScreen;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
@@ -22,6 +27,7 @@ public class FingerGun extends Game {
 	public ShapeRenderer shapeRenderer;
 	public Arc arc;
 	public BitmapFont font24;
+	public Assets assets;
 
 	@Override
 	public void create () {
@@ -29,14 +35,15 @@ public class FingerGun extends Game {
 		shapeRenderer = new ShapeRenderer();
 		arc = new Arc();
         initFonts();
+        this.assets = new Assets(this);
+
 		setScreen(new SplashScreen(this));
-
-
 	}
 
 	@Override
 	public void render () {
 		super.render();
+		assets.manager.update();
 
 	}
 
@@ -47,6 +54,7 @@ public class FingerGun extends Game {
 		shapeRenderer.dispose();
 		arc.dispose();
         font24.dispose();
+        assets.manager.dispose();
 	}
 
     private void initFonts() {

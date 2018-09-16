@@ -55,11 +55,11 @@ public class HealthShopScreen implements Screen, InputProcessor {
         currentHealthGlupLayout = new GlyphLayout();
         currentHealthGlupLayout.setText(healthFont, currentHealth);
 
-        backButton = new Sprite();
-        currentCoinsIcon = new Sprite();
-        heartIcon = new Sprite();
-        plusIcon = new Sprite();
-        coinIcon = new Sprite();
+        backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
+        currentCoinsIcon = new Sprite(game.assets.manager.get("coins_collective.png", Texture.class));
+        heartIcon = new Sprite(game.assets.manager.get("heart_icon2.png", Texture.class));
+        plusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
+        coinIcon = new Sprite(game.assets.manager.get("coin_icon.png", Texture.class));
 
         backButton.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_WIDTH);
         backButton.setPosition(BACK_BUTTON_X, BACK_BUTTON_Y);
@@ -67,19 +67,19 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
         currentCoinsIcon.setSize(COINS_COLLECTIVE_WIDTH, COINS_COLLECTIVE_HEIGHT);
         currentCoinsIcon.setPosition(SCREEN_WIDTH-SCREEN_WIDTH/50-currentCoinsIcon.getWidth(), BACK_BUTTON_Y+coinCountGlupLayout.height/2);
-        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
+//        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
 
         heartIcon.setSize(SCREEN_WIDTH*1.5f*2/3, SCREEN_WIDTH*1.5f*0.62f);
         heartIcon.setPosition((SCREEN_WIDTH-heartIcon.getWidth())/2, backButton.getY()-SCREEN_HEIGHT/15-heartIcon.getHeight() );
-        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon2.png")));
+//        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon2.png")));
 
         plusIcon.setSize(SCREEN_WIDTH/8, SCREEN_WIDTH/8);
         plusIcon.setPosition((SCREEN_WIDTH-plusIcon.getWidth())/2, heartIcon.getY()-SCREEN_HEIGHT/20) ;
-        plusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
+//        plusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
         coinIcon.setSize(SCREEN_WIDTH/12, SCREEN_WIDTH/12);
         coinIcon.setPosition((SCREEN_WIDTH-priceTextGlupLayout.width)/2+priceTextGlupLayout.width+SCREEN_WIDTH/30,plusIcon.getY()-SCREEN_HEIGHT/15-coinIcon.getHeight()+(coinIcon.getHeight()-priceTextGlupLayout.height)/2);
-        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
+//        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
@@ -152,6 +152,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return false;
     }
@@ -170,6 +171,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(new ShopScreen(game));
+            System.gc();
         }
         return true;
     }
