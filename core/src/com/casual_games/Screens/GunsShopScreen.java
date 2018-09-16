@@ -232,12 +232,13 @@ public class GunsShopScreen implements Screen, InputProcessor {
 //        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
 
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
     }
+
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -386,6 +387,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        this.dispose();
         game.shapeRenderer.dispose();
         game.batch.dispose();
         game.arc.dispose();
@@ -419,8 +421,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return false;
     }
@@ -438,8 +440,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return true;
     }

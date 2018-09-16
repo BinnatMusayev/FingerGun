@@ -141,12 +141,13 @@ public class PointerShopScreen implements Screen, InputProcessor {
 //        coinIcon.setPosition(pointerOnePlusIcon.getX()+pointerOnePlusIcon.getWidth()+SCREEN_WIDTH/15+pointerOneBuyTextGlyphLayout.width, pointerOnePlusIcon.getY());
 //        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
     }
+
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -241,6 +242,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        this.dispose();
         titleFont.dispose();
         buyFont.dispose();
         totalCoinsFont.dispose();
@@ -254,8 +256,8 @@ public class PointerShopScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return false;
     }
@@ -273,8 +275,8 @@ public class PointerShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return true;
     }

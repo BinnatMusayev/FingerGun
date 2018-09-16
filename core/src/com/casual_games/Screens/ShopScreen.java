@@ -70,12 +70,12 @@ public class ShopScreen implements Screen, InputProcessor{
 
 
 
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -128,6 +128,7 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public void dispose() {
+        this.dispose();
         game.shapeRenderer.dispose();
         game.batch.dispose();
         game.arc.dispose();
@@ -148,8 +149,8 @@ public class ShopScreen implements Screen, InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
-            game.setScreen(new MainMenu(game));
-            System.gc();
+//            game.setScreen(new MainMenu(game));
+            game.setScreen(game.mainMenu);
         }
         return false;
     }
@@ -167,17 +168,17 @@ public class ShopScreen implements Screen, InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new MainMenu(game));
-            System.gc();
+//            game.setScreen(new MainMenu(game));
+            game.setScreen(game.mainMenu);
         }else if (bgRect1.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new GunsShopScreen(game));
-            System.gc();
+//            game.setScreen(new GunsShopScreen(game));
+            game.setScreen(game.gunsShopScreen);
         }else if (bgRect2.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new HealthShopScreen(game));
-            System.gc();
+//            game.setScreen(new HealthShopScreen(game));
+            game.setScreen(game.healthShopScreen);
         }else if (bgRect3.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new PointerShopScreen(game));
-            System.gc();
+//            game.setScreen(new PointerShopScreen(game));
+            game.setScreen(game.pointerShopScreen);
         }
         return true;
     }

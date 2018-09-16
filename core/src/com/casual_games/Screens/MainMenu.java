@@ -39,12 +39,13 @@ public class MainMenu implements Screen, InputProcessor {
 
 
 
-        Gdx.input.setInputProcessor(this);
 
     }
 
+
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
 
     }
 
@@ -91,7 +92,7 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
-
+        this.dispose();
     }
 
     @Override
@@ -115,14 +116,14 @@ public class MainMenu implements Screen, InputProcessor {
                 && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
                 && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
                 && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
-            game.setScreen(new PlayScreen(game));
-            System.gc();
+//            game.setScreen(new PlayScreen(game));
+            game.setScreen(game.playScreen);
         }else if (screenX >= Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
                 && screenX <= Constants.MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
                 && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
                 && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return true;
     }

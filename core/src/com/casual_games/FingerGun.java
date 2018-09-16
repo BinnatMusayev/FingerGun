@@ -3,6 +3,7 @@ package com.casual_games;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,15 @@ public class FingerGun extends Game {
 	public BitmapFont font24;
 	public Assets assets;
 
+	//screens
+    public SplashScreen splashScreen;
+    public MainMenu mainMenu;
+    public PlayScreen playScreen;
+    public ShopScreen shopScreen;
+    public GunsShopScreen gunsShopScreen;
+    public HealthShopScreen healthShopScreen;
+    public PointerShopScreen pointerShopScreen;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -37,7 +47,17 @@ public class FingerGun extends Game {
         initFonts();
         this.assets = new Assets(this);
 
-		setScreen(new SplashScreen(this));
+        splashScreen = new SplashScreen(this);
+        mainMenu = new MainMenu(this);
+        playScreen = new PlayScreen(this);
+        shopScreen = new ShopScreen(this);
+        gunsShopScreen = new GunsShopScreen(this);
+        healthShopScreen = new HealthShopScreen(this);
+        pointerShopScreen = new PointerShopScreen(this);
+
+//		setScreen(new SplashScreen(this));
+
+	    setScreen(splashScreen);
 	}
 
 	@Override
@@ -50,12 +70,14 @@ public class FingerGun extends Game {
 	@Override
 	public void dispose () {
 		super.dispose();
+		screen.dispose();
 		batch.dispose();
 		shapeRenderer.dispose();
 		arc.dispose();
         font24.dispose();
         assets.manager.dispose();
 	}
+
 
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Lato-Regular.ttf"));

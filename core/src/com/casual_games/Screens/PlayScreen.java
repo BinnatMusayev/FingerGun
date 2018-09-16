@@ -68,7 +68,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void show() {
-
+        Gdx.input.setInputProcessor(this);
 	}
 
 	public void update(float delta){
@@ -182,7 +182,7 @@ public class PlayScreen implements Screen, InputProcessor{
         coinCount = prefs.getInteger("coinCoint", 0);
         deathCount = 0;
 
-        Gdx.input.setInputProcessor(this);
+
 
         shootingTimeout = 0;
         canShoot = false;
@@ -220,6 +220,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void dispose() {
+        this.dispose();
 	    enemies.dispose();
 	    bullets.dispose();
 	    coins.dispose();
@@ -274,16 +275,16 @@ public class PlayScreen implements Screen, InputProcessor{
                     paused = false;
                     enemies.makeEnemiesWalk();
                 }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
-                    game.setScreen(new MainMenu(game));
-                    System.gc();
+//                    game.setScreen(new MainMenu(game));
+                    game.setScreen(game.mainMenu);
                 }
             }
         }else{
             if (gameOverWidget.getRetryButtonBounds().contains(screenX, screenY)){
                 startGame();
             }else if(gameOverWidget.getHomeButtonBounds().contains(screenX, screenY)){
-                game.setScreen(new MainMenu(game));
-                System.gc();
+//                game.setScreen(new MainMenu(game));
+                game.setScreen(game.mainMenu);
             }
 //            gameover = false;
         }

@@ -81,12 +81,13 @@ public class HealthShopScreen implements Screen, InputProcessor {
         coinIcon.setPosition((SCREEN_WIDTH-priceTextGlupLayout.width)/2+priceTextGlupLayout.width+SCREEN_WIDTH/30,plusIcon.getY()-SCREEN_HEIGHT/15-coinIcon.getHeight()+(coinIcon.getHeight()-priceTextGlupLayout.height)/2);
 //        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
 
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
     }
+
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -136,6 +137,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        this.dispose();
         titleFont.dispose();
         totalCoinsFont.dispose();
         buyFont.dispose();
@@ -151,8 +153,8 @@ public class HealthShopScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return false;
     }
@@ -170,8 +172,8 @@ public class HealthShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-            game.setScreen(new ShopScreen(game));
-            System.gc();
+//            game.setScreen(new ShopScreen(game));
+            game.setScreen(game.shopScreen);
         }
         return true;
     }
