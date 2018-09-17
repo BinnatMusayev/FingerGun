@@ -49,6 +49,9 @@ public class Assets {
         manager.load("sniper_icon.png", Texture.class);
         manager.load("splashLogo.png", Texture.class);
         manager.load("zombies.png", Texture.class);
+        manager.load("fingerGunLogoText.png", Texture.class);
+        manager.load("play2.png", Texture.class);
+        manager.load("shop.png", Texture.class);
 
         //fonts
 //        FileHandleResolver resolver = new InternalFileHandleResolver();

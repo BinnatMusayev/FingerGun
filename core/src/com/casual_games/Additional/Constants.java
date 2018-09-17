@@ -64,6 +64,8 @@ public class Constants {
     public static final float MAIN_MENU_SHOP_BUTTON_X = Gdx.graphics.getWidth()/2;
     public static final float MAIN_MENU_SHOP_BUTTON_Y = MAIN_MENU_PLAY_BUTTON_Y-MAIN_MENU_BUTTON_SPACE;
 
+    public static final float MAIN_MENU_BUTTON_WIDTH = SCREEN_WIDTH/4.3f;
+
     //Pause Widget
     public static final float PAUSE_WIDGET_RECTANGLE_WIDTH = Gdx.graphics.getWidth()*3/4;
     public static final float PAUSE_WIDGET_RECTANGLE_HEIGHT = Gdx.graphics.getHeight()/4;

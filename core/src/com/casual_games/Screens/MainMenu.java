@@ -4,20 +4,35 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.casual_games.Additional.Constants;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.casual_games.FingerGun;
+
+import static com.casual_games.Additional.Constants.*;
 
 public class MainMenu implements Screen, InputProcessor {
     private FingerGun game;
     private BitmapFont font;
     private GlyphLayout playGlupLayout, shopGlupLayout, titleGlupLayout;
-
+    private Sprite logo, playButton, shopButton;
     private String play, shop, title;
 
     public MainMenu(FingerGun game){
         this.game = game;
+
+        logo = new Sprite(game.assets.manager.get("fingerGunLogoText.png", Texture.class));
+        logo.setSize(SCREEN_WIDTH*0.85f, SCREEN_HEIGHT*0.15f);
+        logo.setPosition((SCREEN_WIDTH-logo.getWidth())/2, SCREEN_HEIGHT-logo.getHeight()*1.7f);
+
+        playButton = new Sprite(game.assets.manager.get("play2.png", Texture.class));
+        playButton.setSize(MAIN_MENU_BUTTON_WIDTH, MAIN_MENU_BUTTON_WIDTH);
+        playButton.setPosition(SCREEN_WIDTH/2-playButton.getWidth()*1.5f, SCREEN_HEIGHT/2-playButton.getHeight() );
+
+        shopButton = new Sprite(game.assets.manager.get("shop.png", Texture.class));
+        shopButton.setSize(MAIN_MENU_BUTTON_WIDTH, MAIN_MENU_BUTTON_WIDTH);
+        shopButton.setPosition(SCREEN_WIDTH/2+shopButton.getWidth()*0.5f, SCREEN_HEIGHT/2-playButton.getHeight() );
 
         play = "Play";
         shop = "Shop";
@@ -63,9 +78,12 @@ public class MainMenu implements Screen, InputProcessor {
 //        font.draw(game.batch, playGlupLayout, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
 //        font.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
 
-        game.font24.draw(game.batch, title, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
-        game.font24.draw(game.batch, play, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
-        game.font24.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
+//        game.font24.draw(game.batch, title, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
+        logo.draw(game.batch);
+//        game.font24.draw(game.batch, play, MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, MAIN_MENU_PLAY_BUTTON_Y);
+        playButton.draw(game.batch);
+//        game.font24.draw(game.batch, shop, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, MAIN_MENU_SHOP_BUTTON_Y);
+        shopButton.draw(game.batch);
 
         game.batch.end();
     }
@@ -112,16 +130,16 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX >= Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
-                && screenX <= Constants.MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
-                && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
-                && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
+        if (screenX >= MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
+                && screenX <= MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
+                && SCREEN_HEIGHT-screenY >= MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
+                && SCREEN_HEIGHT-screenY <= MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
 //            game.setScreen(new PlayScreen(game));
             game.setScreen(game.playScreen);
-        }else if (screenX >= Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
-                && screenX <= Constants.MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
-                && Constants.SCREEN_HEIGHT-screenY >= Constants.MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
-                && Constants.SCREEN_HEIGHT-screenY <= Constants.MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
+        }else if (screenX >= MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
+                && screenX <= MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
+                && SCREEN_HEIGHT-screenY >= MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
+                && SCREEN_HEIGHT-screenY <= MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
 //            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
