@@ -20,6 +20,7 @@ public class Hud {
         this.pauseButton = new Sprite(playScreen.getGame().assets.manager.get("pause.png", Texture.class));
         this.playButton = new Sprite(playScreen.getGame().assets.manager.get("play.png", Texture.class));
         this.coinsIcon = new Sprite(playScreen.getGame().assets.manager.get("hud_coins.png", Texture.class));
+//        this.coinsIcon = new Sprite(playScreen.getGame().assets.manager.get("coins_collective.png", Texture.class));
         this.deadIcon = new Sprite(playScreen.getGame().assets.manager.get("dead.png", Texture.class));
 
 //        this.coinsCount = playScreen.getCoinCount();
@@ -41,9 +42,9 @@ public class Hud {
     }
 
     public void draw(ShapeRenderer shapeRenderer){
-        shapeRenderer.rect(0, Constants.SCREEN_HEIGHT-Constants.HUD_HEIGHT,
-                Constants.SCREEN_WIDTH, Constants.HUD_HEIGHT,
-                Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+//        shapeRenderer.rect(0, Constants.SCREEN_HEIGHT-Constants.HUD_HEIGHT,
+//                Constants.SCREEN_WIDTH, Constants.HUD_HEIGHT,
+//                Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
 
 
     }

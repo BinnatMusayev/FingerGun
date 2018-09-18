@@ -27,10 +27,14 @@ public class HealthShopScreen implements Screen, InputProcessor {
     private BitmapFont titleFont, healthFont, totalCoinsFont, buyFont;
     private String titleText, totalCoinCountText, priceText, currentHealth;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout, priceTextGlupLayout, currentHealthGlupLayout;
-    private Sprite backButton, currentCoinsIcon, coinIcon, heartIcon, plusIcon;
+    private Sprite backButton, currentCoinsIcon, coinIcon, heartIcon, plusIcon, background;
 
     public HealthShopScreen(FingerGun game) {
         this.game = game;
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
 
         Color totalCoinsFontColor = new Color();
         totalCoinsFontColor.set(247f/255, 239f/255, 202f/255, 1f);
@@ -102,6 +106,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
         //sprite batch
         game.batch.begin();
+            background.draw(game.batch);
             backButton.draw(game.batch);
             titleFont.draw(game.batch, titleText, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, BACK_BUTTON_Y+shopGlupLayout.height*3/2);
             totalCoinsFont.draw(game.batch, totalCoinCountText, SCREEN_WIDTH-coinCountGlupLayout.width-currentCoinsIcon.getWidth()-SCREEN_WIDTH/40, BACK_BUTTON_Y+coinCountGlupLayout.height*2);
@@ -142,6 +147,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
         totalCoinsFont.dispose();
         buyFont.dispose();
         healthFont.dispose();
+        background.getTexture().dispose();
         backButton.getTexture().dispose();
         currentCoinsIcon.getTexture().dispose();
         heartIcon.getTexture().dispose();

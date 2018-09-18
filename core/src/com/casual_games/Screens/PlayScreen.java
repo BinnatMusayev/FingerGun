@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -31,6 +32,9 @@ import com.casual_games.Components.SniperBullet;
 import com.casual_games.FingerGun;
 
 import java.util.Random;
+
+import static com.casual_games.Additional.Constants.SCREEN_HEIGHT;
+import static com.casual_games.Additional.Constants.SCREEN_WIDTH;
 
 
 public class PlayScreen implements Screen, InputProcessor{
@@ -58,9 +62,15 @@ public class PlayScreen implements Screen, InputProcessor{
     private boolean canShoot;
     private boolean paused, gameover;
 
+    private Sprite background;
+
     private Random random;
 	public PlayScreen(FingerGun game) {
 		this.game = game;
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
 
 
 		this.startGame();
@@ -68,6 +78,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
 	@Override
 	public void show() {
+        this.startGame();
         Gdx.input.setInputProcessor(this);
 	}
 
@@ -110,19 +121,20 @@ public class PlayScreen implements Screen, InputProcessor{
 		game.batch.begin();
 
         //SpriteBatch
+        background.draw(game.batch);
+
         coins.draw(game.batch);
         enemies.draw(game.batch);
 //		bullet.draw(game.batch);
 		bullets.draw(game.batch);
-        font.draw(game.batch, "Paused: "+paused, 200, 800);
-        font.draw(game.batch, "Health: "+healthBar.getHealth(), 200, 850);
-        font.draw(game.batch, "All Lines count: "+enemies.getNumberOfEnemyLines(), 200, 900);
-        font.draw(game.batch, "Empty Lines: "+enemies.getNumberOfEmptyEnemyLines(), 200, 950);
+
+
+//        font.draw(game.batch, "All Lines count: "+enemies.getNumberOfEnemyLines(), 200, 900);
+//        font.draw(game.batch, "Empty Lines: "+enemies.getNumberOfEmptyEnemyLines(), 200, 950);
 //        font.draw(game.batch, "Line index: "+enemies.getLineIndex(), 200, 1000);
-        font.draw(game.batch, coins.getCoinsCount(), 200, 1000);
+
 //        font.draw(game.batch, "Removable: "+enemies.getRemovableLines(), 200, 1150);
-        font.draw(game.batch, bullets.getCountOfBullets(), 200, 1200);
-//		font.draw(game.batch, "Last Y coord: "+enemies.getEnemyLines().get(enemies.getEnemyLines().size()-1).getLineIndex()*(Gdx.graphics.getWidth() / 10), 200, 1100);
+
 
         game.batch.end();
 
@@ -224,6 +236,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	    enemies.dispose();
 	    bullets.dispose();
 	    coins.dispose();
+	    background.getTexture().dispose();
 	}
 
 	public TextureAtlas getZombie() {

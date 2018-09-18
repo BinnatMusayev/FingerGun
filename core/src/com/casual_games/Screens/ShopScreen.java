@@ -17,13 +17,17 @@ import static com.casual_games.Additional.Constants.*;
 public class ShopScreen implements Screen, InputProcessor{
 
     private FingerGun game;
-    private Sprite backButton, bgRect1, bgRect2, bgRect3, pistolIcon, heartIcon, pointerIcon, coinsIcon;
+    private Sprite backButton, bgRect1, bgRect2, bgRect3, pistolIcon, heartIcon, pointerIcon, coinsIcon, background;
     private BitmapFont font;
     private GlyphLayout shopGlupLayout;
     private String titleText;
 
     public ShopScreen(FingerGun game){
         this.game = game;
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
 
         backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
         bgRect1 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
@@ -89,6 +93,8 @@ public class ShopScreen implements Screen, InputProcessor{
 
         game.batch.begin();
 
+        background.draw(game.batch);
+
         backButton.draw(game.batch);
         font.draw(game.batch, titleText, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, BACK_BUTTON_Y+shopGlupLayout.height*3/2);
         bgRect1.draw(game.batch);
@@ -129,6 +135,7 @@ public class ShopScreen implements Screen, InputProcessor{
     @Override
     public void dispose() {
         this.dispose();
+        background.getTexture().dispose();
         game.shapeRenderer.dispose();
         game.batch.dispose();
         game.arc.dispose();

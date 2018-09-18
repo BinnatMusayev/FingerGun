@@ -31,7 +31,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
     private BitmapFont titleFont, totalCoinsFont, buyFont, priceFont;
     private String titleText, totalCoinCountText, currentPointer;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout;
-    private Sprite backButton, currentCoinsIcon, coinIcon;
+    private Sprite backButton, currentCoinsIcon, coinIcon, background;
     private boolean isPointerOnePurchased, isPointerTwoPurchased;
 
     //pointer one
@@ -55,6 +55,10 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
         isPointerOnePurchased = true;
         isPointerTwoPurchased = false;
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
 
         Color totalCoinsFontColor = new Color();
         totalCoinsFontColor.set(247f/255, 239f/255, 202f/255, 1f);
@@ -164,6 +168,10 @@ public class PointerShopScreen implements Screen, InputProcessor {
 
         pointerTwo.update(delta);
 
+        game.batch.begin();
+            background.draw(game.batch);
+        game.batch.end();
+
         //shaperenderer
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND); //for transparency
@@ -246,6 +254,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
         titleFont.dispose();
         buyFont.dispose();
         totalCoinsFont.dispose();
+        background.getTexture().dispose();
         backButton.getTexture().dispose();
         currentCoinsIcon.getTexture().dispose();
         pointerOnePlusIcon.getTexture().dispose();

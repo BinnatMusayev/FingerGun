@@ -68,7 +68,7 @@ public class EnemyLine {
     public void populate(){
         EnemyOne enemyOne;
         //was 5
-        randomIndexesForEnemies(10);
+        randomIndexesForEnemies(5);
         while(enemies.size()<10) {
             enemyOne = new EnemyOne(playScreen);
 //            enemyOne.setOrderIndex(enemies.size()-lineIndex*10); //belke burda duzelish lazim oldu

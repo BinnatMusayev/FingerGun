@@ -30,7 +30,7 @@ public class Constants {
     //Bullet damage
     public static final int PISTOL_DAMAGE = 5;
     public static final int SNIPER_DAMAGE = 45;
-    public static final int MINIGUN_DAMAGE = 30; //was 10
+    public static final int MINIGUN_DAMAGE = 5; //was 10
 
     //Enemy health
     public static final int ENEMY_HEALTH = 15;

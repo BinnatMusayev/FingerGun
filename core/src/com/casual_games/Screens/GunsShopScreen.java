@@ -20,7 +20,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     private BitmapFont font, smallFont, xsFont, buyFont;
     private String titleText;
     private Sprite coinIcon;
-    private Sprite backButton,  bgRect1, bgRect2, bgRect3, currentCoinsIcon;
+    private Sprite backButton,  bgRect1, bgRect2, bgRect3, currentCoinsIcon, background;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout, shootingTimeoutGlupLayout, damageGlupLayout, buyGlupLayout;
     private String shootingTimeoutText, damageText, buyText;
 
@@ -57,6 +57,10 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     public GunsShopScreen(FingerGun game) {
         this.game = game;
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
 
         backButton = new Sprite(game.assets.manager.get("back_button.png", Texture.class));
         pistolTimeoutPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
@@ -250,6 +254,10 @@ public class GunsShopScreen implements Screen, InputProcessor {
         //for antialiasing
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
 
+        game.batch.begin();
+            background.draw(game.batch);
+        game.batch.end();
+
         //shaperenderer
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             Gdx.gl.glEnable(GL20.GL_BLEND); //for transparency
@@ -396,6 +404,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         xsFont.dispose();
         buyFont.dispose();
         smallFont.dispose();
+        background.getTexture().dispose();
         backButton.getTexture().dispose();
         bgRect1.getTexture().dispose();
         bgRect2.getTexture().dispose();

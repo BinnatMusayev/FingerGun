@@ -52,6 +52,7 @@ public class Assets {
         manager.load("fingerGunLogoText.png", Texture.class);
         manager.load("play2.png", Texture.class);
         manager.load("shop.png", Texture.class);
+        manager.load("background.png", Texture.class);
 
         //fonts
 //        FileHandleResolver resolver = new InternalFileHandleResolver();

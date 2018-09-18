@@ -16,7 +16,7 @@ public class MainMenu implements Screen, InputProcessor {
     private FingerGun game;
     private BitmapFont font;
     private GlyphLayout playGlupLayout, shopGlupLayout, titleGlupLayout;
-    private Sprite logo, playButton, shopButton;
+    private Sprite logo, playButton, shopButton, background;
     private String play, shop, title;
 
     public MainMenu(FingerGun game){
@@ -26,13 +26,19 @@ public class MainMenu implements Screen, InputProcessor {
         logo.setSize(SCREEN_WIDTH*0.85f, SCREEN_HEIGHT*0.15f);
         logo.setPosition((SCREEN_WIDTH-logo.getWidth())/2, SCREEN_HEIGHT-logo.getHeight()*1.7f);
 
-        playButton = new Sprite(game.assets.manager.get("play2.png", Texture.class));
-        playButton.setSize(MAIN_MENU_BUTTON_WIDTH, MAIN_MENU_BUTTON_WIDTH);
-        playButton.setPosition(SCREEN_WIDTH/2-playButton.getWidth()*1.5f, SCREEN_HEIGHT/2-playButton.getHeight() );
-
         shopButton = new Sprite(game.assets.manager.get("shop.png", Texture.class));
         shopButton.setSize(MAIN_MENU_BUTTON_WIDTH, MAIN_MENU_BUTTON_WIDTH);
-        shopButton.setPosition(SCREEN_WIDTH/2+shopButton.getWidth()*0.5f, SCREEN_HEIGHT/2-playButton.getHeight() );
+        shopButton.setPosition(SCREEN_WIDTH/2-shopButton.getWidth()*1.5f, SCREEN_HEIGHT/2-shopButton.getHeight() );
+
+
+        playButton = new Sprite(game.assets.manager.get("play2.png", Texture.class));
+        playButton.setSize(MAIN_MENU_BUTTON_WIDTH, MAIN_MENU_BUTTON_WIDTH);
+        playButton.setPosition(SCREEN_WIDTH/2+playButton.getWidth()*0.5f, SCREEN_HEIGHT/2-playButton.getHeight() );
+
+        background = new Sprite(game.assets.manager.get("background.png", Texture.class));
+        background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        background.setPosition(0, 0);
+
 
         play = "Play";
         shop = "Shop";
@@ -78,6 +84,8 @@ public class MainMenu implements Screen, InputProcessor {
 //        font.draw(game.batch, playGlupLayout, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
 //        font.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
 
+
+        background.draw(game.batch);
 //        game.font24.draw(game.batch, title, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
         logo.draw(game.batch);
 //        game.font24.draw(game.batch, play, MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, MAIN_MENU_PLAY_BUTTON_Y);
@@ -111,6 +119,7 @@ public class MainMenu implements Screen, InputProcessor {
     @Override
     public void dispose() {
         this.dispose();
+        background.getTexture().dispose();
     }
 
     @Override
@@ -130,17 +139,21 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX >= MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
-                && screenX <= MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
-                && SCREEN_HEIGHT-screenY >= MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
-                && SCREEN_HEIGHT-screenY <= MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
-//            game.setScreen(new PlayScreen(game));
+//        if (screenX >= MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
+//                && screenX <= MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
+//                && SCREEN_HEIGHT-screenY >= MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
+//                && SCREEN_HEIGHT-screenY <= MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
+//            game.setScreen(game.playScreen);
+//        }else if (screenX >= MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
+//                && screenX <= MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
+//                && SCREEN_HEIGHT-screenY >= MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
+//                && SCREEN_HEIGHT-screenY <= MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
+//            game.setScreen(game.shopScreen);
+//        }
+
+        if (playButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.playScreen);
-        }else if (screenX >= MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
-                && screenX <= MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
-                && SCREEN_HEIGHT-screenY >= MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
-                && SCREEN_HEIGHT-screenY <= MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
-//            game.setScreen(new ShopScreen(game));
+        }else if (shopButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.shopScreen);
         }
         return true;
