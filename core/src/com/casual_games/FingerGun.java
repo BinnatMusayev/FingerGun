@@ -3,6 +3,7 @@ package com.casual_games;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,6 +31,9 @@ public class FingerGun extends Game {
 	public BitmapFont font24;
 	public Assets assets;
 
+    public  Preferences prefs;
+
+
 	//screens
     public SplashScreen splashScreen;
     public MainMenu mainMenu;
@@ -39,13 +43,16 @@ public class FingerGun extends Game {
     public HealthShopScreen healthShopScreen;
     public PointerShopScreen pointerShopScreen;
 
-	@Override
+    @Override
 	public void create () {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		arc = new Arc();
         initFonts();
         this.assets = new Assets(this);
+
+
+        prefs = Gdx.app.getPreferences("My Preferences");
 
         splashScreen = new SplashScreen(this);
         mainMenu = new MainMenu(this);
@@ -55,9 +62,8 @@ public class FingerGun extends Game {
         healthShopScreen = new HealthShopScreen(this);
         pointerShopScreen = new PointerShopScreen(this);
 
-//		setScreen(new SplashScreen(this));
-
 	    setScreen(splashScreen);
+
 	}
 
 	@Override
@@ -111,4 +117,13 @@ public class FingerGun extends Game {
 		params.color = color;
 		return generator.generateFont(params);
 	}
+
+    public BitmapFont createBitmapFont(int size, Color color, String filename){
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/"+filename));
+        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        params.size = size;
+        params.color = color;
+        return generator.generateFont(params);
+    }
 }

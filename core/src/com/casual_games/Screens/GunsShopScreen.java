@@ -69,8 +69,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
         pistolDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
         sniperDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
         minigunDamagePlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
-        sniperLockIcon = new Sprite(game.assets.manager.get("lock_icon2.png", Texture.class));
-        minigunLockIcon = new Sprite(game.assets.manager.get("lock_icon2.png", Texture.class));
+        sniperLockIcon = new Sprite(game.assets.manager.get("lock_icon.png", Texture.class));
+        minigunLockIcon = new Sprite(game.assets.manager.get("lock_icon.png", Texture.class));
         sniperBuyPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
         minigunBuyPlusIcon = new Sprite(game.assets.manager.get("+_icon.png", Texture.class));
         bgRect1 = new Sprite(game.assets.manager.get("orange.png", Texture.class));
@@ -101,9 +101,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         buyGlupLayout = new GlyphLayout();
         buyGlupLayout.setText(buyFont, buyText);
         //--
-        totalCoinCountText = "24531";
         coinCountGlupLayout = new GlyphLayout();
-        coinCountGlupLayout.setText(smallFont, totalCoinCountText);
         //--
         shootingTimeoutText = "Shooting \nTimeout: ";
         shootingTimeoutGlupLayout = new GlyphLayout();
@@ -241,6 +239,11 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
+
+        totalCoinCountText = String.valueOf(game.prefs.getInteger("coinCoint", 0));
+        coinCountGlupLayout.setText(smallFont, totalCoinCountText);
+
+
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
 

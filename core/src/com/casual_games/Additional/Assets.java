@@ -28,6 +28,9 @@ public class Assets {
         manager.load("bullet1.png", Texture.class);
         manager.load("bullet2.png", Texture.class);
         manager.load("bullet3.png", Texture.class);
+        manager.load("bullet_1.png", Texture.class);
+        manager.load("bullet_2.png", Texture.class);
+        manager.load("bullet_3.png", Texture.class);
         manager.load("Coin.png", Texture.class);
         manager.load("coin_icon.png", Texture.class);
         manager.load("coins_collective.png", Texture.class);
@@ -36,9 +39,12 @@ public class Assets {
         manager.load("heart_icon2.png", Texture.class);
         manager.load("home.png", Texture.class);
         manager.load("hud_coins.png", Texture.class);
+        manager.load("lock_icon.png", Texture.class);
         manager.load("lock_icon2.png", Texture.class);
         manager.load("locked_icon.png", Texture.class);
         manager.load("minigun_icon.png", Texture.class);
+        manager.load("music_off.png", Texture.class);
+        manager.load("music_on.png", Texture.class);
         manager.load("orange.png", Texture.class);
         manager.load("pause.png", Texture.class);
         manager.load("pistol_icon.png", Texture.class);
@@ -49,6 +55,7 @@ public class Assets {
         manager.load("sniper_icon.png", Texture.class);
         manager.load("splashLogo.png", Texture.class);
         manager.load("zombies.png", Texture.class);
+        manager.load("zombies_new.png", Texture.class);
         manager.load("fingerGunLogoText.png", Texture.class);
         manager.load("play2.png", Texture.class);
         manager.load("shop.png", Texture.class);

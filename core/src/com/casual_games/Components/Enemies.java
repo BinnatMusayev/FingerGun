@@ -3,6 +3,7 @@ package com.casual_games.Components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,8 +64,7 @@ public class Enemies {
     public void increaseLines(){
 
         EnemyLine enemyLine;
-        //new creationlari test ucun 9 qoy
-        if(enemyLines.size()<20){
+        if(enemyLines.size()<30){
 //            enemyLine = new EnemyLine(playScreen, lineIndex);
             enemyLine = new EnemyLine(playScreen,  (int)( (enemyLines.get(enemyLines.size()-1).getY() + (Gdx.graphics.getWidth()/10) )/(Gdx.graphics.getWidth()/10)) +1 );
 

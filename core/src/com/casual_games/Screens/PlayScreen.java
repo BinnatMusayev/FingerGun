@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -55,8 +56,6 @@ public class PlayScreen implements Screen, InputProcessor{
     private int coinCount;
     private int deathCount;
     private Constants.Gun gunType;
-
-    Preferences prefs;
 
     private long shootingTimeout, currentGunShootingTimeout;
     private boolean canShoot;
@@ -164,7 +163,8 @@ public class PlayScreen implements Screen, InputProcessor{
 	}
 
 	public void startGame(){
-        zombie = new TextureAtlas("zombies.pack");
+//        zombie = new TextureAtlas("zombies.pack");
+        zombie = new TextureAtlas("zombies_new.pack");
         coin = new TextureAtlas("Coin.pack");
 
         random = new Random();
@@ -178,8 +178,12 @@ public class PlayScreen implements Screen, InputProcessor{
         hud = new Hud(this);
         pauseWidget = new PauseWidget(this);
         gameOverWidget = new GameOverWidget(this);
-        font = new BitmapFont();
         coins = new Coins(this);
+
+
+        Color fontColor = new Color();
+        fontColor.set(247f/255, 239f/255, 202f/255, 1f);
+        font = game.createBitmapFont((int) SCREEN_WIDTH / 35, fontColor, "Lato-Heavy.ttf");
 
         switch (r){
             case 0:
@@ -190,8 +194,7 @@ public class PlayScreen implements Screen, InputProcessor{
                 break;
         }
 
-        prefs = Gdx.app.getPreferences("My Preferences");
-        coinCount = prefs.getInteger("coinCoint", 0);
+        coinCount = game.prefs.getInteger("coinCoint", 0);
         deathCount = 0;
 
 
@@ -204,7 +207,13 @@ public class PlayScreen implements Screen, InputProcessor{
 
         gunType = Constants.Gun.minigun;
 
-        currentGunShootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
+        if (gunType == Constants.Gun.pistol){
+            currentGunShootingTimeout = Constants.PISTOL_SHOOTING_TIMEOUT;
+        }else if (gunType == Constants.Gun.sniper){
+            currentGunShootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
+        }else if (gunType == Constants.Gun.minigun){
+            currentGunShootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
+        }
     }
 
 	@Override
@@ -396,15 +405,15 @@ public class PlayScreen implements Screen, InputProcessor{
     }
 
     public void saveCoins(int tempCoins){
-	    prefs.putInteger("coinCoint", tempCoins);
-	    prefs.flush();
+        game.prefs.putInteger("coinCoint", tempCoins);
+        game.prefs.flush();
     }
 
     public void updateScore(){
-	    int bestScore = prefs.getInteger("highScore", 0);
+	    int bestScore = game.prefs.getInteger("highScore", 0);
 	    if (deathCount>bestScore){
-            prefs.putInteger("highScore", deathCount);
-            prefs.flush();
+            game.prefs.putInteger("highScore", deathCount);
+            game.prefs.flush();
         }
     }
 

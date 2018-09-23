@@ -32,8 +32,12 @@ public class Constants {
     public static final int SNIPER_DAMAGE = 45;
     public static final int MINIGUN_DAMAGE = 5; //was 10
 
-    //Enemy health
-    public static final int ENEMY_HEALTH = 15;
+    //Enemy health -> number of array equals to last element devided by 5
+    public static final int[] ENEMY_HEALTH = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70};
+    //should increase as long as above array
+    //and should be able to loop through to increse
+    //enemy health(EnemyLine) and speed(EnemyOne) -> if it is achieved should be able to implement both on EnemyLine
+    public static final int[] DIFFICULTY_DEATH_COUNT = {30, 60, 90, 120, 150, 170, 180, 210, 240, 270, 300};
 
     //enemyspeed
     public static final float ENEMY_SPEED_FAST = SCREEN_HEIGHT/450;
@@ -47,9 +51,9 @@ public class Constants {
     public static final float HUD_BUTTON_Y = SCREEN_HEIGHT - HUD_HEIGHT +( HUD_HEIGHT - HUD_BUTTON_WIDTH)/2 ;
     public static final float HUD_COINS_ICON_X = HUD_BUTTON_WIDTH;
     public static final float HUD_COINS_ICON_Y = HUD_BUTTON_Y;
-    public static final float HUD_COINS_COUNT_X = HUD_COINS_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
+    public static final float HUD_COINS_COUNT_X = HUD_COINS_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/50;
     public static final float HUD_COINS_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
-    public static final float HUD_DEAD_ICON_X = HUD_COINS_COUNT_X+HUD_BUTTON_WIDTH;
+    public static final float HUD_DEAD_ICON_X = HUD_COINS_COUNT_X+HUD_BUTTON_WIDTH+ Gdx.graphics.getWidth()/20;
     public static final float HUD_DEAD_ICON_Y = HUD_BUTTON_Y;
     public static final float HUD_DEAD_COUNT_X = HUD_DEAD_ICON_X + HUD_BUTTON_WIDTH + Gdx.graphics.getWidth()/20;
     public static final float HUD_DEAD_COUNT_Y = SCREEN_HEIGHT - HUD_HEIGHT/3;
@@ -63,8 +67,14 @@ public class Constants {
     public static final float MAIN_MENU_PLAY_BUTTON_Y = Gdx.graphics.getHeight()/2;
     public static final float MAIN_MENU_SHOP_BUTTON_X = Gdx.graphics.getWidth()/2;
     public static final float MAIN_MENU_SHOP_BUTTON_Y = MAIN_MENU_PLAY_BUTTON_Y-MAIN_MENU_BUTTON_SPACE;
+    public static final float MAIN_MENU_BESTSCORE_Y = SCREEN_HEIGHT*0.2f;
 
     public static final float MAIN_MENU_BUTTON_WIDTH = SCREEN_WIDTH/4.3f;
+
+    public static final float MUSIC_ICON_DIMENSIOINS = SCREEN_WIDTH/10;
+    public static final float MUSIC_ICON_Y = SCREEN_HEIGHT*0.07f;
+
+
 
     //Pause Widget
     public static final float PAUSE_WIDGET_RECTANGLE_WIDTH = Gdx.graphics.getWidth()*3/4;
@@ -100,6 +110,12 @@ public class Constants {
     public static final float PLUS_ICON_WIDTH = SCREEN_WIDTH/17;
     public static final float LOCK_ICON_WIDTH = SCREEN_WIDTH/7f;
     public static final float LOCK_ICON_HEIGHT = SCREEN_WIDTH/8;
+
+
+
+    //Health Shop
+        //functionality
+
 
 
 

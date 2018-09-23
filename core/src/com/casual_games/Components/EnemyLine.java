@@ -2,6 +2,7 @@ package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
 
 import java.util.ArrayList;
@@ -75,6 +76,44 @@ public class EnemyLine {
             enemyOne.setOrderIndex(enemies.size());
             enemyOne.setX(enemyOne.getOrderIndex() * Gdx.graphics.getWidth() / 10);
             enemyOne.setY(lineIndex*(Gdx.graphics.getWidth() / 10));
+            //setting health of enemies depending on number of killed enemies
+            if(playScreen.getDeathCount()>360) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[12]);
+            }else if(playScreen.getDeathCount()>330) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[11]);
+            }else if(playScreen.getDeathCount()>300) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[10]);
+            }else if(playScreen.getDeathCount()>270) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[9]);
+            }else if(playScreen.getDeathCount()>240) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[8]);
+            }else if(playScreen.getDeathCount()>210) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[7]);
+            }else if(playScreen.getDeathCount()>180) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[6]);
+            }else if(playScreen.getDeathCount()>150) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[5]);
+            }else if(playScreen.getDeathCount()>120) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[4]);
+            }else if(playScreen.getDeathCount()>90) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[3]);
+            }else if(playScreen.getDeathCount()>60) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[2]);
+            }else if(playScreen.getDeathCount()>30) {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[1]);
+            }else {
+                enemyOne.setHealth(Constants.ENEMY_HEALTH[0]);
+            }
+
+//            int counterForEnemyHealth=Constants.ENEMY_HEALTH.length-1;
+//            for(int i=Constants.DIFFICULTY_DEATH_COUNT.length-1; i>=0; i-- ){
+//                if(playScreen.getDeathCount()>Constants.DIFFICULTY_DEATH_COUNT[i]){
+//                    enemyOne.setHealth(Constants.ENEMY_HEALTH[counterForEnemyHealth]);
+//                }
+//                counterForEnemyHealth--;
+//            }
+
+            //visibility of chosen enemies
             if (randomEnemies.contains(enemyOne.getOrderIndex())) {
                 enemyOne.setVisible(true);
             }

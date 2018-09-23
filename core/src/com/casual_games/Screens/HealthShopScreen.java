@@ -47,9 +47,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
         shopGlupLayout = new GlyphLayout();
         shopGlupLayout.setText(titleFont, titleText);
         //--
-        totalCoinCountText = "24531";
         coinCountGlupLayout = new GlyphLayout();
-        coinCountGlupLayout.setText(totalCoinsFont, totalCoinCountText);
         //--
         priceText = "76254";
         priceTextGlupLayout = new GlyphLayout();
@@ -90,6 +88,9 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
+        totalCoinCountText = String.valueOf(game.prefs.getInteger("coinCoint", 0));
+        coinCountGlupLayout.setText(totalCoinsFont, totalCoinCountText);
+
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
 

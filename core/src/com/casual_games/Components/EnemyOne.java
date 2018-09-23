@@ -31,7 +31,8 @@ public class EnemyOne extends Sprite {
 	private int health;
 
 	public EnemyOne(PlayScreen playScreen){
-		super(playScreen.getZombie().findRegion("ZombieSheet"));
+//		super(playScreen.getZombie().findRegion("ZombieSheet"));
+        super(playScreen.getZombie().findRegion("zombie_sprite"));
         this.playScreen = playScreen;
 
 		stateTimer = 0;
@@ -39,6 +40,27 @@ public class EnemyOne extends Sprite {
         destroyed = false;
 
         stateOfEnemy = State.walking;
+//        //Random view of zombie
+//        random = new Random();
+//        randomViewOfZombieX = random.nextInt(4);
+//        randomViewOfZombieX = randomViewOfZombieX*3*32;//sliding to right
+//        randomViewOfZombieY = random.nextInt(2);
+//        if (randomViewOfZombieY == 1) randomViewOfZombieY = 4*32;
+//        //end of random stuff
+//
+//        standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32);
+//
+//		//ilk ikisi bashlangic
+//		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
+//		for(int i =0; i<3; i++){
+////			if(i!=1)
+//			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
+//		}
+//		//if u uncomment if statement abouve inside for loop then comment below line for better animation
+//		zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
+//
+//		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
+
         //Random view of zombie
         random = new Random();
         randomViewOfZombieX = random.nextInt(4);
@@ -49,22 +71,21 @@ public class EnemyOne extends Sprite {
 
         standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32);
 
-		//ilk ikisi bashlangic
-		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
-		for(int i =0; i<3; i++){
+        //ilk ikisi bashlangic
+        Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
+        for(int i =0; i<3; i++){
 //			if(i!=1)
-			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
-		}
-		//if u uncomment if statement abouve inside for loop then comment below line for better animation
-		zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
+            zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
+        }
+        //if u uncomment if statement abouve inside for loop then comment below line for better animation
+        zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
 
-		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
+        zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
 		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
 
 		speed = 0;
 
-        health = Constants.ENEMY_HEALTH;
 	}
 
 	public void update(float dt){
@@ -87,13 +108,49 @@ public class EnemyOne extends Sprite {
         if (playScreen.isPaused()) {
             speed=0;
         }else{
-			if (playScreen.getDeathCount() > 40){
-				speed = Constants.ENEMY_SPEED_FAST;
-			}else if (playScreen.getDeathCount()>20){
-				speed = Constants.ENEMY_SPEED_NORMAL;
-			}else{
-				speed = Constants.ENEMY_SPEED_SLOW;
-			}
+            if (playScreen.getDeathCount() > 1400){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>1390){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 1200){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 1100){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>1000){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 900){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 800){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>700){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 600){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 500){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>400){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 350){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 300){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>250){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 200){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 150){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>120){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else if (playScreen.getDeathCount() > 90){
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }else if (playScreen.getDeathCount() > 60){
+                speed = Constants.ENEMY_SPEED_FAST;
+            }else if (playScreen.getDeathCount()>30){
+                speed = Constants.ENEMY_SPEED_NORMAL;
+            }else{
+                speed = Constants.ENEMY_SPEED_SLOW;
+            }
         }
 		setY(getY()-speed);
 	}

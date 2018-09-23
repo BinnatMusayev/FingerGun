@@ -3,6 +3,7 @@ package com.casual_games.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,9 +16,10 @@ import static com.casual_games.Additional.Constants.*;
 public class MainMenu implements Screen, InputProcessor {
     private FingerGun game;
     private BitmapFont font;
-    private GlyphLayout playGlupLayout, shopGlupLayout, titleGlupLayout;
-    private Sprite logo, playButton, shopButton, background;
-    private String play, shop, title;
+    private GlyphLayout bestScoreGlupLayout;
+    private Sprite logo, playButton, shopButton, background, musicOn, musicOff, musicIcon;
+    private String bestScore;
+    private boolean musicEnabled;
 
     public MainMenu(FingerGun game){
         this.game = game;
@@ -39,33 +41,37 @@ public class MainMenu implements Screen, InputProcessor {
         background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         background.setPosition(0, 0);
 
+        musicEnabled = game.prefs.getBoolean("musicEnabled", true);
 
-        play = "Play";
-        shop = "Shop";
-        title = "Finger Gun";
+        musicOn = new Sprite(game.assets.manager.get("music_on.png", Texture.class));
+        musicOn.setSize(MUSIC_ICON_DIMENSIOINS, MUSIC_ICON_DIMENSIOINS);
+        musicOn.setPosition(SCREEN_WIDTH/2-musicOn.getWidth()/2, MUSIC_ICON_Y);
 
-        font = new BitmapFont(Gdx.files.internal("fonts/favorite.fnt"));
-
-        playGlupLayout = new GlyphLayout();
-        shopGlupLayout = new GlyphLayout();
-        titleGlupLayout = new GlyphLayout();
-
-//        titleGlupLayout.setText(font, title);
-//        playGlupLayout.setText(font, play);
-//        shopGlupLayout.setText(font, shop);
-
-        titleGlupLayout.setText(game.font24, title);
-        playGlupLayout.setText(game.font24, play);
-        shopGlupLayout.setText(game.font24, shop);
+        musicOff = new Sprite(game.assets.manager.get("music_off.png", Texture.class));
+        musicOff.setSize(MUSIC_ICON_DIMENSIOINS, MUSIC_ICON_DIMENSIOINS);
+        musicOff.setPosition(SCREEN_WIDTH/2-musicOn.getWidth()/2, MUSIC_ICON_Y);
 
 
 
+        Color fontColor = new Color();
+        fontColor.set(247f/255, 239f/255, 202f/255, 1f);
+        font = game.createBitmapFont((int) SCREEN_WIDTH / 15, fontColor, "Lato-Heavy.ttf");
+
+
+        bestScoreGlupLayout = new GlyphLayout();
 
     }
 
 
     @Override
     public void show() {
+        int best_score = game.prefs.getInteger("highScore", 0);
+        bestScore = "Best: " + best_score;
+        bestScoreGlupLayout.setText(font, bestScore);
+
+        changeMusicIcon();
+
+
         Gdx.input.setInputProcessor(this);
 
     }
@@ -80,18 +86,21 @@ public class MainMenu implements Screen, InputProcessor {
 
         game.batch.begin();
 
-//        font.draw(game.batch, titleGlupLayout, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
-//        font.draw(game.batch, playGlupLayout, Constants.MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, Constants.MAIN_MENU_PLAY_BUTTON_Y);
-//        font.draw(game.batch, shop, Constants.MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, Constants.MAIN_MENU_SHOP_BUTTON_Y);
-
 
         background.draw(game.batch);
-//        game.font24.draw(game.batch, title, Constants.MAIN_MENU_TITLE_X-titleGlupLayout.width/2, Constants.MAIN_MENU_TITLE_Y);
         logo.draw(game.batch);
-//        game.font24.draw(game.batch, play, MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width/2, MAIN_MENU_PLAY_BUTTON_Y);
         playButton.draw(game.batch);
-//        game.font24.draw(game.batch, shop, MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width/2, MAIN_MENU_SHOP_BUTTON_Y);
         shopButton.draw(game.batch);
+
+        font.draw(game.batch, bestScore, MAIN_MENU_SHOP_BUTTON_X-bestScoreGlupLayout.width/2, MAIN_MENU_BESTSCORE_Y);
+
+//        if (musicEnabled){
+//            musicOn.draw(game.batch);
+//        }else{
+//            musicOff.draw(game.batch);
+//        }
+
+        musicIcon.draw(game.batch);
 
         game.batch.end();
     }
@@ -139,23 +148,25 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//        if (screenX >= MAIN_MENU_PLAY_BUTTON_X-playGlupLayout.width*3/2
-//                && screenX <= MAIN_MENU_PLAY_BUTTON_X+playGlupLayout.width*2
-//                && SCREEN_HEIGHT-screenY >= MAIN_MENU_PLAY_BUTTON_Y-playGlupLayout.height*3/2
-//                && SCREEN_HEIGHT-screenY <= MAIN_MENU_PLAY_BUTTON_Y + playGlupLayout.height*5/2) {
-//            game.setScreen(game.playScreen);
-//        }else if (screenX >= MAIN_MENU_SHOP_BUTTON_X-shopGlupLayout.width*3/2
-//                && screenX <= MAIN_MENU_SHOP_BUTTON_X+shopGlupLayout.width*2
-//                && SCREEN_HEIGHT-screenY >= MAIN_MENU_SHOP_BUTTON_Y-shopGlupLayout.height*3/2
-//                && SCREEN_HEIGHT-screenY <= MAIN_MENU_SHOP_BUTTON_Y + shopGlupLayout.height*2) {
-//            game.setScreen(game.shopScreen);
-//        }
 
         if (playButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.playScreen);
         }else if (shopButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.shopScreen);
         }
+        if(musicIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
+            if (musicEnabled){
+                musicEnabled = false;
+                game.prefs.putBoolean("musicEnabled", false);
+                game.prefs.flush();
+            }else{
+                musicEnabled = true;
+                game.prefs.putBoolean("musicEnabled", true);
+                game.prefs.flush();
+            }
+            changeMusicIcon();
+        }
+
         return true;
     }
 
@@ -177,6 +188,14 @@ public class MainMenu implements Screen, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public void changeMusicIcon(){
+        if (musicEnabled){
+            musicIcon = musicOn;
+        }else {
+            musicIcon = musicOff;
+        }
     }
 
 

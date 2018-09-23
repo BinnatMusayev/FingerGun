@@ -10,18 +10,19 @@ public class SniperBullet extends Bullet{
     public SniperBullet(PlayScreen playScreen, float x, float y) {
         super(playScreen, x, y);
 //        setRegion(playScreen.getSniperBulletTexture());
-        setRegion(playScreen.getGame().assets.manager.get("bullet3.png", Texture.class));
+        setRegion(playScreen.getGame().assets.manager.get("bullet_3.png", Texture.class));
 
 
 //        setRegionWidth(Gdx.graphics.getWidth()/3);
 //        setRegionHeight(getRegionWidth()*2);
-        setSize(getRegionWidth(), getRegionHeight());
+//        setSize(getRegionWidth(), getRegionHeight());
+        setSize(Constants.SCREEN_WIDTH/45, Constants.SCREEN_HEIGHT/15);
 //        setScale(1f/3);
 
         //older version
 //        setScale(getWidth()*2f/(3*Gdx.graphics.getWidth()) );
         //in new version i replace getWidth with something constant (get it from Constants class)
-        setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
+//        setScale((Gdx.graphics.getWidth()/5)*1f/(3*Gdx.graphics.getWidth()) );
 
         setX(x-getRegionWidth()*getScaleX()/2);
         speed = Constants.SNIPER_SPEED;

@@ -1,0 +1,13 @@
+
+zombies_new.png
+size: 256,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+zombie_sprite
+  rotate: false
+  xy: 0, 0
+  size: 193, 448
+  orig: 193, 448
+  offset: 0, 0
+  index: -1
