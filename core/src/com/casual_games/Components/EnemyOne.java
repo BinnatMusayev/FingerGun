@@ -31,8 +31,8 @@ public class EnemyOne extends Sprite {
 	private int health;
 
 	public EnemyOne(PlayScreen playScreen){
-//		super(playScreen.getZombie().findRegion("ZombieSheet"));
-        super(playScreen.getZombie().findRegion("zombie_sprite"));
+		super(playScreen.getZombie().findRegion("ZombieSheet"));
+//        super(playScreen.getZombie().findRegion("zombie_sprite"));
         this.playScreen = playScreen;
 
 		stateTimer = 0;
@@ -41,27 +41,6 @@ public class EnemyOne extends Sprite {
 
         stateOfEnemy = State.walking;
 //        //Random view of zombie
-//        random = new Random();
-//        randomViewOfZombieX = random.nextInt(4);
-//        randomViewOfZombieX = randomViewOfZombieX*3*32;//sliding to right
-//        randomViewOfZombieY = random.nextInt(2);
-//        if (randomViewOfZombieY == 1) randomViewOfZombieY = 4*32;
-//        //end of random stuff
-//
-//        standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32);
-//
-//		//ilk ikisi bashlangic
-//		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
-//		for(int i =0; i<3; i++){
-////			if(i!=1)
-//			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
-//		}
-//		//if u uncomment if statement abouve inside for loop then comment below line for better animation
-//		zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
-//
-//		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
-
-        //Random view of zombie
         random = new Random();
         randomViewOfZombieX = random.nextInt(4);
         randomViewOfZombieX = randomViewOfZombieX*3*32;//sliding to right
@@ -71,16 +50,42 @@ public class EnemyOne extends Sprite {
 
         standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX, randomViewOfZombieY, 32, 32);
 
-        //ilk ikisi bashlangic
-        Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
-        for(int i =0; i<3; i++){
+		//ilk ikisi bashlangic
+		Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
+		for(int i =0; i<3; i++){
 //			if(i!=1)
-            zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
-        }
-        //if u uncomment if statement abouve inside for loop then comment below line for better animation
-        zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
+			zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
+		}
+		//if u uncomment if statement abouve inside for loop then comment below line for better animation
+		zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
 
-        zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
+		zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
+
+        //Other Option
+
+        //Random view of zombie
+//        random = new Random();
+//        randomViewOfZombieX = 0;
+//        randomViewOfZombieY = random.nextInt(6)*64;
+//
+//        standingZombie = new TextureRegion(getTexture(), randomViewOfZombieX+2*64, randomViewOfZombieY, 64, 64);
+//
+//        //ilk ikisi bashlangic
+//        Array<TextureRegion> zombieWalking = new Array<TextureRegion>();
+////        for(int i =0; i<3; i++){
+//////			if(i!=1)
+////            zombieWalking.add(new TextureRegion(getTexture(), i*32+randomViewOfZombieX, 0+randomViewOfZombieY, 32, 32));
+////        }
+////        //if u uncomment if statement abouve inside for loop then comment below line for better animation
+////        zombieWalking.add(new TextureRegion(getTexture(), 32+randomViewOfZombieX, randomViewOfZombieY, 32, 32));
+//
+//        //new version
+//        zombieWalking.add(new TextureRegion(getTexture(), 0, randomViewOfZombieY, 64, 64));
+//        zombieWalking.add(new TextureRegion(getTexture(), 2*64, randomViewOfZombieY, 64, 64));
+//        zombieWalking.add(new TextureRegion(getTexture(), 64, randomViewOfZombieY, 64, 64));
+//        zombieWalking.add(new TextureRegion(getTexture(), 2*64, randomViewOfZombieY, 64, 64));
+//
+//        zombieWalkAnimation = new Animation<TextureRegion>(0.2f, zombieWalking);
 
 		setSize(Constants.SCREEN_WIDTH/10,Constants.SCREEN_WIDTH/10);
 

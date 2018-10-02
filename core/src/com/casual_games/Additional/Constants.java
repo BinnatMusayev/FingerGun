@@ -15,12 +15,12 @@ public class Constants {
 
 
     //shooting timeout
-    public static final long PISTOL_SHOOTING_TIMEOUT = 400;
+    public static final long PISTOL_SHOOTING_TIMEOUT = 1000;
     public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
     public static final long MINIGUN_SHOOTING_TIMEOUT = 50; //was 100
 
     //Bullet speed
-    public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/200;
+    public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/250;
     public static final float SNIPER_SPEED = Gdx.graphics.getHeight()/70;
     public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
 
@@ -28,7 +28,7 @@ public class Constants {
     public static enum Gun {pistol, sniper, minigun}
 
     //Bullet damage
-    public static final int PISTOL_DAMAGE = 5;
+    public static final int PISTOL_DAMAGE = 3;
     public static final int SNIPER_DAMAGE = 45;
     public static final int MINIGUN_DAMAGE = 5; //was 10
 
@@ -37,12 +37,22 @@ public class Constants {
     //should increase as long as above array
     //and should be able to loop through to increse
     //enemy health(EnemyLine) and speed(EnemyOne) -> if it is achieved should be able to implement both on EnemyLine
-    public static final int[] DIFFICULTY_DEATH_COUNT = {30, 60, 90, 120, 150, 170, 180, 210, 240, 270, 300};
+    //change difference from 30 to bigger num, ex:60
+    public static final int[] DIFFICULTY_DEATH_COUNT = {5, 7, 10, 20, 30, 90, 120, 150, 170, 180, 210, 240, 270, 300, 400, 600};
+//    public static final int[] DIFFICULTY_DEATH_COUNT = {5, 7, 10, 20, 30, 60, 80, 90, 100, 120, 130, 160};
+
+    // useful? needed? below one
+    public static final int[] ENEMY_NUMBER_INCREASE_DEATH_COUNT = {20, 50, 100, 150};
+    public static final int MAX_NUMBER_OF_RANDOM_INDEXES = 9;
 
     //enemyspeed
     public static final float ENEMY_SPEED_FAST = SCREEN_HEIGHT/450;
     public static final float ENEMY_SPEED_NORMAL = SCREEN_HEIGHT/650;
     public static final float ENEMY_SPEED_SLOW = SCREEN_HEIGHT/850;
+
+    //Shop Functionality
+    public static final int[] HEART_HEALTH = {100, 120, 150, 170, 200, 250, 300, 400, 500};
+    public static final int[] HEART_PRICE = {200, 300, 400, 500, 600, 700, 800, 900, 1000 };
 
     //Hud
     public static final float HUD_HEIGHT = Gdx.graphics.getHeight()/18;

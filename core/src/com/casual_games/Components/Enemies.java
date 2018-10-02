@@ -52,6 +52,9 @@ public class Enemies {
         for (EnemyLine enemyLine: enemyLines){
             enemyLine.draw(spriteBatch);
         }
+
+        playScreen.font.draw(spriteBatch,"random: "+enemyLines.get(enemyLines.size()-1).getTempCounter(), 200, 200);
+        playScreen.font.draw(spriteBatch,"health: "+enemyLines.get(enemyLines.size()-1).getEnemies().get(2).getHealth(), 200, 250);
     }
 
 

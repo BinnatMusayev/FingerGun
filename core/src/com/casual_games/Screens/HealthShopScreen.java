@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.casual_games.Additional.Constants;
 import com.casual_games.FingerGun;
 
 import static com.casual_games.Additional.Constants.BACK_BUTTON_WIDTH;
@@ -28,6 +29,8 @@ public class HealthShopScreen implements Screen, InputProcessor {
     private String titleText, totalCoinCountText, priceText, currentHealth;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout, priceTextGlupLayout, currentHealthGlupLayout;
     private Sprite backButton, currentCoinsIcon, coinIcon, heartIcon, plusIcon, background;
+
+    private boolean maxHealthReached;
 
     public HealthShopScreen(FingerGun game) {
         this.game = game;
@@ -49,11 +52,20 @@ public class HealthShopScreen implements Screen, InputProcessor {
         //--
         coinCountGlupLayout = new GlyphLayout();
         //--
-        priceText = "76254";
+        int current_health = game.prefs.getInteger("current_health", 100);
+
+        //finding index
+        int index = 0;
+        for(int i=0; i<Constants.HEART_HEALTH.length-1;i++){
+            if(Constants.HEART_HEALTH[i]==current_health)
+                index = i;
+        }
+
+        priceText = String.valueOf(Constants.HEART_PRICE[index]);
         priceTextGlupLayout = new GlyphLayout();
         priceTextGlupLayout.setText(buyFont, priceText);
         //--
-        currentHealth = "1540";
+        currentHealth = String.valueOf(game.prefs.getInteger("current_health", 100));
         currentHealthGlupLayout = new GlyphLayout();
         currentHealthGlupLayout.setText(healthFont, currentHealth);
 
@@ -82,6 +94,13 @@ public class HealthShopScreen implements Screen, InputProcessor {
         coinIcon.setSize(SCREEN_WIDTH/12, SCREEN_WIDTH/12);
         coinIcon.setPosition((SCREEN_WIDTH-priceTextGlupLayout.width)/2+priceTextGlupLayout.width+SCREEN_WIDTH/30,plusIcon.getY()-SCREEN_HEIGHT/15-coinIcon.getHeight()+(coinIcon.getHeight()-priceTextGlupLayout.height)/2);
 //        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
+
+
+        if (Integer.valueOf(currentHealth) >= Constants.HEART_HEALTH[Constants.HEART_HEALTH.length-1] ) {
+            maxHealthReached = true;
+        }else{
+            maxHealthReached = false;
+        }
 
     }
 
@@ -113,9 +132,11 @@ public class HealthShopScreen implements Screen, InputProcessor {
             totalCoinsFont.draw(game.batch, totalCoinCountText, SCREEN_WIDTH-coinCountGlupLayout.width-currentCoinsIcon.getWidth()-SCREEN_WIDTH/40, BACK_BUTTON_Y+coinCountGlupLayout.height*2);
             currentCoinsIcon.draw(game.batch);
             heartIcon.draw(game.batch);
-            plusIcon.draw(game.batch);
-            coinIcon.draw(game.batch);
-            buyFont.draw(game.batch, priceText, (SCREEN_WIDTH-priceTextGlupLayout.width)/2, plusIcon.getY()-SCREEN_HEIGHT/15);
+            if (!maxHealthReached) { // if upgrade still available
+                plusIcon.draw(game.batch);
+                coinIcon.draw(game.batch);
+                buyFont.draw(game.batch, priceText, (SCREEN_WIDTH - priceTextGlupLayout.width) / 2, plusIcon.getY() - SCREEN_HEIGHT / 15);
+            }
             healthFont.draw(game.batch, currentHealth, (SCREEN_WIDTH-currentHealthGlupLayout.width)/2, heartIcon.getY()+heartIcon.getHeight()-(heartIcon.getHeight()-currentHealthGlupLayout.height)/2);
 
         game.batch.end();
@@ -179,9 +200,37 @@ public class HealthShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-//            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
+
+        //increase health
+        if (plusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !maxHealthReached){
+            int current_health = game.prefs.getInteger("current_health", 100);
+
+            //finding index
+            int index = 0;
+            for(int i=0; i<Constants.HEART_HEALTH.length-1;i++){
+                if(Constants.HEART_HEALTH[i]==current_health)
+                    index = i;
+            }
+
+            if (current_health==Constants.HEART_HEALTH[Constants.HEART_HEALTH.length-1]){
+                maxHealthReached = true;
+            }else {
+                //finding price
+                int newPrice = Constants.HEART_PRICE[index+1];
+
+                currentHealth = String.valueOf(Constants.HEART_HEALTH[index + 1]);
+                priceText = String.valueOf(newPrice);
+            }
+
+            game.prefs.putInteger("current_health", Constants.HEART_HEALTH[index+1]);
+            game.prefs.flush();
+
+
+
+        }
+
         return true;
     }
 

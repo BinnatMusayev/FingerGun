@@ -21,9 +21,10 @@ public class HealthBar {
 //        y=-Gdx.graphics.getHeight()/70;
         y=0;
         //health-i sharedprefenrecden gotur (shopdan increase oluna biler deye)
-        health=100;
+//        health=100;
+        health = playScreen.getGame().prefs.getInteger("current_health", 100);
         width = Gdx.graphics.getWidth();
-        //height-i health-e uygun gotur
+
         height = Gdx.graphics.getHeight()/50;
 
 

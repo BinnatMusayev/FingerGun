@@ -163,8 +163,8 @@ public class PlayScreen implements Screen, InputProcessor{
 	}
 
 	public void startGame(){
-//        zombie = new TextureAtlas("zombies.pack");
-        zombie = new TextureAtlas("zombies_new.pack");
+        zombie = new TextureAtlas("zombies.pack");
+//        zombie = new TextureAtlas("zombies_new.pack");
         coin = new TextureAtlas("Coin.pack");
 
         random = new Random();
@@ -242,6 +242,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	@Override
 	public void dispose() {
         this.dispose();
+        font.dispose();
 	    enemies.dispose();
 	    bullets.dispose();
 	    coins.dispose();
@@ -354,9 +355,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
                                 // in the case of pistol bullet or plumyot not in sniper
-//                            if (!(b instanceof SniperBullet) ){
-//                                b.setDestroyed(true);
-//                            }
+                                if(gunType != Constants.Gun.sniper){
+                                    b.setDestroyed(true);
+                                }
 
                                 b.setDamage(b.getDamage()-e.getHealth());
                                 e.setVisible(false);
