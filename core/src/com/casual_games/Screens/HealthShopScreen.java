@@ -214,7 +214,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
                     index = i;
             }
 
-            if (current_health==Constants.HEART_HEALTH[Constants.HEART_HEALTH.length-1]){
+            if (current_health==Constants.HEART_HEALTH[Constants.HEART_HEALTH.length-2]){
                 maxHealthReached = true;
             }else {
                 //finding price

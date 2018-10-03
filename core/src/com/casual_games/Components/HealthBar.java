@@ -11,7 +11,7 @@ public class HealthBar {
     private float x, y;
     private float width, height;
 
-    private float health;
+    private float health, currentHealth;
     private Color lightGreen, darkGreen, lightYellow, darkYellow, lightRed, darkRed;
 
     public HealthBar(PlayScreen playScreen){
@@ -23,6 +23,7 @@ public class HealthBar {
         //health-i sharedprefenrecden gotur (shopdan increase oluna biler deye)
 //        health=100;
         health = playScreen.getGame().prefs.getInteger("current_health", 100);
+        currentHealth = health;
         width = Gdx.graphics.getWidth();
 
         height = Gdx.graphics.getHeight()/50;
@@ -48,7 +49,7 @@ public class HealthBar {
     }
 
     public void update(float dt){
-        if (health<=0){
+        if (currentHealth<=0){
             playScreen.setGameover(true);
             playScreen.setCanShoot(false);
             playScreen.saveCoins(playScreen.getCoinCount());
@@ -58,7 +59,8 @@ public class HealthBar {
 
     public void draw(ShapeRenderer shapeRenderer){
 
-        width = (health*Gdx.graphics.getWidth())/100;
+        width = (currentHealth*Gdx.graphics.getWidth())/health;
+
         // 1/4 is full dark
         float fullPart =width/4;
 //        shapeRenderer.rect(x, y, fullPart, height, darkYellow, darkYellow, darkYellow, darkYellow);
@@ -81,5 +83,13 @@ public class HealthBar {
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    public float getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(float currentHealth) {
+        this.currentHealth = currentHealth;
     }
 }

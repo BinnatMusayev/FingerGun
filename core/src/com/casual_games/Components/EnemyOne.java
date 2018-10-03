@@ -166,7 +166,8 @@ public class EnemyOne extends Sprite {
 	    if (getY() <= (-getHeight()) ){
 //	        destroyed = true;
             if (visible) {
-                playScreen.getHealthBar().setHealth(playScreen.getHealthBar().getHealth() - damage);
+//                playScreen.getHealthBar().setHealth(playScreen.getHealthBar().getHealth() - damage);
+                playScreen.getHealthBar().setCurrentHealth(playScreen.getHealthBar().getCurrentHealth() - damage);
             }
             visible = false;
 	    }
