@@ -63,7 +63,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
     private Sprite background;
 
-    private Random random;
+    private boolean anyPointerPurchased;
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 
@@ -88,7 +88,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
 
         enemies.update(delta);
-        pointer.update(delta);
+        if (anyPointerPurchased) {
+            pointer.update(delta);
+        }
 
         coins.update(delta);
 
@@ -139,7 +141,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
         //Arc
         game.arc.begin(ShapeRenderer.ShapeType.Line);
-        pointer.draw(game.arc);
+        if (anyPointerPurchased) {
+            pointer.draw(game.arc);
+        }
         game.arc.end();
 
         //ShapeRenderer
@@ -167,8 +171,7 @@ public class PlayScreen implements Screen, InputProcessor{
 //        zombie = new TextureAtlas("zombies_new.pack");
         coin = new TextureAtlas("Coin.pack");
 
-        random = new Random();
-        int r = random.nextInt(2);
+
 
         //initialize objects
         enemies = new Enemies(this);
@@ -185,13 +188,16 @@ public class PlayScreen implements Screen, InputProcessor{
         fontColor.set(247f/255, 239f/255, 202f/255, 1f);
         font = game.createBitmapFont((int) SCREEN_WIDTH / 35, fontColor, "Lato-Heavy.ttf");
 
-        switch (r){
-            case 0:
+
+        anyPointerPurchased = (game.prefs.getBoolean("isPointerOnePurchased", false)
+                                || game.prefs.getBoolean("isPointerTwoPurchased", false) );
+        if (anyPointerPurchased){
+            if(game.prefs.getString("currentPointer").equals("pointerOne")){
                 pointer = new PointerOne();
-                break;
-            case 1:
+            }else if(game.prefs.getString("currentPointer").equals("pointerTwo")) {
                 pointer = new PointerTwo();
-                break;
+            }
+
         }
 
         coinCount = game.prefs.getInteger("coinCoint", 0);
@@ -280,9 +286,11 @@ public class PlayScreen implements Screen, InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (!gameover) {
             if (!paused) {
-                this.pointer.setX(screenX);
-                this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
-                this.pointer.setVisible(true);
+                if (anyPointerPurchased) {
+                    this.pointer.setX(screenX);
+                    this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+                    this.pointer.setVisible(true);
+                }
 
                 canShoot = true;
                 shootingTimeout = TimeUtils.millis();
@@ -316,7 +324,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		this.pointer.setVisible(false);
+		if (anyPointerPurchased) {
+            this.pointer.setVisible(false);
+        }
 
 		canShoot = false;
 
@@ -326,8 +336,10 @@ public class PlayScreen implements Screen, InputProcessor{
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 	    if (!gameover) {
-            this.pointer.setX(screenX);
-            this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+	        if (anyPointerPurchased) {
+                this.pointer.setX(screenX);
+                this.pointer.setY(Gdx.graphics.getHeight() - screenY - Gdx.graphics.getWidth() / 40);
+            }
         }
         return true;
     }

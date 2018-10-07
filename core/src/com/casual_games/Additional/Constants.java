@@ -53,6 +53,11 @@ public class Constants {
     //Shop Functionality
     public static final int[] HEART_HEALTH = {100, 120, 150, 170, 200, 250, 300, 400, 500};
     public static final int[] HEART_PRICE = {200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+    //--
+    public static final int POINTER_ONE_PRICE = 100;
+    public static final int POINTER_TWO_PRICE  = 200;
+
+
 
     //Hud
     public static final float HUD_HEIGHT = Gdx.graphics.getHeight()/18;

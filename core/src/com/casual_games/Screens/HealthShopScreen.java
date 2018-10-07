@@ -205,27 +205,40 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
         //increase health
         if (plusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !maxHealthReached){
-            int current_health = game.prefs.getInteger("current_health", 100);
 
-            //finding index
-            int index = 0;
-            for(int i=0; i<Constants.HEART_HEALTH.length-1;i++){
-                if(Constants.HEART_HEALTH[i]==current_health)
-                    index = i;
+            //there is enough money to purchase
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(priceText) ) {
+
+                //update coins
+                currentCoins = currentCoins-Integer.valueOf(priceText);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                int current_health = game.prefs.getInteger("current_health", 100);
+
+                //finding index
+                int index = 0;
+                for (int i = 0; i < Constants.HEART_HEALTH.length - 1; i++) {
+                    if (Constants.HEART_HEALTH[i] == current_health)
+                        index = i;
+                }
+
+                if (current_health == Constants.HEART_HEALTH[Constants.HEART_HEALTH.length - 2]) {
+                    maxHealthReached = true;
+                } else {
+                    //finding price
+                    int newPrice = Constants.HEART_PRICE[index + 1];
+
+                    currentHealth = String.valueOf(Constants.HEART_HEALTH[index + 1]);
+                    priceText = String.valueOf(newPrice);
+                }
+
+                game.prefs.putInteger("current_health", Constants.HEART_HEALTH[index + 1]);
+                game.prefs.flush();
+
+
             }
-
-            if (current_health==Constants.HEART_HEALTH[Constants.HEART_HEALTH.length-2]){
-                maxHealthReached = true;
-            }else {
-                //finding price
-                int newPrice = Constants.HEART_PRICE[index+1];
-
-                currentHealth = String.valueOf(Constants.HEART_HEALTH[index + 1]);
-                priceText = String.valueOf(newPrice);
-            }
-
-            game.prefs.putInteger("current_health", Constants.HEART_HEALTH[index+1]);
-            game.prefs.flush();
 
 
 

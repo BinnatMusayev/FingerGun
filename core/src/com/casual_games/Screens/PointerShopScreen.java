@@ -22,6 +22,8 @@ import static com.casual_games.Additional.Constants.BACK_BUTTON_Y;
 import static com.casual_games.Additional.Constants.COINS_COLLECTIVE_HEIGHT;
 import static com.casual_games.Additional.Constants.COINS_COLLECTIVE_WIDTH;
 import static com.casual_games.Additional.Constants.MAIN_MENU_SHOP_BUTTON_X;
+import static com.casual_games.Additional.Constants.POINTER_ONE_PRICE;
+import static com.casual_games.Additional.Constants.POINTER_TWO_PRICE;
 import static com.casual_games.Additional.Constants.SCREEN_HEIGHT;
 import static com.casual_games.Additional.Constants.SCREEN_WIDTH;
 
@@ -46,15 +48,16 @@ public class PointerShopScreen implements Screen, InputProcessor {
     private GlyphLayout pointerTwoBuyTextGlyphLayout, pointerTwoPriceStringGlyphLayout, pointerTwoOwningTextGlyphLayout;
     private Sprite pointerTwoPlusIcon;
 
+
     public PointerShopScreen(FingerGun game) {
         this.game = game;
 
-        //get currentPointer from preferences
-        currentPointer = "pointerOne";
-//        currentPointer = "pointerTwo";
+        currentPointer = game.prefs.getString("currentPointer");
+        isPointerOnePurchased = game.prefs.getBoolean("isPointerOnePurchased", false);
+        isPointerTwoPurchased= game.prefs.getBoolean("isPointerTwoPurchased", false);
 
-        isPointerOnePurchased = true;
-        isPointerTwoPurchased = false;
+//        isPointerOnePurchased = true;
+//        isPointerTwoPurchased = false;
 
         background = new Sprite(game.assets.manager.get("background.png", Texture.class));
         background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -81,11 +84,11 @@ public class PointerShopScreen implements Screen, InputProcessor {
         pointerTwoBuyTextGlyphLayout = new GlyphLayout();
         pointerTwoBuyTextGlyphLayout.setText(buyFont, pointerTwoBuyText);
         //--
-        pointerOnePriceText = "5239";
+        pointerOnePriceText = String.valueOf(POINTER_ONE_PRICE);
         pointerOnePriceStringGlyphLayout = new GlyphLayout();
         pointerOnePriceStringGlyphLayout.setText(priceFont, pointerOnePriceText);
         //--
-        pointerTwoPriceText = "5239";
+        pointerTwoPriceText = String.valueOf(POINTER_TWO_PRICE);
         pointerTwoPriceStringGlyphLayout = new GlyphLayout();
         pointerTwoPriceStringGlyphLayout.setText(priceFont, pointerTwoPriceText);
         //--
@@ -269,6 +272,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
 //            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
+
         return false;
     }
 
@@ -288,6 +292,67 @@ public class PointerShopScreen implements Screen, InputProcessor {
 //            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
+
+
+        //buy pointer one
+        if (pointerOnePlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !isPointerOnePurchased ){
+
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(pointerOnePriceText) ) {
+
+                //update coins
+                currentCoins = currentCoins - Integer.valueOf(pointerOnePriceText);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                isPointerOnePurchased = true;
+                currentPointer = "pointerOne";
+
+                game.prefs.putBoolean("isPointerOnePurchased", true);
+                game.prefs.putString("currentPointer", "pointerOne");
+                game.prefs.flush();
+            }
+        }
+
+        //buy pointer two
+        if (pointerTwoPlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !isPointerTwoPurchased ){
+
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(pointerTwoPriceText) ) {
+
+                //update coins
+                currentCoins = currentCoins - Integer.valueOf(pointerTwoPriceText);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                isPointerTwoPurchased = true;
+                currentPointer = "pointerTwo";
+
+                game.prefs.putBoolean("isPointerTwoPurchased", true);
+                game.prefs.putString("currentPointer", "pointerTwo");
+                game.prefs.flush();
+            }
+        }
+
+        //choose pointer to use
+        if ((SCREEN_HEIGHT-screenY) >= pointerOne.getY()
+                && (SCREEN_HEIGHT-screenY) <= pointerOne.getY() + pointerOne.getR()*2
+                && isPointerOnePurchased ){
+            currentPointer = "pointerOne";
+            game.prefs.putString("currentPointer", "pointerOne");
+            game.prefs.flush();
+        }else if ((SCREEN_HEIGHT-screenY) >= pointerTwo.getY()
+                && (SCREEN_HEIGHT-screenY) <= pointerTwo.getY() + pointerTwo.getR()*2
+                && isPointerTwoPurchased ){
+            currentPointer = "pointerTwo";
+            game.prefs.putString("currentPointer", "pointerTwo");
+            game.prefs.flush();
+        }
+
+
+
+
+
         return true;
     }
 
