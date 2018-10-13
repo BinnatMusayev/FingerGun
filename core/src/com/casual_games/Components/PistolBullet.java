@@ -30,7 +30,7 @@ public class PistolBullet extends Bullet{
         setX(x-getRegionWidth()*getScaleX()/2);
         speed = Constants.PISTOL_SPEED;
 
-        shootingTimeout = Constants.PISTOL_SHOOTING_TIMEOUT;
+        shootingTimeout = playScreen.getGame().prefs.getInteger("current_pistol_timeout", 1000);
 
         damage = Constants.PISTOL_DAMAGE;
 

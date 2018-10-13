@@ -82,4 +82,6 @@ public abstract class Bullet extends Sprite {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+
 }

@@ -211,10 +211,11 @@ public class PlayScreen implements Screen, InputProcessor{
         paused = false;
         gameover = false;
 
-        gunType = Constants.Gun.minigun;
+        gunType = Constants.Gun.pistol;
 
+        //change it to switch case
         if (gunType == Constants.Gun.pistol){
-            currentGunShootingTimeout = Constants.PISTOL_SHOOTING_TIMEOUT;
+            currentGunShootingTimeout = game.prefs.getInteger("current_pistol_timeout", 1000);
         }else if (gunType == Constants.Gun.sniper){
             currentGunShootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
         }else if (gunType == Constants.Gun.minigun){

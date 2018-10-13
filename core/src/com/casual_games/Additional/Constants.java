@@ -13,19 +13,18 @@ public class Constants {
     public static final float SPLASH_LOGO_HEIGHT = Gdx.graphics.getWidth();
     public static final float SPLASH_LOGO_Y = SCREEN_HEIGHT/2-SPLASH_LOGO_HEIGHT/2;
 
+    //gun type
+    public static enum Gun {pistol, sniper, minigun}
 
-    //shooting timeout
-    public static final long PISTOL_SHOOTING_TIMEOUT = 1000;
-    public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
-    public static final long MINIGUN_SHOOTING_TIMEOUT = 50; //was 100
-
-    //Bullet speed
+    //Bullet speed -> constants, does not change
     public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/250;
     public static final float SNIPER_SPEED = Gdx.graphics.getHeight()/70;
     public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
 
-    //gun type
-    public static enum Gun {pistol, sniper, minigun}
+    //Bullet shooting timeout
+    public static final long PISTOL_SHOOTING_TIMEOUT = 1000;
+    public static final long SNIPER_SHOOTING_TIMEOUT = 1200;
+    public static final long MINIGUN_SHOOTING_TIMEOUT = 50; //was 100
 
     //Bullet damage
     public static final int PISTOL_DAMAGE = 3;
@@ -53,9 +52,17 @@ public class Constants {
     //Shop Functionality
     public static final int[] HEART_HEALTH = {100, 120, 150, 170, 200, 250, 300, 400, 500};
     public static final int[] HEART_PRICE = {200, 300, 400, 500, 600, 700, 800, 900, 1000 };
-    //--
+    //Pointers
     public static final int POINTER_ONE_PRICE = 100;
     public static final int POINTER_TWO_PRICE  = 200;
+    //GunsShop
+    //--Pistol
+    public static final int[] PISTOL_SHOOTING_TIMEOUT_VALUES = {1000, 900, 800, 700, 600, 500,400};
+    public static final int[] PISTOL_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700};
+
+    public static final int[] PISTOL_DAMAGE_VALUES = {3, 5, 10, 15, 20, 30,40};
+    public static final int[] PISTOL_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
+
 
 
 

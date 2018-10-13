@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.casual_games.Additional.Constants;
 import com.casual_games.FingerGun;
 import static com.casual_games.Additional.Constants.*;
 
@@ -26,7 +27,6 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     //put current gosterici strings here
     private String totalCoinCountText;
-
 
     //pistol stuff
     private  Sprite pistolIcon, pistolTimeoutPlusIcon, pistolDamagePlusIcon;
@@ -54,10 +54,32 @@ public class GunsShopScreen implements Screen, InputProcessor {
     private String minigunTimeoutUpgradePrice, minigunDamageUpgradePrice, minigunBuyPrice;
     private GlyphLayout minigunTimeoutUpgradeGlyphLayout, minigunDamageUpgradeGlyphLayout, minigunBuyPriceGlyphLayout;
 
+    private boolean maxPistolTimeoutReached;
 
     public GunsShopScreen(FingerGun game) {
         this.game = game;
 
+        //functionality stuff
+        int current_pistol_timeout = game.prefs.getInteger("current_pistol_timeout", 1000);
+
+        //finding index
+        int index = 0;
+        for(int i = 0; i< Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length-1; i++){
+            if(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[i]==current_pistol_timeout)
+                index = i;
+        }
+
+        if (Integer.valueOf(current_pistol_timeout) <=
+                Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length-1] ) {
+            maxPistolTimeoutReached = true;
+        }else{
+            maxPistolTimeoutReached = false;
+        }
+
+
+        //----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------
         background = new Sprite(game.assets.manager.get("background.png", Texture.class));
         background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         background.setPosition(0, 0);
@@ -107,7 +129,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         shootingTimeoutGlupLayout = new GlyphLayout();
         shootingTimeoutGlupLayout.setText(xsFont, shootingTimeoutText);
         //--
-        currentPistolTimeout = "3500";
+        currentPistolTimeout = String.valueOf(current_pistol_timeout);
         currentPistolTimeoutGlupLayout = new GlyphLayout();
         currentPistolTimeoutGlupLayout.setText(smallFont, currentPistolTimeout);
         //--
@@ -119,7 +141,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         currentMinigunTimeoutGlupLayout = new GlyphLayout();
         currentMinigunTimeoutGlupLayout.setText(smallFont, currentMinigunTimeout);
         //--
-        pistolTimeoutUpgradePrice = "200";
+        pistolTimeoutUpgradePrice = String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index]);
         pistolTimeoutUpgradeGlyphLayout = new GlyphLayout();
         pistolTimeoutUpgradeGlyphLayout.setText(smallFont, pistolTimeoutUpgradePrice);
         //--
@@ -212,33 +234,16 @@ public class GunsShopScreen implements Screen, InputProcessor {
         minigunIcon.setPosition(bgRect3.getX() + (bgRect3.getWidth() - minigunIcon.getWidth()) / 2, bgRect3.getY() + (bgRect3.getHeight() - minigunIcon.getHeight()) / 2);
         currentCoinsIcon.setPosition(SCREEN_WIDTH-SCREEN_WIDTH/50-currentCoinsIcon.getWidth(), BACK_BUTTON_Y+coinCountGlupLayout.height/2);
 
-        //files
-//        backButton.setRegion(new Texture(Gdx.files.internal("back_button.png")));
-//        pistolTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        sniperTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        minigunTimeoutPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        pistolDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        sniperDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        minigunDamagePlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        sniperLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
-//        minigunLockIcon.setRegion(new Texture(Gdx.files.internal("lock_icon2.png")));
-//        sniperBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        minigunBuyPlusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
-//        bgRect1.setRegion(new Texture(Gdx.files.internal("orange.png")));
-//        bgRect2.setRegion(new Texture(Gdx.files.internal("orange.png")));
-//        bgRect3.setRegion(new Texture(Gdx.files.internal("orange.png")));
-//        pistolIcon.setRegion(new Texture(Gdx.files.internal("pistol_icon.png")));
-//        sniperIcon.setRegion(new Texture(Gdx.files.internal("sniper_icon.png")));
-//        minigunIcon.setRegion(new Texture(Gdx.files.internal("minigun_icon.png")));
-//        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
-//        coinIcon.setRegion(new Texture(Gdx.files.internal("coin_icon.png")));
-
 
     }
 
 
     @Override
     public void show() {
+
+        game.prefs.putInteger("coinCoint", 30000);
+        game.prefs.flush();
+        //delete above
 
         totalCoinCountText = String.valueOf(game.prefs.getInteger("coinCoint", 0));
         coinCountGlupLayout.setText(smallFont, totalCoinCountText);
@@ -279,7 +284,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
         smallFont.draw(game.batch, currentPistolTimeout, bgRect1.getX()+bgRect1.getWidth()+SCREEN_WIDTH/20+shootingTimeoutGlupLayout.width, bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height);
 
-        smallFont.draw(game.batch, pistolTimeoutUpgradePrice, pistolTimeoutPlusIcon.getX()+pistolTimeoutPlusIcon.getWidth()+SCREEN_WIDTH/40, bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height);
+        if (!maxPistolTimeoutReached)
+            smallFont.draw(game.batch, pistolTimeoutUpgradePrice, pistolTimeoutPlusIcon.getX()+pistolTimeoutPlusIcon.getWidth()+SCREEN_WIDTH/40, bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height);
 
         smallFont.draw(game.batch, damageText, bgRect1.getX()+bgRect1.getWidth()+SCREEN_WIDTH/40, bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height*0.5f - shootingTimeoutGlupLayout.height*2.0f);
 
@@ -290,7 +296,9 @@ public class GunsShopScreen implements Screen, InputProcessor {
         bgRect1.draw(game.batch);
         bgRect2.draw(game.batch);
         bgRect3.draw(game.batch);
-        pistolTimeoutPlusIcon.draw(game.batch);
+
+        if (!maxPistolTimeoutReached)
+            pistolTimeoutPlusIcon.draw(game.batch);
 
         pistolDamagePlusIcon.draw(game.batch);
 
@@ -300,9 +308,11 @@ public class GunsShopScreen implements Screen, InputProcessor {
         currentCoinsIcon.draw(game.batch);
 
         //pistol timeout coin
-        game.batch.draw(coinIcon.getTexture(), pistolTimeoutPlusIcon.getX()+pistolTimeoutPlusIcon.getWidth()+SCREEN_WIDTH/20+pistolTimeoutUpgradeGlyphLayout.width,
-                bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height-pistolTimeoutUpgradeGlyphLayout.height*1.3f,
-                coinIcon.getWidth(), coinIcon.getHeight());
+        if (!maxPistolTimeoutReached) {
+            game.batch.draw(coinIcon.getTexture(), pistolTimeoutPlusIcon.getX() + pistolTimeoutPlusIcon.getWidth() + SCREEN_WIDTH / 20 + pistolTimeoutUpgradeGlyphLayout.width,
+                    bgRect1.getY() + bgRect1.getHeight() - shootingTimeoutGlupLayout.height - pistolTimeoutUpgradeGlyphLayout.height * 1.3f,
+                    coinIcon.getWidth(), coinIcon.getHeight());
+        }
 
         //pistol damage coin
         game.batch.draw(coinIcon.getTexture(), pistolDamagePlusIcon.getX()+pistolDamagePlusIcon.getWidth()+SCREEN_WIDTH/20+pistolDamageUpgradeGlyphLayout.width,
@@ -452,9 +462,50 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-//            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
+
+        //increase health
+        if (pistolTimeoutPlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !maxPistolTimeoutReached){
+
+            //there is enough money to purchase
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(pistolTimeoutUpgradePrice) ) {
+
+                //update coins
+                currentCoins = currentCoins-Integer.valueOf(pistolTimeoutUpgradePrice);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                int current_pistol_timeout = game.prefs.getInteger("current_pistol_timeout", 1000);
+
+                //finding index
+                int index = 0;
+                for(int i = 0; i< Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length-1; i++){
+                    if(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[i]==current_pistol_timeout)
+                        index = i;
+                }
+
+                if (current_pistol_timeout == Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length - 2]) {
+                    maxPistolTimeoutReached = true;
+                } else {
+                    //finding price
+                    int newPrice = Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index + 1];
+
+                    currentPistolTimeout= String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index + 1]);
+                    pistolTimeoutUpgradePrice = String.valueOf(newPrice);
+                }
+
+                game.prefs.putInteger("current_pistol_timeout", Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index + 1]);
+                game.prefs.flush();
+
+
+            }
+
+
+
+        }
+
         return true;
     }
 
