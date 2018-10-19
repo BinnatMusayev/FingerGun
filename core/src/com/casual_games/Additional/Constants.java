@@ -58,9 +58,9 @@ public class Constants {
     //GunsShop
     //--Pistol
     public static final int[] PISTOL_SHOOTING_TIMEOUT_VALUES = {1000, 900, 800, 700, 600, 500,400};
-    public static final int[] PISTOL_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700};
+    public static final int[] PISTOL_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
-    public static final int[] PISTOL_DAMAGE_VALUES = {3, 5, 10, 15, 20, 30,40};
+    public static final int[] PISTOL_DAMAGE_VALUES = {3, 5, 10, 15, 20, 30, 40};
     public static final int[] PISTOL_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
 

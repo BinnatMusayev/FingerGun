@@ -211,9 +211,16 @@ public class PlayScreen implements Screen, InputProcessor{
         paused = false;
         gameover = false;
 
-        gunType = Constants.Gun.pistol;
+        String currentGun = game.prefs.getString("currentGun", "pistol");
+        if (currentGun.equals("pistol")){
+            gunType = Constants.Gun.pistol;
+        }else if (currentGun.equals("sniper")){
+            gunType = Constants.Gun.sniper;
+        }else if (currentGun.equals("minigun")){
+            gunType = Constants.Gun.minigun;
+        }
 
-        //change it to switch case
+        //change it to switch case if becomes longer
         if (gunType == Constants.Gun.pistol){
             currentGunShootingTimeout = game.prefs.getInteger("current_pistol_timeout", 1000);
         }else if (gunType == Constants.Gun.sniper){
@@ -221,6 +228,9 @@ public class PlayScreen implements Screen, InputProcessor{
         }else if (gunType == Constants.Gun.minigun){
             currentGunShootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
         }
+
+
+
     }
 
 	@Override

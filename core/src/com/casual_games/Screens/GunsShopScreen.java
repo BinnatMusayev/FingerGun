@@ -19,7 +19,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
     private FingerGun game;
     private BitmapFont font, smallFont, xsFont, buyFont;
-    private String titleText;
+    private String titleText, currentGun;
     private Sprite coinIcon;
     private Sprite backButton,  bgRect1, bgRect2, bgRect3, currentCoinsIcon, background;
     private GlyphLayout shopGlupLayout, coinCountGlupLayout, shootingTimeoutGlupLayout, damageGlupLayout, buyGlupLayout;
@@ -37,7 +37,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     private GlyphLayout pistolTimeoutUpgradeGlyphLayout, pistolDamageUpgradeGlyphLayout;
 
     //sniper stuff
-    private boolean sniperPurchased;
+    private boolean isSniperPurchased;
     private Sprite sniperIcon, sniperTimeoutPlusIcon, sniperDamagePlusIcon, sniperLockIcon, sniperBuyPlusIcon;
     private String currentSniperTimeout,currentSniperDamage;
     private GlyphLayout currentSniperTimeoutGlupLayout, currentSniperDamageGlupLayout;
@@ -46,7 +46,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     private GlyphLayout sniperTimeoutUpgradeGlyphLayout, sniperDamageUpgradeGlyphLayout, sniperBuyPriceGlyphLayout;
 
     //minigun stuff
-    private boolean minigunPurchased;
+    private boolean isMinigunPurchased;
     private Sprite minigunIcon, minigunTimeoutPlusIcon, minigunDamagePlusIcon, minigunLockIcon, minigunBuyPlusIcon;
     private String currentMinigunTimeout,currentMinigunDamage;
     private GlyphLayout currentMinigunTimeoutGlupLayout, currentMinigunDamageGlupLayout;
@@ -54,19 +54,25 @@ public class GunsShopScreen implements Screen, InputProcessor {
     private String minigunTimeoutUpgradePrice, minigunDamageUpgradePrice, minigunBuyPrice;
     private GlyphLayout minigunTimeoutUpgradeGlyphLayout, minigunDamageUpgradeGlyphLayout, minigunBuyPriceGlyphLayout;
 
-    private boolean maxPistolTimeoutReached;
+    private boolean maxPistolTimeoutReached, maxPistolDamageReached;
 
     public GunsShopScreen(FingerGun game) {
         this.game = game;
 
         //functionality stuff
+        currentGun = game.prefs.getString("currentGun", "pistol");
+
+        isSniperPurchased = game.prefs.getBoolean("isSniperPurchased", false);
+        isMinigunPurchased = game.prefs.getBoolean("isMinigunPurchased", false);
+
+        //pistol timeout
         int current_pistol_timeout = game.prefs.getInteger("current_pistol_timeout", 1000);
 
         //finding index
-        int index = 0;
+        int index_pistol_timeout = 0;
         for(int i = 0; i< Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length-1; i++){
             if(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[i]==current_pistol_timeout)
-                index = i;
+                index_pistol_timeout = i;
         }
 
         if (Integer.valueOf(current_pistol_timeout) <=
@@ -74,6 +80,23 @@ public class GunsShopScreen implements Screen, InputProcessor {
             maxPistolTimeoutReached = true;
         }else{
             maxPistolTimeoutReached = false;
+        }
+
+        //pistol damage
+        int current_pistol_damage = game.prefs.getInteger("current_pistol_damage", 3);
+
+        //finding index
+        int index_pistol_damage = 0;
+        for(int i = 0; i< Constants.PISTOL_DAMAGE_VALUES.length-1; i++){
+            if(Constants.PISTOL_DAMAGE_VALUES[i]==current_pistol_timeout)
+                index_pistol_damage = i;
+        }
+
+        if (Integer.valueOf(current_pistol_timeout) <=
+                Constants.PISTOL_DAMAGE_VALUES[Constants.PISTOL_DAMAGE_VALUES.length-1] ) {
+            maxPistolDamageReached = true;
+        }else{
+            maxPistolDamageReached = false;
         }
 
 
@@ -103,10 +126,6 @@ public class GunsShopScreen implements Screen, InputProcessor {
         minigunIcon = new Sprite(game.assets.manager.get("minigun_icon.png", Texture.class));
         currentCoinsIcon = new Sprite(game.assets.manager.get("coins_collective.png", Texture.class));
         coinIcon = new Sprite(game.assets.manager.get("coin_icon.png", Texture.class));
-
-        sniperPurchased = false;
-        minigunPurchased = false;
-
 
         font = game.createBitmapFont((int) SCREEN_WIDTH / 15);
         Color smallFontColor = new Color();
@@ -141,7 +160,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         currentMinigunTimeoutGlupLayout = new GlyphLayout();
         currentMinigunTimeoutGlupLayout.setText(smallFont, currentMinigunTimeout);
         //--
-        pistolTimeoutUpgradePrice = String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index]);
+        pistolTimeoutUpgradePrice = String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index_pistol_timeout]);
         pistolTimeoutUpgradeGlyphLayout = new GlyphLayout();
         pistolTimeoutUpgradeGlyphLayout.setText(smallFont, pistolTimeoutUpgradePrice);
         //--
@@ -157,7 +176,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         damageGlupLayout = new GlyphLayout();
         damageGlupLayout.setText(xsFont, damageText);
         //--
-        currentPistolDamage = "1000";
+        currentPistolDamage = String.valueOf(current_pistol_damage);
         currentPistolDamageGlupLayout = new GlyphLayout();
         currentPistolDamageGlupLayout.setText(smallFont, currentPistolDamage);
         //--
@@ -169,7 +188,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         currentMinigunDamageGlupLayout = new GlyphLayout();
         currentMinigunDamageGlupLayout.setText(smallFont, currentMinigunDamage);
         //--
-        pistolDamageUpgradePrice = "2483";
+        pistolDamageUpgradePrice = String.valueOf(Constants.PISTOL_DAMAGE_PRICES[index_pistol_damage]);
         pistolDamageUpgradeGlyphLayout = new GlyphLayout();
         pistolDamageUpgradeGlyphLayout.setText(smallFont, pistolDamageUpgradePrice);
         //--
@@ -270,7 +289,17 @@ public class GunsShopScreen implements Screen, InputProcessor {
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             Gdx.gl.glEnable(GL20.GL_BLEND); //for transparency
             game.shapeRenderer.setColor(37f/255, 119f/255, 178f/255, 0.7f);
+
+        if (currentGun.equals("pistol")){
             game.shapeRenderer.rect(0, bgRect1.getY()-SCREEN_HEIGHT/100, SCREEN_WIDTH, bgRect1.getHeight()+SCREEN_HEIGHT/50);
+        }else if (currentGun.equals("sniper")){
+            game.shapeRenderer.rect(0, bgRect2.getY()-SCREEN_HEIGHT/100, SCREEN_WIDTH, bgRect2.getHeight()+SCREEN_HEIGHT/50);
+        }else if (currentGun.equals("minigun")){
+            game.shapeRenderer.rect(0, bgRect3.getY()-SCREEN_HEIGHT/100, SCREEN_WIDTH, bgRect3.getHeight()+SCREEN_HEIGHT/50);
+        }
+
+
+//            game.shapeRenderer.rect(0, bgRect1.getY()-SCREEN_HEIGHT/100, SCREEN_WIDTH, bgRect1.getHeight()+SCREEN_HEIGHT/50);
         game.shapeRenderer.end();
 
 
@@ -291,6 +320,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
         smallFont.draw(game.batch, currentPistolDamage, bgRect1.getX()+bgRect1.getWidth()+SCREEN_WIDTH/15+damageGlupLayout.width, bgRect1.getY()+bgRect1.getHeight()-shootingTimeoutGlupLayout.height*0.5f - shootingTimeoutGlupLayout.height*2.0f);
 
+        if (!maxPistolDamageReached)
         smallFont.draw(game.batch, pistolDamageUpgradePrice, pistolTimeoutPlusIcon.getX()+pistolTimeoutPlusIcon.getWidth()+SCREEN_WIDTH/40,pistolDamagePlusIcon.getY()+pistolDamageUpgradeGlyphLayout.height*1.2f);
 
         bgRect1.draw(game.batch);
@@ -300,6 +330,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         if (!maxPistolTimeoutReached)
             pistolTimeoutPlusIcon.draw(game.batch);
 
+        if (!maxPistolDamageReached)
         pistolDamagePlusIcon.draw(game.batch);
 
         pistolIcon.draw(game.batch);
@@ -315,14 +346,16 @@ public class GunsShopScreen implements Screen, InputProcessor {
         }
 
         //pistol damage coin
-        game.batch.draw(coinIcon.getTexture(), pistolDamagePlusIcon.getX()+pistolDamagePlusIcon.getWidth()+SCREEN_WIDTH/20+pistolDamageUpgradeGlyphLayout.width,
-                pistolDamagePlusIcon.getY(),
-                coinIcon.getWidth(), coinIcon.getHeight());
+        if (!maxPistolDamageReached) {
+            game.batch.draw(coinIcon.getTexture(), pistolDamagePlusIcon.getX() + pistolDamagePlusIcon.getWidth() + SCREEN_WIDTH / 20 + pistolDamageUpgradeGlyphLayout.width,
+                    pistolDamagePlusIcon.getY(),
+                    coinIcon.getWidth(), coinIcon.getHeight());
+        }
 
 
 
         //sniper stuff
-        if (sniperPurchased){
+        if (isSniperPurchased){
             xsFont.draw(game.batch, shootingTimeoutText, bgRect2.getX()+bgRect2.getWidth()+SCREEN_WIDTH/40, bgRect2.getY()+bgRect2.getHeight()-shootingTimeoutGlupLayout.height*0.5f);
             smallFont.draw(game.batch, damageText, bgRect2.getX()+bgRect2.getWidth()+SCREEN_WIDTH/40, bgRect2.getY()+bgRect2.getHeight()-shootingTimeoutGlupLayout.height*0.5f - shootingTimeoutGlupLayout.height*2.0f);
 
@@ -353,7 +386,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
         }
 
         //minigun stuff
-        if (minigunPurchased){
+        if (isMinigunPurchased){
             xsFont.draw(game.batch, shootingTimeoutText, bgRect3.getX()+bgRect3.getWidth()+SCREEN_WIDTH/40, bgRect3.getY()+bgRect3.getHeight()-shootingTimeoutGlupLayout.height*0.5f);
             smallFont.draw(game.batch, damageText, bgRect3.getX()+bgRect3.getWidth()+SCREEN_WIDTH/40, bgRect3.getY()+bgRect3.getHeight()-shootingTimeoutGlupLayout.height*0.5f - shootingTimeoutGlupLayout.height*2.0f);
 
@@ -465,7 +498,47 @@ public class GunsShopScreen implements Screen, InputProcessor {
             game.setScreen(game.shopScreen);
         }
 
-        //increase health
+        //buy sniper
+        if (sniperBuyPlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !isSniperPurchased ){
+
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(sniperBuyPrice) ) {
+
+                //update coins
+                currentCoins = currentCoins - Integer.valueOf(sniperBuyPrice);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                isSniperPurchased = true;
+                game.prefs.putString("currentGun", "sniper");
+                currentGun = "sniper";
+
+                game.prefs.putBoolean("isSniperPurchased", true);
+                game.prefs.flush();
+            }
+        }
+
+        //buy minigun
+        if (minigunBuyPlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !isMinigunPurchased ){
+
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(minigunBuyPrice) ) {
+
+                //update coins
+                currentCoins = currentCoins - Integer.valueOf(minigunBuyPrice);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                isMinigunPurchased = true;
+                game.prefs.putString("currentGun", "minigun");
+                currentGun = "minigun";
+
+                game.prefs.putBoolean("isMinigunPurchased", true);
+                game.prefs.flush();
+            }
+        }
+
+        //increase pistol shooting timeout
         if (pistolTimeoutPlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !maxPistolTimeoutReached){
 
             //there is enough money to purchase
@@ -480,30 +553,91 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 int current_pistol_timeout = game.prefs.getInteger("current_pistol_timeout", 1000);
 
                 //finding index
-                int index = 0;
+                int index_pistol_timeout = 0;
                 for(int i = 0; i< Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length-1; i++){
                     if(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[i]==current_pistol_timeout)
-                        index = i;
+                        index_pistol_timeout = i;
                 }
 
                 if (current_pistol_timeout == Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[Constants.PISTOL_SHOOTING_TIMEOUT_VALUES.length - 2]) {
                     maxPistolTimeoutReached = true;
-                } else {
-                    //finding price
-                    int newPrice = Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index + 1];
-
-                    currentPistolTimeout= String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index + 1]);
-                    pistolTimeoutUpgradePrice = String.valueOf(newPrice);
                 }
 
-                game.prefs.putInteger("current_pistol_timeout", Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index + 1]);
+                //finding price
+                int newPrice = Constants.PISTOL_SHOOTING_TIMEOUT_PRICES[index_pistol_timeout + 1];
+
+                currentPistolTimeout= String.valueOf(Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index_pistol_timeout + 1]);
+                pistolTimeoutUpgradePrice = String.valueOf(newPrice);
+
+
+                game.prefs.putInteger("current_pistol_timeout", Constants.PISTOL_SHOOTING_TIMEOUT_VALUES[index_pistol_timeout + 1]);
                 game.prefs.flush();
 
 
             }
+        }
+
+
+        //increase pistol damage
+        if (pistolDamagePlusIcon.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY) && !maxPistolDamageReached){
+
+            //there is enough money to purchase
+            int currentCoins = game.prefs.getInteger("coinCoint", 0);
+            if ( currentCoins >= Integer.valueOf(pistolDamageUpgradePrice) ) {
+
+                //update coins
+                currentCoins = currentCoins-Integer.valueOf(pistolDamageUpgradePrice);
+                game.prefs.putInteger("coinCoint", currentCoins);
+                totalCoinCountText = String.valueOf(currentCoins);
+
+                int current_pistol_damage = game.prefs.getInteger("current_pistol_damage", 3);
+
+                //finding index
+                int index_pistol_damage = 0;
+                for(int i = 0; i< Constants.PISTOL_DAMAGE_VALUES.length-1; i++){
+                    if(Constants.PISTOL_DAMAGE_VALUES[i]==current_pistol_damage)
+                        index_pistol_damage = i;
+                }
+
+                if (current_pistol_damage == Constants.PISTOL_DAMAGE_VALUES[Constants.PISTOL_DAMAGE_VALUES.length - 2]) {
+                    maxPistolDamageReached = true;
+                }
+
+                //finding price
+                int newPrice = Constants.PISTOL_DAMAGE_PRICES[index_pistol_damage + 1];
+
+                currentPistolDamage = String.valueOf(Constants.PISTOL_DAMAGE_VALUES[index_pistol_damage + 1]);
+                pistolDamageUpgradePrice = String.valueOf(newPrice);
+
+
+                game.prefs.putInteger("current_pistol_damage", Constants.PISTOL_DAMAGE_VALUES[index_pistol_damage + 1]);
+                game.prefs.flush();
+
+
+            }
+        }
 
 
 
+        //choose gun to use
+        if ((SCREEN_HEIGHT-screenY) >= pistolIcon.getY()
+                && (SCREEN_HEIGHT-screenY) <= pistolIcon.getY() + pistolIcon.getWidth()
+                 ){
+            currentGun = "pistol";
+            game.prefs.putString("currentGun", "pistol");
+            game.prefs.flush();
+        }else if ((SCREEN_HEIGHT-screenY) >= sniperIcon.getY()
+                && (SCREEN_HEIGHT-screenY) <= sniperIcon.getY() + sniperIcon.getWidth()
+                && isSniperPurchased ){
+            currentGun = "sniper";
+            game.prefs.putString("currentGun", "sniper");
+            game.prefs.flush();
+        }else if ((SCREEN_HEIGHT-screenY) >= minigunIcon.getY()
+                && (SCREEN_HEIGHT-screenY) <= minigunIcon.getY() + minigunIcon.getWidth()
+                && isMinigunPurchased ){
+            currentGun = "minigun";
+            game.prefs.putString("currentGun", "minigun");
+            game.prefs.flush();
         }
 
         return true;

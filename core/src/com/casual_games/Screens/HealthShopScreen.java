@@ -226,13 +226,14 @@ public class HealthShopScreen implements Screen, InputProcessor {
 
                 if (current_health == Constants.HEART_HEALTH[Constants.HEART_HEALTH.length - 2]) {
                     maxHealthReached = true;
-                } else {
-                    //finding price
-                    int newPrice = Constants.HEART_PRICE[index + 1];
-
-                    currentHealth = String.valueOf(Constants.HEART_HEALTH[index + 1]);
-                    priceText = String.valueOf(newPrice);
                 }
+
+                //finding price
+                int newPrice = Constants.HEART_PRICE[index + 1];
+
+                currentHealth = String.valueOf(Constants.HEART_HEALTH[index + 1]);
+                priceText = String.valueOf(newPrice);
+
 
                 game.prefs.putInteger("current_health", Constants.HEART_HEALTH[index + 1]);
                 game.prefs.flush();

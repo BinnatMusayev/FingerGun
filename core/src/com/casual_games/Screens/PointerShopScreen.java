@@ -269,7 +269,6 @@ public class PointerShopScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.BACK){
-//            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
 
@@ -289,7 +288,6 @@ public class PointerShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
-//            game.setScreen(new ShopScreen(game));
             game.setScreen(game.shopScreen);
         }
 
