@@ -26,9 +26,9 @@ public class MinigunBullet extends Bullet{
         setX(x-getRegionWidth()*getScaleX()/2);
         speed = Constants.MINIGUN_SPEED;
 
-        shootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
+        shootingTimeout = playScreen.getGame().prefs.getInteger("current_minigun_timeout", 1200);
 
-        damage = Constants.MINIGUN_DAMAGE;
+        damage = playScreen.getGame().prefs.getInteger("current_minigun_damage", 3);
     }
 
     @Override

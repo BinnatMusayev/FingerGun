@@ -27,9 +27,9 @@ public class SniperBullet extends Bullet{
         setX(x-getRegionWidth()*getScaleX()/2);
         speed = Constants.SNIPER_SPEED;
 
-        shootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
+        shootingTimeout = playScreen.getGame().prefs.getInteger("current_sniper_timeout", 1200);
 
-        damage = Constants.SNIPER_DAMAGE;
+        damage = playScreen.getGame().prefs.getInteger("current_sniper_damage", 3);
 
     }
 

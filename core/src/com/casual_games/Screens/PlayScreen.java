@@ -224,9 +224,9 @@ public class PlayScreen implements Screen, InputProcessor{
         if (gunType == Constants.Gun.pistol){
             currentGunShootingTimeout = game.prefs.getInteger("current_pistol_timeout", 1000);
         }else if (gunType == Constants.Gun.sniper){
-            currentGunShootingTimeout = Constants.SNIPER_SHOOTING_TIMEOUT;
+            currentGunShootingTimeout = game.prefs.getInteger("current_sniper_timeout", 1200);
         }else if (gunType == Constants.Gun.minigun){
-            currentGunShootingTimeout = Constants.MINIGUN_SHOOTING_TIMEOUT;
+            currentGunShootingTimeout = game.prefs.getInteger("current_minigun_timeout", 200);
         }
 
 

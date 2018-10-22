@@ -57,11 +57,25 @@ public class Constants {
     public static final int POINTER_TWO_PRICE  = 200;
     //GunsShop
     //--Pistol
-    public static final int[] PISTOL_SHOOTING_TIMEOUT_VALUES = {1000, 900, 800, 700, 600, 500,400};
+    public static final int[] PISTOL_SHOOTING_TIMEOUT_VALUES = {1000, 900, 800, 700, 600, 500, 300};
     public static final int[] PISTOL_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
     public static final int[] PISTOL_DAMAGE_VALUES = {3, 5, 10, 15, 20, 30, 40};
     public static final int[] PISTOL_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
+
+    //--Sniper
+    public static final int[] SNIPER_SHOOTING_TIMEOUT_VALUES = {1200, 1000, 800, 700, 600, 550, 500};
+    public static final int[] SNIPER_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700, 800};
+
+    public static final int[] SNIPER_DAMAGE_VALUES = {30, 35, 40, 45, 50, 55, 60};
+    public static final int[] SNIPER_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
+
+    //--Minigun
+    public static final int[] MINIGUN_SHOOTING_TIMEOUT_VALUES = {200, 150, 100, 70, 60, 55, 50};
+    public static final int[] MINIGUN_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700, 800};
+
+    public static final int[] MINIGUN_DAMAGE_VALUES = {3, 5, 7, 9, 11, 13, 15};
+    public static final int[] MINIGUN_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
 
 
