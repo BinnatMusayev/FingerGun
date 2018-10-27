@@ -183,7 +183,6 @@ public class PlayScreen implements Screen, InputProcessor{
         gameOverWidget = new GameOverWidget(this);
         coins = new Coins(this);
 
-
         Color fontColor = new Color();
         fontColor.set(247f/255, 239f/255, 202f/255, 1f);
         font = game.createBitmapFont((int) SCREEN_WIDTH / 35, fontColor, "Lato-Heavy.ttf");
@@ -317,7 +316,6 @@ public class PlayScreen implements Screen, InputProcessor{
                     paused = false;
                     enemies.makeEnemiesWalk();
                 }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
-//                    game.setScreen(new MainMenu(game));
                     game.setScreen(game.mainMenu);
                 }
             }
@@ -325,10 +323,8 @@ public class PlayScreen implements Screen, InputProcessor{
             if (gameOverWidget.getRetryButtonBounds().contains(screenX, screenY)){
                 startGame();
             }else if(gameOverWidget.getHomeButtonBounds().contains(screenX, screenY)){
-//                game.setScreen(new MainMenu(game));
                 game.setScreen(game.mainMenu);
             }
-//            gameover = false;
         }
         return true;
     }
@@ -439,6 +435,7 @@ public class PlayScreen implements Screen, InputProcessor{
             game.prefs.putInteger("highScore", deathCount);
             game.prefs.flush();
         }
+        deathCount = 0;
     }
 
 
@@ -484,5 +481,9 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public FingerGun getGame() {
         return game;
+    }
+
+    public void deleteAllEnemies(){
+	    enemies.getEnemyLines().clear();
     }
 }

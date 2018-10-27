@@ -68,12 +68,10 @@ public class Enemies {
 
         EnemyLine enemyLine;
         if(enemyLines.size()<30){
-//            enemyLine = new EnemyLine(playScreen, lineIndex);
             enemyLine = new EnemyLine(playScreen,  (int)( (enemyLines.get(enemyLines.size()-1).getY() + (Gdx.graphics.getWidth()/10) )/(Gdx.graphics.getWidth()/10)) +1 );
 
             enemyLines.add(enemyLine);
             System.out.println("added: " + enemyLine.getLineIndex());
-//            lineIndex++;
         }
 
     }
@@ -148,7 +146,6 @@ public class Enemies {
             enemyLine.makeEnemiesWalk();
         }
     }
-
 
 
 

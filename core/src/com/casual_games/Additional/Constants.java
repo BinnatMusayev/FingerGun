@@ -17,9 +17,9 @@ public class Constants {
     public static enum Gun {pistol, sniper, minigun}
 
     //Bullet speed -> constants, does not change
-    public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/250;
+    public static final float PISTOL_SPEED = Gdx.graphics.getHeight()/130;
     public static final float SNIPER_SPEED = Gdx.graphics.getHeight()/70;
-    public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/100;
+    public static final float MINIGUN_SPEED = Gdx.graphics.getHeight()/95;
 
     //Bullet shooting timeout
     public static final long PISTOL_SHOOTING_TIMEOUT = 1000;
@@ -64,10 +64,10 @@ public class Constants {
     public static final int[] PISTOL_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
     //--Sniper
-    public static final int[] SNIPER_SHOOTING_TIMEOUT_VALUES = {1200, 1000, 800, 700, 600, 550, 500};
+    public static final int[] SNIPER_SHOOTING_TIMEOUT_VALUES = {1200, 1000, 900, 800, 700, 650, 600};
     public static final int[] SNIPER_SHOOTING_TIMEOUT_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
-    public static final int[] SNIPER_DAMAGE_VALUES = {30, 35, 40, 45, 50, 55, 60};
+    public static final int[] SNIPER_DAMAGE_VALUES = {30, 35, 40, 45, 50, 55, 300};
     public static final int[] SNIPER_DAMAGE_PRICES = {200, 300, 400, 500, 600, 700, 800};
 
     //--Minigun
