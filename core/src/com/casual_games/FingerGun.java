@@ -43,6 +43,8 @@ public class FingerGun extends Game {
     public HealthShopScreen healthShopScreen;
     public PointerShopScreen pointerShopScreen;
 
+    private FingerGun fingerGun;
+
     @Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -54,15 +56,35 @@ public class FingerGun extends Game {
 
         prefs = Gdx.app.getPreferences("My Preferences");
 
-        splashScreen = new SplashScreen(this);
-        mainMenu = new MainMenu(this);
-        playScreen = new PlayScreen(this);
-        shopScreen = new ShopScreen(this);
-        gunsShopScreen = new GunsShopScreen(this);
-        healthShopScreen = new HealthShopScreen(this);
-        pointerShopScreen = new PointerShopScreen(this);
+        fingerGun = this;
 
-	    setScreen(splashScreen);
+        splashScreen = new SplashScreen(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainMenu = new MainMenu(fingerGun);
+                        playScreen = new PlayScreen(fingerGun);
+                        shopScreen = new ShopScreen(fingerGun);
+                        gunsShopScreen = new GunsShopScreen(fingerGun);
+                        healthShopScreen = new HealthShopScreen(fingerGun);
+                        pointerShopScreen = new PointerShopScreen(fingerGun);
+                    }
+                });
+            }
+        }).start();
+//        mainMenu = new MainMenu(this);
+//        playScreen = new PlayScreen(this);
+//        shopScreen = new ShopScreen(this);
+//        gunsShopScreen = new GunsShopScreen(this);
+//        healthShopScreen = new HealthShopScreen(this);
+//        pointerShopScreen = new PointerShopScreen(this);
+
+        setScreen(splashScreen);
+
 
 	}
 
