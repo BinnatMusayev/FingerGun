@@ -289,6 +289,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.shopScreen);
+            game.playsound("audio/click.wav");
         }
 
 
@@ -298,6 +299,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pointerOnePriceText) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(pointerOnePriceText);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -309,6 +311,8 @@ public class PointerShopScreen implements Screen, InputProcessor {
                 game.prefs.putBoolean("isPointerOnePurchased", true);
                 game.prefs.putString("currentPointer", "pointerOne");
                 game.prefs.flush();
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -318,6 +322,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pointerTwoPriceText) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(pointerTwoPriceText);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -329,6 +334,8 @@ public class PointerShopScreen implements Screen, InputProcessor {
                 game.prefs.putBoolean("isPointerTwoPurchased", true);
                 game.prefs.putString("currentPointer", "pointerTwo");
                 game.prefs.flush();
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -339,12 +346,14 @@ public class PointerShopScreen implements Screen, InputProcessor {
             currentPointer = "pointerOne";
             game.prefs.putString("currentPointer", "pointerOne");
             game.prefs.flush();
+            game.playsound("audio/click.wav");
         }else if ((SCREEN_HEIGHT-screenY) >= pointerTwo.getY()
                 && (SCREEN_HEIGHT-screenY) <= pointerTwo.getY() + pointerTwo.getR()*2
                 && isPointerTwoPurchased ){
             currentPointer = "pointerTwo";
             game.prefs.putString("currentPointer", "pointerTwo");
             game.prefs.flush();
+            game.playsound("audio/click.wav");
         }
 
 

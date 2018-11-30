@@ -200,6 +200,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
+            game.playsound("audio/click.wav");
             game.setScreen(game.shopScreen);
         }
 
@@ -210,6 +211,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(priceText) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(priceText);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -239,6 +241,8 @@ public class HealthShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
 
 

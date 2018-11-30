@@ -149,6 +149,7 @@ public class MainMenu implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
+        game.playsound("audio/click.wav");
         if (playButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
             game.setScreen(game.playScreen);
         }else if (shopButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){

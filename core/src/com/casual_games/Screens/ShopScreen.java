@@ -174,6 +174,7 @@ public class ShopScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        game.playsound("audio/click.wav");
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
 //            game.setScreen(new MainMenu(game));
             game.setScreen(game.mainMenu);

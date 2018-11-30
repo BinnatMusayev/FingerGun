@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -76,12 +77,6 @@ public class FingerGun extends Game {
                 });
             }
         }).start();
-//        mainMenu = new MainMenu(this);
-//        playScreen = new PlayScreen(this);
-//        shopScreen = new ShopScreen(this);
-//        gunsShopScreen = new GunsShopScreen(this);
-//        healthShopScreen = new HealthShopScreen(this);
-//        pointerShopScreen = new PointerShopScreen(this);
 
         setScreen(splashScreen);
 
@@ -147,5 +142,11 @@ public class FingerGun extends Game {
         params.size = size;
         params.color = color;
         return generator.generateFont(params);
+    }
+
+    public void playsound(String soundName){
+        if(prefs.getBoolean("musicEnabled", false) ) {
+            assets.manager.get(soundName, Sound.class).play();
+        }
     }
 }

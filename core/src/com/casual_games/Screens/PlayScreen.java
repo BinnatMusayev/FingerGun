@@ -310,8 +310,10 @@ public class PlayScreen implements Screen, InputProcessor{
                         && screenY <= Constants.SCREEN_HEIGHT - Constants.HUD_BUTTON_Y + 2 * Constants.HUD_BUTTON_WIDTH) {
                     paused = true;
                     enemies.makeEnemiesStand();
+                    game.playsound("audio/click.wav");
                 }
             } else {
+                game.playsound("audio/click.wav");
                 if (pauseWidget.getPlayButtonBounds().contains(screenX, screenY)){
                     paused = false;
                     enemies.makeEnemiesWalk();
@@ -320,6 +322,7 @@ public class PlayScreen implements Screen, InputProcessor{
                 }
             }
         }else{
+            game.playsound("audio/click.wav");
             if (gameOverWidget.getRetryButtonBounds().contains(screenX, screenY)){
                 startGame();
             }else if(gameOverWidget.getHomeButtonBounds().contains(screenX, screenY)){

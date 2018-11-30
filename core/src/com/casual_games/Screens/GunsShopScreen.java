@@ -586,6 +586,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (backButton.getBoundingRectangle().contains(screenX, SCREEN_HEIGHT-screenY)){
+            game.playsound("audio/click.wav");
             game.setScreen(game.shopScreen);
         }
 
@@ -595,6 +596,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperBuyPrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(sniperBuyPrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -606,6 +608,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
                 game.prefs.putBoolean("isSniperPurchased", true);
                 game.prefs.flush();
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -615,6 +619,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunBuyPrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(minigunBuyPrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -626,6 +631,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
 
                 game.prefs.putBoolean("isMinigunPurchased", true);
                 game.prefs.flush();
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -636,6 +643,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pistolTimeoutUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(pistolTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -665,6 +673,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -676,6 +686,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pistolDamageUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(pistolDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -705,6 +716,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -716,6 +729,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperTimeoutUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(sniperTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -745,6 +759,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -756,6 +772,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperDamageUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(sniperDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -785,6 +802,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -795,6 +814,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunTimeoutUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(minigunTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -824,6 +844,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -835,6 +857,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunDamageUpgradePrice) ) {
 
+                game.playsound("audio/click.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(minigunDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -864,6 +887,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
                 game.prefs.flush();
 
 
+            }else{
+                game.playsound("audio/not_enough_coins.wav");
             }
         }
 
@@ -876,18 +901,21 @@ public class GunsShopScreen implements Screen, InputProcessor {
             currentGun = "pistol";
             game.prefs.putString("currentGun", "pistol");
             game.prefs.flush();
+            game.playsound("audio/click.wav");
         }else if ((SCREEN_HEIGHT-screenY) >= sniperIcon.getY()
                 && (SCREEN_HEIGHT-screenY) <= sniperIcon.getY() + sniperIcon.getWidth()
                 && isSniperPurchased ){
             currentGun = "sniper";
             game.prefs.putString("currentGun", "sniper");
             game.prefs.flush();
+            game.playsound("audio/click.wav");
         }else if ((SCREEN_HEIGHT-screenY) >= minigunIcon.getY()
                 && (SCREEN_HEIGHT-screenY) <= minigunIcon.getY() + minigunIcon.getWidth()
                 && isMinigunPurchased ){
             currentGun = "minigun";
             game.prefs.putString("currentGun", "minigun");
             game.prefs.flush();
+            game.playsound("audio/click.wav");
         }
 
         return true;

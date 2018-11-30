@@ -3,6 +3,7 @@ package com.casual_games.Additional;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
@@ -67,6 +68,39 @@ public class Assets {
 //        manager.setLoader();
 
         //sound/auido
+        manager.load("audio/buy_item.wav", Sound.class);
+        manager.load("audio/click.wav", Sound.class);
+        manager.load("audio/minigun.wav", Sound.class);
+        manager.load("audio/not_enough_coins.wav", Sound.class);
+        manager.load("audio/pistol1.wav", Sound.class);
+        manager.load("audio/pistol2.wav", Sound.class);
+        manager.load("audio/sniper1.wav", Sound.class);
+        manager.load("audio/sniper2.wav", Sound.class);
+        //zombiesounds
+        manager.load("audio/zombies/zombie-1.wav", Sound.class);
+        manager.load("audio/zombies/zombie-2.wav", Sound.class);
+        manager.load("audio/zombies/zombie-3.wav", Sound.class);
+        manager.load("audio/zombies/zombie-4.wav", Sound.class);
+        manager.load("audio/zombies/zombie-5.wav", Sound.class);
+        manager.load("audio/zombies/zombie-6.wav", Sound.class);
+        manager.load("audio/zombies/zombie-7.wav", Sound.class);
+        manager.load("audio/zombies/zombie-8.wav", Sound.class);
+        manager.load("audio/zombies/zombie-9.wav", Sound.class);
+        manager.load("audio/zombies/zombie-10.wav", Sound.class);
+        manager.load("audio/zombies/zombie-11.wav", Sound.class);
+        manager.load("audio/zombies/zombie-12.wav", Sound.class);
+        manager.load("audio/zombies/zombie-13.wav", Sound.class);
+        manager.load("audio/zombies/zombie-14.wav", Sound.class);
+        manager.load("audio/zombies/zombie-15.wav", Sound.class);
+        manager.load("audio/zombies/zombie-16.wav", Sound.class);
+        manager.load("audio/zombies/zombie-17.wav", Sound.class);
+        manager.load("audio/zombies/zombie-18.wav", Sound.class);
+        manager.load("audio/zombies/zombie-19.wav", Sound.class);
+        manager.load("audio/zombies/zombie-20.wav", Sound.class);
+        manager.load("audio/zombies/zombie-21.wav", Sound.class);
+        manager.load("audio/zombies/zombie-22.wav", Sound.class);
+        manager.load("audio/zombies/zombie-23.wav", Sound.class);
+        manager.load("audio/zombies/zombie-24.wav", Sound.class);
 
 
 
