@@ -96,22 +96,22 @@ public class Bullets {
             case pistol:
                 bullet =   new PistolBullet(this.playScreen, x, y);
                 addBullet(bullet);
-                playScreen.getGame().playsound("audio/pistol.wav");
+                playScreen.getGame().playsound("audio/pistol.wav", true);
                 break;
             case sniper:
                 bullet = new SniperBullet(this.playScreen, x, y);
                 addBullet(bullet);
-                playScreen.getGame().playsound("audio/sniper.wav");
+                playScreen.getGame().playsound("audio/sniper.wav", true);
                 break;
             case minigun:
                 bullet = new MinigunBullet(this.playScreen, x, y);
                 addBullet(bullet);
-                playScreen.getGame().playsound("audio/minigun.wav");
+                playScreen.getGame().playsound("audio/minigun.wav", true);
                 break;
             default:
                 bullet =   new PistolBullet(this.playScreen, x, y);
                 addBullet(bullet);
-                playScreen.getGame().playsound("audio/pistol.wav");
+                playScreen.getGame().playsound("audio/pistol.wav", true);
                 break;
         }
 

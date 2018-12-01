@@ -97,8 +97,6 @@ public class Assets {
         manager.load("audio/zombies/zombie-20.wav", Sound.class);
         manager.load("audio/zombies/zombie-21.wav", Sound.class);
         manager.load("audio/zombies/zombie-22.wav", Sound.class);
-        manager.load("audio/zombies/zombie-23.wav", Sound.class);
-        manager.load("audio/zombies/zombie-24.wav", Sound.class);
 
 
 

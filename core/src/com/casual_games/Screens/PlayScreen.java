@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.casual_games.Additional.Constants;
 import com.casual_games.Additional.GameOverWidget;
 import com.casual_games.Additional.Hud;
@@ -32,7 +33,14 @@ import com.casual_games.Components.PointerTwo;
 import com.casual_games.Components.SniperBullet;
 import com.casual_games.FingerGun;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.casual_games.Additional.Constants.SCREEN_HEIGHT;
 import static com.casual_games.Additional.Constants.SCREEN_WIDTH;
@@ -61,6 +69,9 @@ public class PlayScreen implements Screen, InputProcessor{
     private boolean canShoot;
     private boolean paused, gameover;
 
+    private ArrayList<String> zombieSounds;
+    private long zombieSoundPlayTimeout, currentZombieSoundPlayTimeout;
+
     private Sprite background;
 
     private boolean anyPointerPurchased;
@@ -70,6 +81,9 @@ public class PlayScreen implements Screen, InputProcessor{
         background = new Sprite(game.assets.manager.get("background.png", Texture.class));
         background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         background.setPosition(0, 0);
+
+        zombieSounds = new ArrayList<String>();
+        populateZombieSounds();
 
 
 		this.startGame();
@@ -96,13 +110,16 @@ public class PlayScreen implements Screen, InputProcessor{
 
         if (canShoot) {
             if (TimeUtils.millis() - shootingTimeout > currentGunShootingTimeout) {
-//              bullets.addBullet(new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-//              bullets.addBullet(new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-//              bullets.addBullet(new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
                 shoot();
                 shootingTimeout = TimeUtils.millis();
             }
         }
+
+        if (TimeUtils.millis() - zombieSoundPlayTimeout > currentZombieSoundPlayTimeout) {
+                makeZombieSounds();
+            zombieSoundPlayTimeout = TimeUtils.millis();
+        }
+        populateZombieSounds();
 
 	}
 
@@ -228,6 +245,8 @@ public class PlayScreen implements Screen, InputProcessor{
             currentGunShootingTimeout = game.prefs.getInteger("current_minigun_timeout", 200);
         }
 
+        zombieSoundPlayTimeout = 0;
+        currentZombieSoundPlayTimeout = 1000;
 
 
     }
@@ -406,24 +425,6 @@ public class PlayScreen implements Screen, InputProcessor{
     }
 
     private void shoot(){
-//	    switch (gunType){
-//            case pistol:
-//              bullet =   new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-//              bullets.addBullet(bullet);
-//              break;
-//            case sniper:
-//              bullet = new SniperBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-//              bullets.addBullet(bullet);
-//              break;
-//            case minigun:
-//                bullet = new MinigunBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-//                bullets.addBullet(bullet);
-//                break;
-//            default:
-//                bullet =   new PistolBullet(this, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-//                bullets.addBullet(bullet);
-//              break;
-//        }
         bullets.shoot(gunType, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
     }
 
@@ -441,6 +442,19 @@ public class PlayScreen implements Screen, InputProcessor{
         deathCount = 0;
     }
 
+    public void makeZombieSounds(){
+	    game.playsound(zombieSounds.get(0));
+	    zombieSounds.remove(0);
+    }
+
+    public void populateZombieSounds(){
+	    if (zombieSounds.size() == 0){
+            for(int i = 1; i<=22; i++){
+                zombieSounds.add("audio/zombies/zombie-"+i+".wav");
+            }
+            Collections.shuffle(zombieSounds);
+        }
+    }
 
     public HealthBar getHealthBar() {
         return healthBar;

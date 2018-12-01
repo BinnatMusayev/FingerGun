@@ -149,4 +149,13 @@ public class FingerGun extends Game {
             assets.manager.get(soundName, Sound.class).play();
         }
     }
+
+    public void playsound(String soundName, boolean isGun){
+        if(isGun) {
+            if (prefs.getBoolean("musicEnabled", false)) {
+                assets.manager.get(soundName, Sound.class).play(0.5f);
+            }
+        }
+    }
+
 }
