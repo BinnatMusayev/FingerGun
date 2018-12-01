@@ -338,6 +338,7 @@ public class PlayScreen implements Screen, InputProcessor{
                     enemies.makeEnemiesWalk();
                 }else if(pauseWidget.getHomeButtonBounds().contains(screenX, screenY)){
                     game.setScreen(game.mainMenu);
+                    deathCount = 0;
                 }
             }
         }else{
