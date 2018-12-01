@@ -1,6 +1,7 @@
 package com.casual_games.Components;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.casual_games.Additional.Constants;
 import com.casual_games.Screens.PlayScreen;
@@ -94,23 +95,23 @@ public class Bullets {
         switch (gunType){
             case pistol:
                 bullet =   new PistolBullet(this.playScreen, x, y);
-//                bullets.add(bullet);
                 addBullet(bullet);
+                playScreen.getGame().playsound("audio/pistol.wav");
                 break;
             case sniper:
                 bullet = new SniperBullet(this.playScreen, x, y);
-//                bullets.add(bullet);
                 addBullet(bullet);
+                playScreen.getGame().playsound("audio/sniper.wav");
                 break;
             case minigun:
                 bullet = new MinigunBullet(this.playScreen, x, y);
-//                bullets.add(bullet);
                 addBullet(bullet);
+                playScreen.getGame().playsound("audio/minigun.wav");
                 break;
             default:
                 bullet =   new PistolBullet(this.playScreen, x, y);
-//                bullets.add(bullet);
                 addBullet(bullet);
+                playScreen.getGame().playsound("audio/pistol.wav");
                 break;
         }
 

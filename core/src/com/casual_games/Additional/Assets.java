@@ -72,10 +72,8 @@ public class Assets {
         manager.load("audio/click.wav", Sound.class);
         manager.load("audio/minigun.wav", Sound.class);
         manager.load("audio/not_enough_coins.wav", Sound.class);
-        manager.load("audio/pistol1.wav", Sound.class);
-        manager.load("audio/pistol2.wav", Sound.class);
-        manager.load("audio/sniper1.wav", Sound.class);
-        manager.load("audio/sniper2.wav", Sound.class);
+        manager.load("audio/pistol.wav", Sound.class);
+        manager.load("audio/sniper.wav", Sound.class);
         //zombiesounds
         manager.load("audio/zombies/zombie-1.wav", Sound.class);
         manager.load("audio/zombies/zombie-2.wav", Sound.class);
