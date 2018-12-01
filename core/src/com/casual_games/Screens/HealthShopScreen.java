@@ -211,7 +211,7 @@ public class HealthShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(priceText) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(priceText);
                 game.prefs.putInteger("coinCoint", currentCoins);

@@ -299,7 +299,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pointerOnePriceText) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(pointerOnePriceText);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -322,7 +322,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pointerTwoPriceText) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(pointerTwoPriceText);
                 game.prefs.putInteger("coinCoint", currentCoins);

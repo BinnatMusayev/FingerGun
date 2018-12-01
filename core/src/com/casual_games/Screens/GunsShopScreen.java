@@ -333,7 +333,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public void show() {
 
-        game.prefs.putInteger("coinCoint", 30000);
+        game.prefs.putInteger("coinCoint", 3000);
         game.prefs.flush();
         //delete above
 
@@ -596,7 +596,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperBuyPrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(sniperBuyPrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -619,7 +619,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunBuyPrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins - Integer.valueOf(minigunBuyPrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -643,7 +643,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pistolTimeoutUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(pistolTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -686,7 +686,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(pistolDamageUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(pistolDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -729,7 +729,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperTimeoutUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(sniperTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -772,7 +772,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(sniperDamageUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(sniperDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -814,7 +814,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunTimeoutUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(minigunTimeoutUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
@@ -857,7 +857,7 @@ public class GunsShopScreen implements Screen, InputProcessor {
             int currentCoins = game.prefs.getInteger("coinCoint", 0);
             if ( currentCoins >= Integer.valueOf(minigunDamageUpgradePrice) ) {
 
-                game.playsound("audio/click.wav");
+                game.playsound("audio/buy_item.wav");
                 //update coins
                 currentCoins = currentCoins-Integer.valueOf(minigunDamageUpgradePrice);
                 game.prefs.putInteger("coinCoint", currentCoins);
