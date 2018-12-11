@@ -170,6 +170,7 @@ public class PointerShopScreen implements Screen, InputProcessor {
         //Line width
         Gdx.gl.glLineWidth(Gdx.graphics.getWidth()/100);
 
+        //for animating cycling
         pointerTwo.update(delta);
 
         game.batch.begin();
@@ -347,18 +348,14 @@ public class PointerShopScreen implements Screen, InputProcessor {
             game.prefs.putString("currentPointer", "pointerOne");
             game.prefs.flush();
             game.playsound("audio/click.wav");
-        }else if ((SCREEN_HEIGHT-screenY) >= pointerTwo.getY()
-                && (SCREEN_HEIGHT-screenY) <= pointerTwo.getY() + pointerTwo.getR()*2
+        }else if ((SCREEN_HEIGHT-screenY) >= pointerTwo.getY() - pointerTwo.getR()
+                && (SCREEN_HEIGHT-screenY) <= pointerTwo.getY() + pointerTwo.getR()
                 && isPointerTwoPurchased ){
             currentPointer = "pointerTwo";
             game.prefs.putString("currentPointer", "pointerTwo");
             game.prefs.flush();
             game.playsound("audio/click.wav");
         }
-
-
-
-
 
         return true;
     }
