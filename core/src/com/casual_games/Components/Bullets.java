@@ -99,6 +99,7 @@ public class Bullets {
                 playScreen.getGame().playsound("audio/pistol.wav", true);
                 break;
             case sniper:
+
                 bullet = new SniperBullet(this.playScreen, x, y);
                 addBullet(bullet);
                 playScreen.getGame().playsound("audio/sniper.wav", true);
