@@ -34,7 +34,6 @@ public class FingerGun extends Game {
 
     public  Preferences prefs;
 
-
 	//screens
     public SplashScreen splashScreen;
     public MainMenu mainMenu;
@@ -43,8 +42,13 @@ public class FingerGun extends Game {
     public GunsShopScreen gunsShopScreen;
     public HealthShopScreen healthShopScreen;
     public PointerShopScreen pointerShopScreen;
+    public AdsController adsController;
 
     private FingerGun fingerGun;
+
+    public FingerGun(AdsController adsController){
+        this.adsController = adsController;
+    }
 
     @Override
 	public void create () {

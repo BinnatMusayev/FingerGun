@@ -52,9 +52,7 @@ public class PlayScreen implements Screen, InputProcessor{
 	private Enemies enemies;
 	private Pointer pointer;
 	private TextureAtlas zombie, coin;
-//	private Bullet bullet;
     private Bullets bullets;
-    private Bullet bullet;
     private Coins coins;
     private HealthBar healthBar;
     private Hud hud;
@@ -75,6 +73,11 @@ public class PlayScreen implements Screen, InputProcessor{
     private Sprite background;
 
     private boolean anyPointerPurchased;
+
+    //this is used, don't delete
+    private Runnable thenForAds;
+    private int gameOverCounter;
+    private boolean adClosed;
 	public PlayScreen(FingerGun game) {
 		this.game = game;
 
@@ -120,6 +123,11 @@ public class PlayScreen implements Screen, InputProcessor{
             zombieSoundPlayTimeout = TimeUtils.millis();
         }
         populateZombieSounds();
+
+//        if (gameover && !adClosed && gameOverCounter == 1){
+//            game.adsController.showInterstitialAd(thenForAds);
+//            adClosed = true;
+//        }
 
 	}
 
@@ -247,7 +255,7 @@ public class PlayScreen implements Screen, InputProcessor{
 
         zombieSoundPlayTimeout = 0;
         currentZombieSoundPlayTimeout = 1000;
-
+        adClosed =false;
 
     }
 
@@ -457,6 +465,10 @@ public class PlayScreen implements Screen, InputProcessor{
         }
     }
 
+    public void showAd(){
+        game.adsController.showInterstitialAd(thenForAds);
+    }
+
     public HealthBar getHealthBar() {
         return healthBar;
     }
@@ -503,5 +515,21 @@ public class PlayScreen implements Screen, InputProcessor{
 
     public void deleteAllEnemies(){
 	    enemies.getEnemyLines().clear();
+    }
+
+    public int getGameOverCounter() {
+        return gameOverCounter;
+    }
+
+    public void setGameOverCounter(int gameOverCounter) {
+        this.gameOverCounter = gameOverCounter;
+    }
+
+    public void setAdClosed(boolean adClosed) {
+        this.adClosed = adClosed;
+    }
+
+    public boolean isAdClosed() {
+        return adClosed;
     }
 }

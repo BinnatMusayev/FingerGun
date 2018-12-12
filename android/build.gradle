@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "com.casual_games"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dependencies{
+        implementation 'com.google.android.gms:play-services-ads:17.1.1'
     }
 }
 

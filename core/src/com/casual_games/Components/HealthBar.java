@@ -14,6 +14,8 @@ public class HealthBar {
     private float health, currentHealth;
     private Color lightGreen, darkGreen, lightYellow, darkYellow, lightRed, darkRed;
 
+    Runnable thenForAds;
+    private int gameOverCount;
     public HealthBar(PlayScreen playScreen){
         this.playScreen = playScreen;
 
@@ -54,6 +56,20 @@ public class HealthBar {
             playScreen.setCanShoot(false);
             playScreen.saveCoins(playScreen.getCoinCount());
             playScreen.updateScore();
+            //handling game over counter
+//            if (playScreen.getGameOverCounter() == 1 && !playScreen.isAdClosed()){
+//                playScreen.showAd();
+//                playScreen.setGameOverCounter(0);
+//            }else if(playScreen.getGameOverCounter() == 0){
+//                playScreen.setGameOverCounter(playScreen.getGameOverCounter() + 1);
+//            }
+            if (gameOverCount == 1 && !playScreen.isAdClosed()){
+                playScreen.showAd();
+                gameOverCount = 0;
+                playScreen.setAdClosed(true);
+            }else if(gameOverCount == 0 && !playScreen.isAdClosed()){
+                gameOverCount++;
+            }
         }
     }
 
