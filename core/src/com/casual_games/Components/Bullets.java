@@ -38,11 +38,6 @@ public class Bullets {
         }
     }
 
-//    public void move(){
-//        for (Bullet b: bullets){
-//            b.move();
-//        }
-//    }
 
     public void destroy(){
 
@@ -50,8 +45,6 @@ public class Bullets {
 
         while (iterator.hasNext()){
             Bullet b = iterator.next();
-//            if (b.isOffScreen() ){
-//            if (b.isDestroyed() ){
             if (b.getY()> Constants.SCREEN_HEIGHT){
                 iterator.remove();
                 break;

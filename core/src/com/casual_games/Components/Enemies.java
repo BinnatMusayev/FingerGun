@@ -53,8 +53,8 @@ public class Enemies {
             enemyLine.draw(spriteBatch);
         }
 
-        playScreen.font.draw(spriteBatch,"random: "+enemyLines.get(enemyLines.size()-1).getTempCounter(), 200, 200);
-        playScreen.font.draw(spriteBatch,"health: "+enemyLines.get(enemyLines.size()-1).getEnemies().get(2).getHealth(), 200, 250);
+//        playScreen.font.draw(spriteBatch,"random: "+enemyLines.get(enemyLines.size()-1).getTempCounter(), 200, 200);
+//        playScreen.font.draw(spriteBatch,"health: "+enemyLines.get(enemyLines.size()-1).getEnemies().get(2).getHealth(), 200, 250);
     }
 
 
@@ -78,8 +78,6 @@ public class Enemies {
 
 
     public void destroyEnemyLines(){
-//        if (enemyLines.size()==10) {
-//            Iterator<EnemyLine> iter = enemyLines.iterator();
             ListIterator<EnemyLine> iter = enemyLines.listIterator();
 
             while (iter.hasNext()) {
@@ -92,10 +90,6 @@ public class Enemies {
                     break;
                 }
             }
-
-
-
-//        }
     }
 
 

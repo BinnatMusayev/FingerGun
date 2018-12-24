@@ -41,7 +41,7 @@ public class MainMenu implements Screen, InputProcessor {
         background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         background.setPosition(0, 0);
 
-        musicEnabled = game.prefs.getBoolean("musicEnabled", true);
+        musicEnabled = game.prefs.getBoolean("musicEnabled", false);
 
         musicOn = new Sprite(game.assets.manager.get("music_on.png", Texture.class));
         musicOn.setSize(MUSIC_ICON_DIMENSIOINS, MUSIC_ICON_DIMENSIOINS);

@@ -35,10 +35,6 @@ public class Hud {
         coinsIcon.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
         deadIcon.setSize(Constants.HUD_BUTTON_WIDTH, Constants.HUD_BUTTON_WIDTH);
 
-//        pauseButton.setRegion(new Texture(Gdx.files.internal("pause.png")));
-//        playButton.setRegion(new Texture(Gdx.files.internal("play.png")));
-//        coinsIcon.setRegion(new Texture(Gdx.files.internal("hud_coins.png")));
-//        deadIcon.setRegion(new Texture(Gdx.files.internal("dead.png")));
     }
 
     public void draw(ShapeRenderer shapeRenderer){

@@ -83,12 +83,13 @@ public class HealthShopScreen implements Screen, InputProcessor {
         currentCoinsIcon.setPosition(SCREEN_WIDTH-SCREEN_WIDTH/50-currentCoinsIcon.getWidth(), BACK_BUTTON_Y+coinCountGlupLayout.height/2);
 //        currentCoinsIcon.setRegion(new Texture(Gdx.files.internal("coins_collective.png")));
 
-        heartIcon.setSize(SCREEN_WIDTH*1.5f*2/3, SCREEN_WIDTH*1.5f*0.62f);
+
+        heartIcon.setSize(SCREEN_WIDTH*0.8f, SCREEN_WIDTH*0.7f);
         heartIcon.setPosition((SCREEN_WIDTH-heartIcon.getWidth())/2, backButton.getY()-SCREEN_HEIGHT/15-heartIcon.getHeight() );
 //        heartIcon.setRegion(new Texture(Gdx.files.internal("heart_icon2.png")));
 
         plusIcon.setSize(SCREEN_WIDTH/8, SCREEN_WIDTH/8);
-        plusIcon.setPosition((SCREEN_WIDTH-plusIcon.getWidth())/2, heartIcon.getY()-SCREEN_HEIGHT/20) ;
+        plusIcon.setPosition((SCREEN_WIDTH-plusIcon.getWidth())/2, heartIcon.getY()-SCREEN_HEIGHT/10) ;
 //        plusIcon.setRegion(new Texture(Gdx.files.internal("+_icon.png")));
 
         coinIcon.setSize(SCREEN_WIDTH/12, SCREEN_WIDTH/12);

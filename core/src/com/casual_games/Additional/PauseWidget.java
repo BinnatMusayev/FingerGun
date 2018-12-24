@@ -35,11 +35,9 @@ public class PauseWidget {
 
         homeButton.setPosition(Constants.PAUSE_WIDGET_HOME_BUTTON_X, Constants.PAUSE_WIDGET_HOME_BUTTON_Y);
         homeButton.setSize(Constants.PAUSE_WIDGET_HOME_BUTTON_WIDHT, Constants.PAUSE_WIDGET_HOME_BUTTON_HEIGHT);
-//        homeButton.setRegion(new Texture(Gdx.files.internal("home.png")));
 
         playButton.setPosition(Constants.PAUSE_WIDGET_PLAY_BUTTON_X, Constants.PAUSE_WIDGET_PLAY_BUTTON_Y);
         playButton.setSize(Constants.PAUSE_WIDGET_PLAY_BUTTON_WIDHT, Constants.PAUSE_WIDGET_PLAY_BUTTON_HEIGHT);
-//        playButton.setRegion(new Texture(Gdx.files.internal("play_button.png")));
 
         //font
         pausedTitle = "Paused";

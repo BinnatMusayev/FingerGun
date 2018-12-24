@@ -34,11 +34,9 @@ public class GameOverWidget {
 
         homeButton.setPosition(Constants.PAUSE_WIDGET_HOME_BUTTON_X, Constants.PAUSE_WIDGET_HOME_BUTTON_Y);
         homeButton.setSize(Constants.PAUSE_WIDGET_HOME_BUTTON_WIDHT, Constants.PAUSE_WIDGET_HOME_BUTTON_HEIGHT);
-//        homeButton.setRegion(new Texture(Gdx.files.internal("home.png")));
 
         retryButton.setPosition(Constants.PAUSE_WIDGET_PLAY_BUTTON_X, Constants.PAUSE_WIDGET_PLAY_BUTTON_Y);
         retryButton.setSize(Constants.PAUSE_WIDGET_PLAY_BUTTON_WIDHT, Constants.PAUSE_WIDGET_PLAY_BUTTON_HEIGHT);
-//        retryButton.setRegion(new Texture(Gdx.files.internal("retry.png")));
 
         //font
         gameOverTitle = "Game Over";

@@ -18,7 +18,6 @@ public abstract class Bullet extends Sprite {
     protected int damage;
 
     public Bullet(PlayScreen playScreen, float x, float y){
-//        super(playScreen.getZombie().findRegion("ZombieSheet"));
         destroyed = false;
 
         setX(x);
@@ -35,9 +34,6 @@ public abstract class Bullet extends Sprite {
     public abstract void move();
 
     public void destroy(){
-//        if (getY() > Gdx.graphics.getHeight() + getRegionHeight() ){
-//            destroyed = true;
-//        }
         if (getY() > Gdx.graphics.getHeight()  ){
             destroyed = true;
         }
