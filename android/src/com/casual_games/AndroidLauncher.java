@@ -33,10 +33,10 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
 		interstitialAd = new InterstitialAd(this);
 		//real below
-		//		interstitialAd.setAdUnitId(INTERSTITIAL_AD_UNIT_ID);
+        interstitialAd.setAdUnitId(INTERSTITIAL_AD_UNIT_ID);
 
 		//fake test ad unit id below
-		interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//		interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
 		AdRequest.Builder builder = new AdRequest.Builder();
 		AdRequest ad = builder.build();
