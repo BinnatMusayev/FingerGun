@@ -63,13 +63,16 @@ public class HealthBar {
 //            }else if(playScreen.getGameOverCounter() == 0){
 //                playScreen.setGameOverCounter(playScreen.getGameOverCounter() + 1);
 //            }
-            if (gameOverCount == 1 && !playScreen.isAdClosed()){
+            if (
+//                    gameOverCount == 1 &&
+                        !playScreen.isAdClosed()){
                 playScreen.showAd();
-                gameOverCount = 0;
-                playScreen.setAdClosed(true);
-            }else if(gameOverCount == 0 && !playScreen.isAdClosed()){
-                gameOverCount++;
+//                gameOverCount = 0;
+//                playScreen.setAdClosed(true);
             }
+//            else if(gameOverCount == 0 && !playScreen.isAdClosed()){
+//                gameOverCount++;
+//            }
         }
     }
 
