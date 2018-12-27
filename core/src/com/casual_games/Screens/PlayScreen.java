@@ -290,6 +290,8 @@ public class PlayScreen implements Screen, InputProcessor{
 	    bullets.dispose();
 	    coins.dispose();
 	    background.getTexture().dispose();
+	    gameOverWidget.dispose();
+	    pauseWidget.dispose();
 	}
 
 	public TextureAtlas getZombie() {

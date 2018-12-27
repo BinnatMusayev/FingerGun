@@ -10,9 +10,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
 import com.casual_games.Screens.PlayScreen;
 
-public class PauseWidget {
+public class PauseWidget implements Disposable {
 
     private PlayScreen playScreen;
     private Rectangle rectangle;
@@ -45,6 +46,11 @@ public class PauseWidget {
         pausedGlyphLayout = new GlyphLayout();
         pausedGlyphLayout.setText(font, pausedTitle);
 
+    }
+
+    @Override
+    public void dispose() {
+        font.dispose();
     }
 
     public void draw(ShapeRenderer shapeRenderer){

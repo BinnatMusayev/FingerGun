@@ -9,9 +9,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
 import com.casual_games.Screens.PlayScreen;
 
-public class GameOverWidget {
+public class GameOverWidget implements Disposable{
 
     private PlayScreen playScreen;
     private Rectangle rectangle;
@@ -44,6 +45,11 @@ public class GameOverWidget {
         gameOverGlyphLayout = new GlyphLayout();
         gameOverGlyphLayout.setText(font, gameOverTitle);
 
+    }
+
+    @Override
+    public void dispose() {
+        font.dispose();
     }
 
     public void draw(ShapeRenderer shapeRenderer){
@@ -81,5 +87,7 @@ public class GameOverWidget {
         r.setY(homeButton.getY());
         return r;
     }
+
+
 
 }

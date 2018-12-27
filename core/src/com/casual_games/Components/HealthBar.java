@@ -56,23 +56,13 @@ public class HealthBar {
             playScreen.setCanShoot(false);
             playScreen.saveCoins(playScreen.getCoinCount());
             playScreen.updateScore();
-            //handling game over counter
-//            if (playScreen.getGameOverCounter() == 1 && !playScreen.isAdClosed()){
-//                playScreen.showAd();
-//                playScreen.setGameOverCounter(0);
-//            }else if(playScreen.getGameOverCounter() == 0){
-//                playScreen.setGameOverCounter(playScreen.getGameOverCounter() + 1);
-//            }
+            //showing ads
             if (
-//                    gameOverCount == 1 &&
                         !playScreen.isAdClosed()){
                 playScreen.showAd();
-//                gameOverCount = 0;
-//                playScreen.setAdClosed(true);
+                playScreen.setAdClosed(true);
             }
-//            else if(gameOverCount == 0 && !playScreen.isAdClosed()){
-//                gameOverCount++;
-//            }
+
         }
     }
 
