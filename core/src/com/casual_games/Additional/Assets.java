@@ -26,9 +26,6 @@ public class Assets {
         //picture
         manager.load("+_icon.png", Texture.class);
         manager.load("back_button.png", Texture.class);
-        manager.load("bullet1.png", Texture.class);
-        manager.load("bullet2.png", Texture.class);
-        manager.load("bullet3.png", Texture.class);
         manager.load("bullet_1.png", Texture.class);
         manager.load("bullet_2.png", Texture.class);
         manager.load("bullet_3.png", Texture.class);
