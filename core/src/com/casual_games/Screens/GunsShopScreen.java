@@ -333,8 +333,8 @@ public class GunsShopScreen implements Screen, InputProcessor {
     @Override
     public void show() {
 
-        game.prefs.putInteger("coinCoint", 3000);
-        game.prefs.flush();
+//        game.prefs.putInteger("coinCoint", 3000);
+//        game.prefs.flush();
         //delete above
 
         totalCoinCountText = String.valueOf(game.prefs.getInteger("coinCoint", 0));
